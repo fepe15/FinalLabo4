@@ -1,0 +1,107 @@
+<app-header> </app-header>
+
+<div class="container-fluid"
+     fxLayout="column"
+     fxLayoutGap="10px">
+
+  <div fxFlex>
+
+    <div class="container">
+    
+      <div class="row">
+      <div class="tabla-prod col-sm-4" style="padding: 5%">
+        <form class="form-group" action="">
+          <br>
+       
+          <label for="numeroMesa" letraYcolor>Mesas Disponibles</label>
+          <!-- <input class="form-control miInput" id="numeroMesa" placeholder="mesa" type="text" name="mesa" value="0002" [(ngModel)]="mesa"> -->
+        <br>
+          <mat-radio-group letraYcolor  id="numeroMesa" class="example-radio-group" [(ngModel)]="mesaSeleccionada" [ngModelOptions]="{standalone: true}">
+              <mat-radio-button *ngFor="let mesa of mesasDisponibles" class="example-radio-button" [value]="mesa.idMesa">
+               Mesa número:  {{mesa.idMesa}}
+             <br> </mat-radio-button>
+            </mat-radio-group>
+
+          <br>
+          <label for="fotoMesa" letraYcolor>Foto mesa</label>
+          <br>
+          <p-fileUpload  id="fotoMesa" mode="advanced" name="mesa" url="http://localhost/backendVFINAL/Mesas/FotoMesa"></p-fileUpload>
+        </form>
+        <input type="text" placeholder="Busqueda" class="form-control miInput" [(ngModel)]="busqueda" >
+        <br>
+
+
+
+        <div class="mat-elevation-z8 col-md-5" style="color:black; background: rgba(119, 136, 153, 0.481);">
+    
+        <table class="table">
+            <thead>
+              <th>Producto</th> <th>Precio</th> <th>Accion</th>
+            </thead>
+            <tbody *ngIf="listaProductos">
+              <tr *ngFor="let producto of (listaProductos | filtro: busqueda)">
+                  <td estilo [tipo]="producto.responsable">{{producto.nombre}}</td>
+                  <td >{{producto.precio | currency: '$ ' : 'symbol' : '1.0'}}</td>
+                  <td><app-boton-agregar [producto]="producto" (enviar)="AgregarAlPedido($event)"></app-boton-agregar></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+      </div>
+      
+  <div class="mat-elevation-z8 col-sm-4" style="color:whitesmoke; background: rgba(119, 136, 153, 0.481);">
+      
+        <h3 style="color:whitesmoke; font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;">PEDIDO</h3>
+
+          <table class="table" >            
+            <thead *ngIf="productosPedido">
+              <th>Producto</th> <th>Precio</th> <th>Accion</th>
+            </thead>
+            <tbody *ngIf="productosPedido">
+              <tr *ngFor="let producto of productosPedido">
+                
+                  <td>{{producto.nombre}}</td>
+                  <td>{{producto.precio | currency: '$ ': "symbol": '1.1-2'}}</td>
+                  <td> <app-boton-borrar [objeto]="producto" (enviarABorrar)="QuitarAlPedido($event)" ></app-boton-borrar> </td>
+              </tr>
+            </tbody>
+            <tfoot>
+              <td>Total</td> <td>{{totalPedido | currency: '$ ': "symbol": '1.1-2'}} </td>
+            </tfoot>
+          </table>
+
+
+
+        </div>
+        
+        <div class="btn-ingresar col-sm-4 ">
+          
+          <button class="btn btn-primary col-sm-12" (click)="IngresarPedido()">Ingresar pedido</button>
+          <button class="btn btn-primary col-sm-12" (click)="IngresarPedidoPromise()">Ingresar pedido Promise</button>
+
+
+        <div class="mat-elevation-z8 col-md-5" style="color:black; background: rgba(119, 136, 153, 0.481);">
+    
+            <div class="card-pedido card col-sm-12" style="padding: 5%"> 
+          
+              <legend letraYcolor>Numero pedido:</legend>
+              <h3 *ngIf="elPedido.id"> {{elPedido.id }} </h3>
+              <legend letraYcolor>Detalle:</legend>
+              <ul *ngFor="let p of elPedido.detalle">
+                <li>{{p.nombre}}</li>
+              </ul>
+              <legend letraYcolor>Total:</legend>
+              <h4 *ngIf="elPedido.id" letraYcolor> {{totalPedido | currency: '$ ': "symbol": '1.1-2'}} </h4>
+              <div><app-csv *ngIf="elPedido.id" [pedido]="elPedido"></app-csv></div>
+
+            </div>
+        </div>
+      </div>
+      </div>
+      </div>
+  </div>
+</div>
+
+
+ 

@@ -1,0 +1,15 @@
+<div class="captcha">
+  <p letraYcolor>Ingrese el LOGO - {{colorPedido}}</p>
+  <div *ngIf="spinner" class="spinner">
+      <img src="./assets/imagenes/spinner.gif" style="height: 150px; width: 150px" alt="">
+    </div> 
+    
+  <div *ngIf="!spinner && !respuesta" class="row colores">
+    <div class="rojo col-sm-2" (click)="Ingresar('PUERTAROJA')"></div>
+    <div class="verde col-sm-2" (click)= "Ingresar('HOJA')"></div>
+    <div class="azul col-sm-2" (click)= "Ingresar('BOMBA')"></div>
+  </div>
+
+  <legend *ngIf="respuesta" letraYcolor>No soy un robot</legend>
+
+</div>

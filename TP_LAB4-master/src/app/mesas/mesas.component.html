@@ -1,0 +1,46 @@
+<app-header></app-header>
+
+<div class="listadoCentrado container">
+    <div class="row">
+  
+
+      <table mat-table [dataSource]="listaMesas" class="lessons-table mat-elevation-z8" style="align-content: center;">
+          <!-- Position Column -->
+          <ng-container matColumnDef="nroMesa">
+            <th mat-header-cell *matHeaderCellDef> Nro de Mesa </th>
+            <td mat-cell *matCellDef="let element"> {{element.idMesa}} </td>
+          </ng-container>
+        
+          <!-- Name Column -->
+          <ng-container matColumnDef="estado">
+            <th mat-header-cell *matHeaderCellDef> Estado </th>
+            <td mat-cell *matCellDef="let element"> {{element.estado}} </td>
+          </ng-container>
+        
+          <!-- Weight Column -->
+          <ng-container matColumnDef="acciones">
+            <th mat-header-cell *matHeaderCellDef> Acciones </th>
+            <td *matCellDef="let element">
+
+                <div class="divider"></div>
+            <button *ngIf="perfil=='admin'" class="btn btn-primary" (click)="Cerrar(element.idMesa)">Cerrar</button>
+            <div class="divider"></div>
+            <button *ngIf="perfil=='admin'" class="btn btn-success" (click)="Cobrar(element.idMesa)" >Cobrar</button> 
+            <div class="divider"></div>
+              <button *ngIf="perfil=='mozo'" class="btn btn-warning" (click)="ServirMesa(element.idMesa)" >Servir Mesa</button> 
+              <div class="divider"></div>
+          </td>
+          </ng-container>
+        
+        
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        </table>
+  
+      <p-dialog header="Cobrar Mesa" [(visible)]="display">
+          <h1>Total: {{importe}}</h1>
+      </p-dialog>
+  
+    </div>
+  
+  </div>

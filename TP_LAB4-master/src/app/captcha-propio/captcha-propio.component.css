@@ -1,0 +1,35 @@
+.captcha{
+    height: 150px;
+    width: 200px;
+}
+
+.rojo
+{
+    background-color: darkred;
+    background-image: url('../../assets/images/logo.png');
+    background-size: cover;
+    height: 50px;
+    width: 50px;
+}
+
+.verde
+{
+    background-color:darkgreen;
+    background-image: url('../../assets/images/leaf-64.png');
+    background-size: cover;
+    height: 50px;
+    width: 50px;
+}
+
+.azul
+{
+    background-color:darkblue;
+    background-image: url('../../assets/images/bomb-64.png');
+    background-size: cover;
+    height: 50px;
+    width: 50px;
+}
+.row {
+    margin-right: 15px;
+    margin-left: 15px;
+}

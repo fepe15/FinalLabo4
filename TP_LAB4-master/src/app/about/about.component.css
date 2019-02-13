@@ -1,0 +1,16 @@
+
+
+.image{
+    position: relative;
+    float: left;
+}
+
+.enmarcada{
+  position: relative;
+  border-radius: 50%;
+  margin:10px; /* distancia entre el borde y el contenido */
+  width:130px; /* el ancho de la img */
+  border-radius:150px;
+  border:5px solid #666;
+  height: 120px; 
+}

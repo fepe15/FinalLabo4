@@ -1,0 +1,72 @@
+PENDIENTES:
+
+-> MANEJO DE IMAGENES 
+    -> https://www.npmjs.com/package/angular-material-fileupload
+    -> SE PUEDE APLICAR COMO AVATAR.
+
+    -> VER ALTA DE PARA APLICAR
+
+
+-> CAPTCHA PROPIO
+-> DIRECTIVAS
+-> PIPES
+    -> https://blog.ng-classroom.com/blog/angular/trabajando-con-pipes/
+
+-> LISTA
+-> AGREGAR IMAGEN A ADMIN
+    -> insert_photo
+
+-> SPINNER
+
+25/10: 
+-    -LOGIN   
+-    -PERFILES
+-        -FILTRAR PEDIDOS DESDE EL SERVICIO (FILTER)
+-    -PANTALLAS
+
+
+01/11:
+-    -SUBIDO A LA WEB
+-    -REGISTRO
+    
+8/11:
+++    -GENERAR EXCEL O PDF --> Hacerlo en las tablas!
+
+15/11:
+--    -MANEJO DE IMAGENES
+--   -CAPTCHA GOOGLE Y PROPIO
+--    README
+--    CAMBIAR FUENTE 
+
+
+
+--ESTILOS
+    --FONDOS
+    --LETRAS
+  --  tablas
+--        mesas 
+
+--    INGRESO EMPLEADO
+    --INGRESO MENU
+    --INGRESO CLIENTE
+subirlo
+spinner propio 
+
+--    -CHART.JS
+
+22/11:
+--+    -3 PIPES
+--+    -3 DIRECTIVAS
+
+29/11:
+    -CORRECCION FINAL
+
+
+ANOTACIONES:
+    -1 SERVICIO POR IDENTIDAD
+    -GENERICO
+    -ESTILOS Y EXPERIENCIA DE USUARIO
+    -SISTEMA FUNCIONAL
+    -CAPTCHA PROPIO / SPINNER / FAVICON
+
+
