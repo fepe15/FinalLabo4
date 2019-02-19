@@ -1,10 +1,9 @@
 <mat-toolbar class="header">
-    <span><img src="/assets/images/logo.png" height=auto width=30px></span>
 
     <!-- PAGINA DESLOGUEADA -->
-    <a mat-button letraYcolor *ngIf="!IngresoBool" routerLink="/home" routerLinkActive="active" id="hbtn"><span class="fa fa-home fa-lg"></span> Home</a>
-    <a mat-button letraYcolor *ngIf="!IngresoBool" routerLink="/aboutus" routerLinkActive="active" id="hbtn"><span class="fa fa-info fa-lg"></span> About</a>
-    <a mat-button letraYcolor *ngIf="!IngresoBool" routerLink="/contactus" routerLinkActive="active" id="hbtn"><span class="fa fa-address-card fa-lg"></span> Contact</a>
+    <a mat-button letraYcolor *ngIf="!IngresoBool" routerLink="/home" routerLinkActive="active" id="hbtn"><span class="fa fa-home fa-lg"></span> Principal</a>
+    <a mat-button letraYcolor *ngIf="!IngresoBool" routerLink="/aboutus" routerLinkActive="active" id="hbtn"><span class="fa fa-info fa-lg"></span> Nuestra historia</a>
+    <a mat-button letraYcolor *ngIf="!IngresoBool" routerLink="/contactus" routerLinkActive="active" id="hbtn"><span class="fa fa-address-card fa-lg"></span> Contacto</a>
    
    <!-- PERFILES -->
    <a mat-button letraYcolor *ngIf="IngresoBool && (perfilUsuario == 'admin')" routerLink="/usuarios" routerLinkActive="active" id="hbtn"><span class="fa fa-user fa-lg"></span> Administrador </a>
@@ -37,16 +36,9 @@
   
     <div fxFlex fxFlex.gt-sm="60%">
       <div>
-      <h1 letraYcolor>Bienvenido a The Red Door</h1>
+      <h1 letraYcolor>Bienvenido a Oven Rest</h1>
     </div>
-      <p>Nos inspiramos en las mejores cocinas del mundo y creamos una experiencia de fusión única. 
-        ¡Nuestras creaciones te sorprenderan!</p>
-    </div>
-    <div class="md-8">
-      
-        <mat-toolbar-row>
-            <img class="enmarcada" src="../../assets/images/theRedDoor.png" alt="Avatar">
-          </mat-toolbar-row>
+      <p>Los platos argentinos mas tradicionales!!!</p>
     </div>
    
   </div>

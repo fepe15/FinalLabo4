@@ -1,5 +1,5 @@
 .footer {
-    background-color: lightsalmon;
+    background-color: rgb(122, 157, 255);
     margin: 0px auto;
     padding: 20px 5px;
   }
@@ -18,10 +18,6 @@
   .btn-linkedin {
     color: #fff !important;
     background-color: #007bb6 !important;
-  }
-  .btn-twitter {
-    color: #fff !important;
-    background-color: #55acee !important;
   }
   .btn-mail {
     color: #fff !important;
