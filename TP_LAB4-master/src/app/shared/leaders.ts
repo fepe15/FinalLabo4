@@ -31,11 +31,11 @@ export const LEADERS: Leader[] = [
       {
         id: 3,
         name: 'Cocina y Postres',
-        image: '/assets/images/alberto.png',
+        image: '/assets/images/cocinanac.jpg',
         designation: 'Executive Chef',
         abbr: 'EC',
         featured: true,
-        description: 'Cocina internacional y nacional, lo mejor de todo el mundo servido en tu mesa. Pruebe nuestros postres úncicos con sabores que harán explotar su paladar como nunca antes.'
+        description: 'Cocina nacional con las mejores carnes y pescados del pais.'
       }   
     ];       
      
