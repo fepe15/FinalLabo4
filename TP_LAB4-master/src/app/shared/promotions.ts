@@ -8,6 +8,6 @@ export const PROMOTIONS: Promotion[] = [
       label: 'New',
       price: '19.99',
       featured: true,
-      description: '60 canillas de la mejor cerveza que puedas tomar. Golden, Black, Pilsen, Red, la que querees cuando queres.'
+      description: 'Las mejores opciones en cervezas artesanales a tu gusto'
     }
   ];

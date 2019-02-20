@@ -16,7 +16,8 @@
     <a mat-button letraYcolor *ngIf="IngresoBool && (perfilUsuario == 'mozo' || perfilUsuario == 'admin')" routerLink="/listadoMesas" routerLinkActive="active" id="hbtn"><span class="fa fa-info-circle fa-lg"></span> Listado de Mesas</a>
   
     <a mat-button letraYcolor *ngIf="IngresoBool && perfilUsuario == 'admin'" routerLink="/estadisticas" routerLinkActive="active" id="hbtn"><span class="fa fa-bar-chart fa-lg"></span> Estadísticas</a>
-    <span letraYcolor class="flex-spacer"></span>¡Hola {{nombre | eliminoMail }}!
+    <span letraYcolor class="flex-spacer"></span>
+    <span *ngIf="IngresoBool" >¡Bienvenido {{nombre | eliminoMail }}!</span>
 
     <!-- LOGUEO -->
     <a mat-button letraYcolor *ngIf="!IngresoBool" (click)="openLoginForm()" id="hbtn"><span class="fa fa-sign-in fa-lg"></span> Ingresar</a>
@@ -36,7 +37,7 @@
   
     <div fxFlex fxFlex.gt-sm="60%">
       <div>
-      <h1 letraYcolor>Bienvenido a Oven Rest</h1>
+      <h1 letraYcolor>"OVEN REST"</h1>
     </div>
       <p>Los platos argentinos mas tradicionales!!!</p>
     </div>
