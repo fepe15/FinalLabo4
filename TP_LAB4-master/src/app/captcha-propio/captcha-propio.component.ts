@@ -39,15 +39,15 @@ export class CaptchaPropioComponent implements OnInit {
 
     if(numero == 1 )
     {
-      this.colorPedido="PUERTAROJA";
+      this.colorPedido="ENGRANAJE";
     }
     if(numero == 2 )
     {
-      this.colorPedido="HOJA";
+      this.colorPedido="LUPA";
     }
     else
     {
-      this.colorPedido="BOMBA";
+      this.colorPedido="CANDADO";
     }
   }
 

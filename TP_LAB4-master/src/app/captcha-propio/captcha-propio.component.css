@@ -5,7 +5,7 @@
 
 .rojo
 {
-    background-color: darkred;
+    background-color: rgb(255, 220, 228);
     background-image: url('../../assets/images/logo.png');
     background-size: cover;
     height: 50px;
@@ -14,7 +14,7 @@
 
 .verde
 {
-    background-color:darkgreen;
+    background-color:rgb(202, 202, 202);
     background-image: url('../../assets/images/leaf-64.png');
     background-size: cover;
     height: 50px;
@@ -23,7 +23,7 @@
 
 .azul
 {
-    background-color:darkblue;
+    background-color:rgb(161, 255, 169);
     background-image: url('../../assets/images/bomb-64.png');
     background-size: cover;
     height: 50px;
