@@ -9,7 +9,7 @@ export const DISHES: Dish[] = [
         label: 'Hot',
         price: '4.99',
         featured: true,
-        description: 'Tragos únicos creados por los mejores Barman de Argentina. Visite nuestra bodega y conozca la amplia variedad de vinos y varietales con los que contamos.',
+        description: 'Ofrecemos vinos de las mejores bodegas de Mendoza, San juan y Salta. Tambien ofrecemos gran variedad de tragos',
         comments: [
             {
                 rating: 5,
