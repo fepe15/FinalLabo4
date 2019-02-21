@@ -3,7 +3,7 @@ import { Dish } from './dish';
 export const DISHES: Dish[] = [
     {
         id: 0,
-        name: 'Barra de Tragos y Vinos',
+        name: 'Vinos y Tragos',
         image: '/assets/images/uthappizza.png',
         category: 'mains',
         label: 'Hot',
@@ -45,7 +45,7 @@ export const DISHES: Dish[] = [
     },
     {
         id: 1,
-        name: 'Chopera Artesanal',
+        name: 'Cerveza Artesanal',
         image: '/assets/images/zucchipakoda.png',
         category: 'appetizer',
         label: '',

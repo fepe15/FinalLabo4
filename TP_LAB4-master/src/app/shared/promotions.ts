@@ -3,7 +3,7 @@ import { Promotion } from './promotion';
 export const PROMOTIONS: Promotion[] = [
     {
       id: 0,
-      name: 'Chopera artesanal',
+      name: 'Cerveza artesanal',
       image: '/assets/images/buffet.png',
       label: 'New',
       price: '19.99',

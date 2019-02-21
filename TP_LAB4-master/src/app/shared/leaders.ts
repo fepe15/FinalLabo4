@@ -30,7 +30,7 @@ export const LEADERS: Leader[] = [
       },
       {
         id: 3,
-        name: 'Cocina y Postres',
+        name: 'Cocina y Pasteleria',
         image: '/assets/images/cocinanac.jpg',
         designation: 'Executive Chef',
         abbr: 'EC',
