@@ -3,6 +3,7 @@ import { PedidoService } from '../services/pedido.service';
 
 export interface PeriodicElement {
   name: string;
+  mesa: number;
   position: number;
   weight: number;
   symbol: string;
@@ -22,15 +23,16 @@ export class TablaPendientesComponent implements OnInit {
   spinner:boolean;
   listaPendientes: Array<any>;
   tiempoPreparacion:number;
+  perfil:any;
   
-  displayedColumns: string[] = ['position', 'name', 'weight', 'symbol', 'preparacion', 'acciones'];
+  displayedColumns: string[] = ['position', 'mesa', 'name', 'weight', 'symbol', 'preparacion', 'acciones'];
   // dataSource = ELEMENT_DATA;
 
 
   constructor(private httpServicio: PedidoService) {
-
+    
+    this.perfil=   JSON.parse(localStorage.getItem('usuario')).perfil;
     this.TraerTabla();
-
    }
 
    TraerTabla()
@@ -42,9 +44,9 @@ export class TablaPendientesComponent implements OnInit {
       this.listaPendientes= JSON.parse(data._body);
       this.spinner=false;
     })
-
-
+    
    }
+
   ngOnInit() {
     this.TraerTabla();
   }

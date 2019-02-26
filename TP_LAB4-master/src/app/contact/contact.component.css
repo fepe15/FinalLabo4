@@ -9,3 +9,23 @@
 .form-size {
     width: 75%
 }
+.btn-facebook {
+    color: #fff !important;
+    background-color: #3b5998 !important;
+  }
+  .btn-google-plus {
+    color: #fff !important;
+    background-color: #dd4b39 !important;
+  }
+  .btn-youtube {
+    color: #fff !important;
+    background-color: #ff4b39 !important;
+  }
+  .btn-linkedin {
+    color: #fff !important;
+    background-color: #007bb6 !important;
+  }
+  .btn-mail {
+    color: #fff !important;
+    background-color: #512da8 !important;
+  }

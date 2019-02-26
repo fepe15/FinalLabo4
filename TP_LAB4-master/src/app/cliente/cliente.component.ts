@@ -21,21 +21,25 @@ valMozo:number;
 valCocinero:number;
 valMesa:number;
 valRest:number;
+hayPedido:string;
 
-displayedColumns: string[] = ['nroPedido', 'producto', 'tiempoRestante'];
+displayedColumns: string[] = ['producto', 'tiempoRestante'];
 
 
-  constructor(private httpPedido: PedidoService) { }
+  constructor(private httpPedido: PedidoService) {
+
+   }
 
   TraerTiempo()
   {
+    this.hayPedido='nose';  
     this.httpPedido.TiempoRestante(this.idPedido)
     .subscribe(data=>{
       let respuesta= JSON.parse(data._body);
       this.detalles=respuesta.detalles;
-      this.idPedido=respuesta.idPedido;
-     // console.log(this.detalles);
-
+      if(this.detalles.length == 0){
+        this.hayPedido='no';
+      }
     })
   }
 

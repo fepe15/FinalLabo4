@@ -30,12 +30,12 @@ export const LEADERS: Leader[] = [
       },
       {
         id: 3,
-        name: 'Cocina y Pasteleria',
+        name: ' Cocina Tradicional y deliciosos postres',
         image: '/assets/images/cocinanac.jpg',
         designation: 'Executive Chef',
         abbr: 'EC',
         featured: true,
-        description: 'Cocina nacional con las mejores carnes y pescados del pais.'
+        description: 'Ofrecemos cocina nacional con las mejores carnes y pescados del país. también tenemos gran nivel de pastelería'
       }   
     ];       
      

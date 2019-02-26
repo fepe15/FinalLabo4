@@ -10,3 +10,13 @@ td.mat-cell, td.mat-footer-cell, th.mat-header-cell {
     align-content: center;
     font-size: 18px;
 }
+
+.tipoPerfil{
+    margin-left: 0%;
+    margin-right: 0%;
+    border: solid;
+    color: white;
+    text-align: center;
+    font-size: 50px;
+    text-transform: uppercase;
+  }

@@ -3,13 +3,13 @@ import { Dish } from './dish';
 export const DISHES: Dish[] = [
     {
         id: 0,
-        name: 'Vinos y Tragos',
+        name: 'Bodega de Vinos, cerveza artesanal y tragos',
         image: '/assets/images/uthappizza.png',
         category: 'mains',
         label: 'Hot',
         price: '4.99',
         featured: true,
-        description: 'Ofrecemos vinos de las mejores bodegas de Mendoza, San juan y Salta. Tambien ofrecemos gran variedad de tragos',
+        description: 'Ofrecemos vinos de las mejores bodegas de Mendoza, San juan y Salta. También ofrecemos gran variedad de tragos y varios tipos de cerveza artesanal',
         comments: [
             {
                 rating: 5,

@@ -2,7 +2,6 @@
 .jumbotron {
     margin: 0px auto;
     padding: 20px 20px;
-    background-color: rgb(104, 107, 255);
     color: floralwhite;
     min-height: 100px;
     
@@ -12,15 +11,6 @@
   {
     background-color: rgb(0, 1, 48);
     
-  }
-  
-  .titulo{
-    float: left;
-  }
-
-  .misDatos{
-    float: right;
-    position: relative;
   }
 
   .h1

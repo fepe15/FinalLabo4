@@ -2,3 +2,24 @@
     background:rgba(0, 0, 0, 0.405);
     color: #fff;
 }
+
+.divTitule{
+    text-align: center;
+  }
+
+.titule{
+    font-size: 80px;
+    margin: 0%;
+}
+
+.subtitule{
+    font-size: 18px;
+}
+
+.cardMisDatos{
+    background-color: rgba(140, 205, 248, 0.616);
+}
+
+.misDatos{
+    text-align: center;
+}

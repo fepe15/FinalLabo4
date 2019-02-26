@@ -1,5 +1,7 @@
 <app-header></app-header>
 
+<h1 class="tipoPerfil" >Consulta de pedidos</h1>
+<div class="listadoCentrado-container">
 
 <div class="container">
     <div class="row">
@@ -15,21 +17,18 @@
 
 <div class="row">
   <!-- <div class="info-cliente col-sm-8"> -->
-    <h1 *ngIf="idPedido" letraYcolor>
+    <h1 *ngIf="detalles && hayPedido!='no'" letraYcolor>
       Pedido seleccionado: {{idPedido}}
+    </h1>
+    <h1 *ngIf="hayPedido=='no'" letraYcolor>
+      No se encontro el pedido {{idPedido}}
     </h1>
     
        <table *ngIf="detalles" mat-table [dataSource]="detalles" class="lessons-table mat-elevation-z8" style="align-content: center;">
-     
-            <!-- Position Column -->
-            <ng-container matColumnDef="nroPedido">
-              <th mat-header-cell *matHeaderCellDef> Nro de Pedido </th>
-              <td mat-cell *matCellDef="let element"> {{element.idDetalle}} </td>
-            </ng-container>
           
             <!-- Name Column -->
             <ng-container matColumnDef="producto">
-              <th mat-header-cell *matHeaderCellDef> Productos Pedidos </th>
+              <th mat-header-cell *matHeaderCellDef> Producto solicitado </th>
               <td mat-cell *matCellDef="let element"> {{element.producto}} </td>
             </ng-container>
           

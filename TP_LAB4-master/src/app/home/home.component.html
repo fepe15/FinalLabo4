@@ -1,11 +1,32 @@
 <app-header [perfil]="perfilUsuario" > </app-header>
 
+
+
 <div class="container"
      fxLayout="row"
      fxLayout.sm="column"
      fxLayout.xs="column"
      fxLayoutAlign.gt-mat="space-around center"
      fxLayoutGap="10px">
+
+     <mat-card  fxFlex>
+      <div class="divTitule">
+        <h1 class="titule" letraYcolor>O V E N</h1>
+        <h1 class="titule" letraYcolor>R E S T</h1>
+        <p class="subtitule">Los platos argentinos mas tradicionales!!!</p>
+      </div>
+
+    <mat-card class="cardMisDatos" fxFlex>
+      <div class="misDatos">
+        <h4 letraYcolor>Federico Germán Peralta</h4>
+        <address letraYcolor>
+          Sistemas UTN FRA <br>
+          4°B LABORATORIO IV<br> 
+          TP Final "LA COMANDA"<br>
+         </address>
+      </div>
+    </mat-card>
+    </mat-card>
 
 <mat-card *ngIf="dish" fxFlex>
   <mat-card-header>
@@ -24,22 +45,6 @@
     <mat-spinner></mat-spinner><h4 letraYcolor>Cargando . . . Espere Por favor</h4>
   </div>
 
-<mat-card *ngIf="promotion" fxFlex>
-  <mat-card-header>
-    <div mat-card-avatar></div>
-    <mat-card-title>
-      <h3 letraYcolor>{{promotion.name | uppercase}}</h3>
-    </mat-card-title>
-  </mat-card-header>
-  <img mat-card-image src={{promotion.image}} alt={{promotion.name}}>
-  <mat-card-content>
-    <p>{{promotion.description}}
-    </p>
-  </mat-card-content>
-</mat-card>
-  <div [hidden]="promotion">
-    <mat-spinner></mat-spinner><h4 letraYcolor>Cargando . . . Espere por favor</h4>
-  </div>
 
 <mat-card *ngIf="leader" fxFlex>
     <mat-card-header letraYcolor>
