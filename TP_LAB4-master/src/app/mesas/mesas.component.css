@@ -4,16 +4,16 @@
     padding-right: 24px;
 }
 
-p-dialog
-{
-    color:whitesmoke;
-    
+
+.divHijoUno{
+    float: left;
+    margin: 100px;
 }
 
-.divider{
-    width:5px;
-    height:auto;
-    display:inline-block;
+.divHijoDos{
+    float: left;
+    margin: 100px;
+    text-align: center;
 }
 
 
@@ -24,4 +24,38 @@ p-dialog
         align-items: center;
         justify-content: center ;
         margin-left: 10%;
+}
+
+.divFactura{
+    text-align: center;
+}
+
+.cardFactura{
+    background-color: white;
+    color: black;
+    align-items: center;
+    border-radius: 6px;
+}
+
+.tituloFactura{
+    text-align: center;
+    color: black;
+}
+
+.fechaFactura{
+    margin-left: 10px;
+    text-align: right;
+}
+
+.saludoFactura{
+    text-align: center;   
+    color: black;
+}
+
+.btnDescargar{
+    background-color: aquamarine;
+    font-size: 16px;
+    margin: 10px;
+    border-radius: 10px;
+    width: 90%;
 }
