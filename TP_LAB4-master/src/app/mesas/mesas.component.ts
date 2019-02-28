@@ -58,6 +58,7 @@ export class MesasComponent implements OnInit {
 
   Cobrar(idMesa)
   {
+    this.display=false;
     this.TraerFechaActual();
     this.mesaFactura=idMesa;
     this.httpMesa.CobrarMesa(idMesa)
@@ -73,6 +74,7 @@ export class MesasComponent implements OnInit {
 
   Cerrar(idMesa)
   {
+    this.display=false;
     this.httpMesa.CerrarMesa(idMesa)
     .subscribe((data)=>{
       //console.log(data);

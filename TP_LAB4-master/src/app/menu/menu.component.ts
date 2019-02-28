@@ -6,6 +6,10 @@ import { filter } from 'rxjs/operators';
 import { PedidoService } from '../services/pedido.service';
 import { Pedido } from '../clases/pedido';
 
+import * as jspdf from 'jspdf';  
+  
+import html2canvas from 'html2canvas';
+
 export interface DetalleProductos {
   nombProducto: string;
   precio: string;
@@ -139,5 +143,23 @@ async IngresarPedidoPromise()
   // onSelect(dish: Dish){
   //   this.selectedDish = dish;
   // }
+
+  public captureScreen()  
+  {  
+    var data = document.getElementById('contentToConvert');  
+    html2canvas(data).then(canvas => {  
+      // Few necessary setting options  
+      var imgWidth = 52;   
+      var pageHeight = 74;    
+      var imgHeight = 74;   
+      var heightLeft = imgHeight;  
+  
+      const contentDataURL = canvas.toDataURL('image/png')  
+      let pdf = new jspdf('p', 'mm', 'a8'); // A4 size page of PDF  
+      var position = 0;  
+      pdf.addImage(contentDataURL, 'PNG', 0, position, imgWidth, imgHeight)  
+      pdf.save('pedido.pdf'); // Generated PDF   
+    });  
+  }  
 
 }

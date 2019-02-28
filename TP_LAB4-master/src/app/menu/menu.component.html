@@ -79,24 +79,25 @@
         
         <div class="btn-ingresar col-sm-4 ">
           
-          <button  class="btn btn-primary col-sm-12" (click)="IngresarPedido()">Ingresar pedido</button>
+          <button  class="btn btn-primary col-sm-12" *ngIf="!elPedido.id" (click)="IngresarPedido()">Ingresar pedido</button>
+          <h3 *ngIf="elPedido.id" style="color: rgb(40, 218, 48)">Se cargó correctamente!!!</h3>
 
-
-        <div class="mat-elevation-z8 col-md-5" style="color:black; background: rgba(119, 136, 153, 0.481);">
+        <div class="mat-elevation-z8 col-md-5" style="color:black; background: white; border-radius: 10px;">
     
-            <div class="card-pedido card col-sm-12" style="padding: 5%"> 
+            <div id="contentToConvert" class="card-pedido card col-sm-12" style="padding: 5%"> 
           
-              <legend letraYcolor>Numero pedido:</legend>
+              <legend style="color:black" >Numero Pedido:</legend>
               <h3 *ngIf="elPedido.id"> {{elPedido.id }} </h3>
-              <legend letraYcolor>Detalle:</legend>
+              <legend style="color:black">Detalle:</legend>
               <ul *ngFor="let p of elPedido.detalle">
                 <li>{{p.nombre}}</li>
               </ul>
-              <legend letraYcolor>Total:</legend>
-              <h4 *ngIf="elPedido.id" letraYcolor> {{totalPedido | currency: '$ ': "symbol": '1.1-2'}} </h4>
-              <div><app-csv *ngIf="elPedido.id" [pedido]="elPedido"></app-csv></div>
+              <legend style="color:black">Total:</legend>
+              <h4 *ngIf="elPedido.id" style="color:black"> {{totalPedido | currency: '$ ': "symbol": '1.1-2'}} </h4>
+              
 
             </div>
+            <button (click)="captureScreen()" *ngIf="elPedido.id">Descargar</button>
         </div>
       </div>
       </div>
