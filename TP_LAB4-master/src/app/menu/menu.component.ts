@@ -34,6 +34,7 @@ export class MenuComponent implements OnInit {
   elPedido:Pedido;
   busqueda:string;
   respuestaAsync: any;
+  mostrar="true";
   @Input() mesasDisponibles:any;
 
 
@@ -70,6 +71,11 @@ export class MenuComponent implements OnInit {
     //  console.log(this.listaProductos);
       
    });
+  }
+
+  pedir(){
+    this.mostrar="false";
+    console.log("estoy clickeando una imagen");
   }
 
   AgregarAlPedido(producto:Producto)

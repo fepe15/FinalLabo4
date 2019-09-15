@@ -30,12 +30,12 @@ export const LEADERS: Leader[] = [
       },
       {
         id: 3,
-        name: ' Cocina Tradicional y deliciosos postres',
-        image: '/assets/images/cocinanac.jpg',
+        name: ' Realice y programe su pedido',
+        image: '/assets/images/pedido.jpg',
         designation: 'Executive Chef',
         abbr: 'EC',
         featured: true,
-        description: 'Ofrecemos cocina nacional con las mejores carnes y pescados del país. también tenemos gran nivel de pastelería'
+        description: 'Realiza tu pedido desde cualquier lugar programando el retiro en el horario mas conveniente para vos. Tenemos varios métodos de pago.'
       }   
     ];       
      

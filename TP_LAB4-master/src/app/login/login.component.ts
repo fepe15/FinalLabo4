@@ -89,7 +89,7 @@ export class LoginComponent implements OnInit {
             { 
               if(this.respuesta.datos.perfil =='cliente')
               {
-                this.router.navigate(['cliente']); 
+                this.router.navigate(['menu']); 
               }
               else
               { 
