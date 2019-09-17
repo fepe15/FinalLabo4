@@ -151,6 +151,10 @@ export class LoginComponent implements OnInit {
     this.loginForm.controls['username'].setValue('candy1@gmail.com');
     this.loginForm.controls['password'].setValue('1234');
   }
+  LoginLocal()
+  {
+    this.router.navigate(['local']); 
+  }
 
   
   

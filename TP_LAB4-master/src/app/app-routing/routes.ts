@@ -12,6 +12,8 @@ import { UsuariosComponent } from '../usuarios/usuarios.component';
 import { EstadisticasComponent } from '../estadisticas/estadisticas.component';
 import { ClienteComponent } from '../cliente/cliente.component';
 import { EncuestaComponent } from '../encuesta/encuesta.component';
+import { LocalComponent } from "../local/local.component";
+import { StockComponent } from "../stock/stock.component";
 
 export const routes: Routes =[
     {path:'home', component:HomeComponent},
@@ -25,6 +27,8 @@ export const routes: Routes =[
     {path:'estadisticas', component:EstadisticasComponent},
     {path:'cliente', component:ClienteComponent},
     {path:'encuesta', component:EncuestaComponent},
+    {path:'local', component:LocalComponent},
+    {path:'stock', component:StockComponent},
     {path:'', redirectTo: '/home',pathMatch:'full'}
 ]
  	
