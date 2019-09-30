@@ -14,6 +14,8 @@ import { ClienteComponent } from '../cliente/cliente.component';
 import { EncuestaComponent } from '../encuesta/encuesta.component';
 import { LocalComponent } from "../local/local.component";
 import { StockComponent } from "../stock/stock.component";
+import { LocalesComponent } from "../locales/locales.component";
+import { AdministradorComponent } from "../administrador/administrador.component";
 
 export const routes: Routes =[
     {path:'home', component:HomeComponent},
@@ -29,6 +31,8 @@ export const routes: Routes =[
     {path:'encuesta', component:EncuestaComponent},
     {path:'local', component:LocalComponent},
     {path:'stock', component:StockComponent},
+    {path:'administrador', component:AdministradorComponent},
+    {path:'locales', component:LocalesComponent},
     {path:'', redirectTo: '/home',pathMatch:'full'}
 ]
  	
