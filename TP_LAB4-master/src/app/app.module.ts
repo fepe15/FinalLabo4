@@ -113,6 +113,7 @@ import { EliminoMailPipe } from './pipes/elimino-mail.pipe';
 import { LetraYcolorDirective } from './directive/letra-ycolor.directive';
 import { LocalComponent } from './local/local.component';
 import { StockComponent } from './stock/stock.component';
+import { DetalleComponent } from './detalle/detalle.component';
  
 
 export function tokenGetter() {
@@ -157,7 +158,8 @@ export function tokenGetter() {
     EliminoMailPipe,
     LetraYcolorDirective,
     LocalComponent,
-    StockComponent
+    StockComponent,
+    DetalleComponent
   ],
   imports: [
     BrowserModule,
@@ -231,7 +233,8 @@ export function tokenGetter() {
     // RoleGuardService
   ],
   entryComponents:[
-    LoginComponent
+    LoginComponent,
+    DetalleComponent
   ],
   bootstrap: [AppComponent]
 })
