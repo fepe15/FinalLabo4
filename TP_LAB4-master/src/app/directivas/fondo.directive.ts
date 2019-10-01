@@ -52,6 +52,11 @@ export class FondoDirective {
       this.renderer.setElementStyle( this.element.nativeElement, 'background-repeat', "no-repeat");
       this.renderer.setElementStyle( this.element.nativeElement, 'background-size', "cover");
       break;
+      default: this.renderer.setElementStyle( this.element.nativeElement, 'background-image', "url('../../../assets/imagenes/fondoCocina.jpg')");
+     
+      this.renderer.setElementStyle( this.element.nativeElement, 'background-position', "center center");
+      this.renderer.setElementStyle( this.element.nativeElement, 'background-size', "cover");
+      break;
     }
     /*this.renderer.setElementStyle( this.element.nativeElement, 'background-position', "center center");
     this.renderer.setElementStyle( this.element.nativeElement, 'background-repeat', "no-repeat");

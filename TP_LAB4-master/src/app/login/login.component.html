@@ -1,4 +1,5 @@
-<form novalidate [formGroup]="loginForm" (ngSubmit)="Entrar()">
+
+<form  *ngIf="!registro"  novalidate [formGroup]="loginForm" (ngSubmit)="Entrar()">
 
     <mat-toolbar mat-dialog-title color="gray">
         <h2 class="display-3">Ingresar <button mat-button mat-dialog-close id="closebtn">&times;</button></h2>
@@ -6,11 +7,6 @@
     </mat-toolbar>
 
       
-    <!-- <div class="container"> -->
-<!-- 
-      <div class="example-container">
-          <h2 class="display-3">Ingresar al Sistema</h2>
-          <br> -->
       <div class="centro">    
       <img class="img-thumbnail"   src="../../assets/images/login.png" alt="Avatar" >
       </div>
@@ -19,7 +15,7 @@
     <div class="form-group"> 
             <mat-form-field>
                 <input matInput placeholder="Ingrese Usuario"  formControlName="username"   type="usuario" name="usuario" required>
-                <!-- <mat-error *ngIf="usuario.invalid">{{getErrorMessageUser()}}</mat-error> -->
+                <mat-error *ngIf="usuario.invalid">{{getErrorMessageUser()}}</mat-error> 
               </mat-form-field>
 
             </div>
@@ -28,7 +24,6 @@
           <mat-form-field>
             <input matInput placeholder="Ingrese contraseña"  formControlName="password"  name="password" [type]="hide ? 'password' : 'text'">
             <mat-icon matSuffix (click)="hide = !hide">{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
-            <!-- <mat-error *ngIf="password.invalid">{{getErrorMessagePsw()}}</mat-error> -->
           </mat-form-field>  
 
 </div>
@@ -36,21 +31,59 @@
           <br>
             <mat-checkbox >Recordar mis Datos</mat-checkbox>
             <br>
-            <!-- <button *ngIf="logeando"  (click)="MoverBarraDeProgreso()" >Ingresar</button> -->
            
             <mat-dialog-actions>
                 <span class="flex-spacer"></span>
-                <button mat-button mat-dialog-close>Cancel</button>
+                <button mat-button (click)="GoToRegistro()">Crear Cuenta</button>
                 <button type="submit" mat-button class="background-primary text-floral-white" >Ingresar</button>
               </mat-dialog-actions>
-          <!-- </div> -->
+</form>   
 
-        <!-- </div> -->
+
+
+
+<form *ngIf="registro" >
+    <mat-toolbar mat-dialog-title color="gray">
+        <h2 class="display-3">Registrarse <button mat-button mat-dialog-close id="closebtn">&times;</button></h2>
+    </mat-toolbar>
+
+      <div class="centro">    
+      <img class="img-thumbnail"   src="../../assets/images/login.png" alt="Avatar" >
+      </div>
+    <br>
+
+    <div class="form-group"> 
+            <mat-form-field>
+                <input matInput placeholder="Ingresar Mail"  formControlName="username"   type="usuario" name="usuario" required>
+              </mat-form-field>
+
+    </div>
+<div class="form-group">
+          <mat-form-field>
+            <input matInput placeholder="Ingresar contraseña"  formControlName="password"  name="password" [type]="hide ? 'password' : 'text'">
+            <mat-icon matSuffix (click)="hide = !hide">{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+          </mat-form-field>  
+
+</div>
+<div class="form-group">
+    <mat-form-field>
+      <input matInput placeholder="Confirmar contraseña"  formControlName="password"  name="password" [type]="hide ? 'password' : 'text'">
+      <mat-icon matSuffix (click)="hide = !hide">{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+    </mat-form-field>  
+
+</div>
+
+<mat-dialog-actions >
+  <div class="btn-confirmar" >
+    <span class="flex-spacer"></span>
+    <button type="submit" mat-button class="background-primary text-floral-white" >Confirmar</button><br>
+  </div>  
+  </mat-dialog-actions>
+
+
 </form>
 
 <br>
-<button  (click)="LoginMozo()" class="btn btn-primary">Mozo</button>
-<button  (click)="LoginCliente()" class="btn btn-primary">Cliente</button>
-<button  (click)="LoginSocio()" class="btn btn-primary">Socio</button>
+<button style="align-items: center "  (click)="LoginCliente()" class="btn btn-primary">Cliente</button>
 
-<!-- </div> -->
+

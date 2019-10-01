@@ -111,6 +111,9 @@ import { CambioDolarPipe } from './pipes/cambio-dolar.pipe';
 import { AgregoTextoPosPipe } from './pipes/agrego-texto-pos.pipe';
 import { EliminoMailPipe } from './pipes/elimino-mail.pipe';
 import { LetraYcolorDirective } from './directive/letra-ycolor.directive';
+import { LocalComponent } from './local/local.component';
+import { StockComponent } from './stock/stock.component';
+import { PagoComponent } from './pago/pago.component';
  
 
 export function tokenGetter() {
@@ -153,7 +156,10 @@ export function tokenGetter() {
     CambioDolarPipe,
     AgregoTextoPosPipe,
     EliminoMailPipe,
-    LetraYcolorDirective
+    LetraYcolorDirective,
+    LocalComponent,
+    StockComponent,
+    PagoComponent
   ],
   imports: [
     BrowserModule,

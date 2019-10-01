@@ -26,6 +26,7 @@ export class LoginComponent implements OnInit {
     public dataRespuesta:any;
     respuesta: any;
     hide: any;
+    registro = false;
     @Input () type: any;
 
     constructor(
@@ -46,6 +47,10 @@ export class LoginComponent implements OnInit {
       }
 
       get f() { return this.loginForm.controls; }
+
+      GoToRegistro(){
+        this.registro=true;
+      }
 
 
   

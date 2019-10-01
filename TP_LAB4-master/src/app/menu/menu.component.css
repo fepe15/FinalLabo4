@@ -18,6 +18,7 @@
     width: 100px; 
     height: 100px;
     border-radius: 10px;
+    margin-left: 13px;
   }
 
 .name-local{
@@ -25,13 +26,29 @@
     color: antiquewhite;
 }
 
-.div{
+
+.filtrar{
+    margin-left: 40px;
+    margin-right: 5px;
+    color: white;
+    font-size: 16px;
+}
+
+.div-busqueda{
     margin-left: auto;
     margin-right: auto;
     align-items: center;
     align-content: center;
-    height: 550px;
     width: 270px;
+}
+
+.div-locales{
+    margin-left: auto;
+    margin-right: auto;
+    align-items: center;
+    align-content: center;
+    height: 500px;
+    width: 300px;
     overflow: auto;
 }
 
@@ -72,4 +89,14 @@ th{
 input[type=file] {
     display: inherit;
     width: 200px;
+}
+
+.letra-prod{
+    font-size: 15px;
+    font-weight: bold;
+}
+
+.btn-pagar{
+    width: 110px;
+    height: 40px;
 }

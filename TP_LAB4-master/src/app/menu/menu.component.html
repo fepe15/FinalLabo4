@@ -1,73 +1,142 @@
 <app-header > </app-header>
 
-<h1 *ngIf="mostrar=='true'" class="tipoPerfil">Locales</h1><br>
-<div *ngIf="mostrar=='true'" class="div">
-  <table>
-    <tr>
-    	<td class="name-local">Mostaza</td>
-      <td><img (click)="pedir()" class="img-icono" src="../../assets/IconosLocales/mostaza.jpg"/></td>
-    </tr><br>
-    <tr>
-    	<td class="name-local">MC Donalds</td>
-      <td ><img (click)="pedir()" class="img-icono" src="../../assets/IconosLocales/mcdonalds.jpg"/></td>
-    </tr><br>
-    <tr>
-    	<td class="name-local">Burguer King</td>
-      <td><img (click)="pedir()" class="img-icono" src="../../assets/IconosLocales/burguer.jpg"/></td>
-    </tr><br>
-    <tr>
-    	<td class="name-local">Antares</td>
-      <td ><img (click)="pedir()" class="img-icono" src="../../assets/IconosLocales/antares.jpg"/></td>
-    </tr><br>
-    <tr>
-    	<td class="name-local"> Starbucks</td>
-      <td><img (click)="pedir()" class="img-icono" src="../../assets/IconosLocales/starbucks.jpg"/></td>
-    </tr><br>
-    <tr>
-    	<td class="name-local">Betos</td>
-      <td><img (click)="pedir()" class="img-icono" src="../../assets/IconosLocales/betos.jpg"/></td>
-    </tr><br>
-    <tr>
-    	<td class="name-local">Subway</td>
-      <td><img (click)="pedir()" class="img-icono" src="../../assets/IconosLocales/subway.jpg"/></td>
-    </tr><br>
-    </table>
+
+
+<!--HTML DE LOCALES-->
+<h1 *ngIf="mostrarLocales" class="tipoPerfil">Locales</h1><br>
+
+<div *ngIf="mostrarLocales" >
+
+  <div class="div-busqueda">
+    
+      <label class="filtrar">Filtrar Rubro</label>
+      <select name="rubros">
+          <option value=""></option>
+          <option value="FastFood">FastFood</option>
+          <option value="Parrilla">Parrilla</option>
+          <option value="Pizzeria">Pizzeria</option>
+          <option value="Cafeteria">Cafeteria</option>
+        </select><br>
+    <input type="text" placeholder="Busqueda" class="form-control miInput" [(ngModel)]="busqueda" ><br>
+  </div>
+  <div class="div-locales">
+    <table>
+      <tr>
+        <td class="name-local">Mostaza</td>
+        <td><img (click)="pedir()" class="img-icono" src="../../assets/IconosLocales/mostaza.jpg"/></td>
+      </tr><br>
+      <tr>
+        <td class="name-local">MC Donalds</td>
+        <td ><img (click)="pedir()" class="img-icono" src="../../assets/IconosLocales/mcdonalds.jpg"/></td>
+      </tr><br>
+      <tr>
+        <td class="name-local">Burguer King</td>
+        <td><img (click)="pedir()" class="img-icono" src="../../assets/IconosLocales/burguer.jpg"/></td>
+      </tr><br>
+      <tr>
+        <td class="name-local">Antares</td>
+        <td ><img (click)="pedir()" class="img-icono" src="../../assets/IconosLocales/antares.jpg"/></td>
+      </tr><br>
+      <tr>
+        <td class="name-local"> Starbucks</td>
+        <td><img (click)="pedir()" class="img-icono" src="../../assets/IconosLocales/starbucks.jpg"/></td>
+      </tr><br>
+      <tr>
+        <td class="name-local">Betos</td>
+        <td><img (click)="pedir()" class="img-icono" src="../../assets/IconosLocales/betos.jpg"/></td>
+      </tr><br>
+      <tr>
+        <td class="name-local">Subway</td>
+        <td><img (click)="pedir()" class="img-icono" src="../../assets/IconosLocales/subway.jpg"/></td>
+      </tr><br>
+      </table> 
+    </div>
 </div>
 
 
-<h1 *ngIf="mostrar=='false'" class="tipoPerfil">Realizar Pedidos</h1>
 
-<div *ngIf="mostrar=='false'" class="container-fluid"
+<!--HTML DE PEDIDO-->
+
+<h1 *ngIf="!mostrarLocales" class="tipoPerfil">Realizar Pedidos</h1>
+
+<div *ngIf="!mostrarLocales" class="container"
      fxLayout="column"
      fxLayoutGap="10px">
 
-  <div fxFlex>
+  <div fxFlex class="container">
 
     <div class="container">
-      <div class="tabla-prod col-sm-4" style="padding: 5%">
+      <div class="tabla-prod col-sm-7" style="padding: 5%">
 
           <input type="text" placeholder="Busqueda" class="form-control miInput" [(ngModel)]="busqueda" >
           <br>
+          
+          
+                            
+                            <mat-tab-group>
+                                <mat-tab>
+                                  <ng-template mat-tab-label>
+                                    Platos
+                                  </ng-template>
+                                  <table class="table">
+                                      <thead>
+                                        <th>Producto</th> <th>Precio</th> <th>Accion</th>
+                                      </thead>
+                                      <tbody *ngIf="platos">
+                                        <tr *ngFor="let plato of (platos | filtro: busqueda)">
+                                            <td estilo [tipo]="plato.responsable">{{plato.nombre}}</td>
+                                            <td >{{plato.precio | currency: '$ ' : 'symbol' : '1.0'}}</td>
+                                            <td><app-boton-agregar [producto]="plato" (enviar)="AgregarAlPedido($event)"></app-boton-agregar></td>
+                                        </tr>
+                                      </tbody>
+                                    </table>
+                                </mat-tab>
+                              
+                                <mat-tab>
+                                  <ng-template mat-tab-label>
+                                    Bebidas
+                                  </ng-template>
+                                  <table class="table">
+                                    <thead>
+                                      <th>Producto</th> <th>Precio</th> <th>Accion</th>
+                                    </thead>
+                                    <tbody *ngIf="bebidas">
+                                      <tr *ngFor="let bebida of (bebidas | filtro: busqueda)">
+                                          <td estilo [tipo]="bebida.responsable">{{bebida.nombre}}</td>
+                                          <td >{{bebida.precio | currency: '$ ' : 'symbol' : '1.0'}}</td>
+                                          <td><app-boton-agregar [producto]="bebida" (enviar)="AgregarAlPedido($event)"></app-boton-agregar></td>
+                                      </tr>
+                                    </tbody>
+                                  </table>
+                                </mat-tab>
+                              
+                                <mat-tab>
+                                  <ng-template mat-tab-label>
+                                    Cafeteria
+                                  </ng-template>
+                                  <table class="table">
+                                    <thead>
+                                      <th>Producto</th> <th>Precio</th> <th>Accion</th>
+                                    </thead>
+                                    <tbody *ngIf="cafeteria">
+                                      <tr *ngFor="let caf of (cafeteria | filtro: busqueda)">
+                                          <td estilo [tipo]="caf.responsable">{{caf.nombre}}</td>
+                                          <td >{{caf.precio | currency: '$ ' : 'symbol' : '1.0'}}</td>
+                                          <td><app-boton-agregar [producto]="caf" (enviar)="AgregarAlPedido($event)"></app-boton-agregar></td>
+                                      </tr>
+                                    </tbody>
+                                  </table>
+                                </mat-tab>
+                              </mat-tab-group>
+            
+                            </div>
 
-
-
-          <div class="mat-elevation-z8 col-md-5" style="color:black; background: rgba(119, 136, 153, 0.481);">
+     <!--     <div class="mat-elevation-z8 col-md-5" style="color:black; background: rgba(119, 136, 153, 0.481);">
     
-            <table class="table">
-              <thead>
-                <th>Producto</th> <th>Precio</th> <th>Accion</th>
-              </thead>
-              <tbody *ngIf="listaProductos">
-                <tr *ngFor="let producto of (listaProductos | filtro: busqueda)">
-                    <td estilo [tipo]="producto.responsable">{{producto.nombre}}</td>
-                    <td >{{producto.precio | currency: '$ ' : 'symbol' : '1.0'}}</td>
-                    <td><app-boton-agregar [producto]="producto" (enviar)="AgregarAlPedido($event)"></app-boton-agregar></td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
 
-      </div>
+          </div>
+-->
+
       
         <div class="mat-elevation-z8 col-sm-4" style="height: 600px; color:whitesmoke; background: rgba(119, 136, 153, 0.481);">
       
@@ -85,13 +154,15 @@
                     <td> <app-boton-borrar [objeto]="producto" (enviarABorrar)="QuitarAlPedido($event)" ></app-boton-borrar> </td>
                 </tr>
               </tbody>
-              <tfoot>
+              <tbody>
                 <td>Total</td> <td>{{totalPedido | currency: '$ ': "symbol": '1.1-2'}} </td>
-              </tfoot>
+                <td><button mat-raised-button color="accent" class="btn-pagar" *ngIf="productosPedido" (click)="openPagoForm()" id="hbtn">PAGAR <i class="material-icons">
+                  payment
+                  </i></button></td>
+              </tbody>
             </table>
         </div>
-        <button class="btn-pagar">PAGAR</button>
-    </div>
+      </div>
 
   </div>
 </div>

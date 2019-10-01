@@ -1,0 +1,41 @@
+          <div *ngIf="retiro">
+            <h3 style="text-align: center">
+              Seleccione su retiro 
+            </h3><br><br>
+
+            <div>
+                  <mat-radio-group aria-label="Select an option">
+                    <mat-radio-button value="1">Retirar en 40 minutos</mat-radio-button><br><br><br>
+                    <mat-radio-button value="2">Programar retiro</mat-radio-button>
+                  </mat-radio-group><br><br><br><br><br><br><br><br>
+            </div>
+              
+            <div > 
+              <button class="btn-cancelar"  mat-raised-button color="warn">Cancelar</button>
+              <button class="btn-confirmar"  mat-raised-button color="accent" (click)="confirmar()">Confirmar</button>
+            </div>
+          </div>
+
+
+<div *ngIf="!retiro"  >
+      <h3 style="text-align: center" >Ingrese sus datos</h3><br>
+      <div>
+        <p style="text-align: center">Datos Personales</p><br>  
+        <label *ngIf="!retiro" >Nombre y apellido</label>
+        <input class="input" type="text"><br><br>
+        <label >Documento</label>
+        <input class="input" type="number"><br><br>
+        <p style="text-align: center">Datos de su tarjeta</p><br>
+        <label >Numeros frontales</label>
+        <input class="input" type="number"><br><br>
+        <label >Fecha de vencimiento</label>
+        <input class="input" type="date"><br><br>
+        <label >Codigo</label>
+        <input class="input" type="number"><br><br><br>
+      </div>
+      <div> 
+          <button class="btn-cancelar"  mat-raised-button color="warn" (click)="cancelar()">Cancelar</button>
+          <button class="btn-confirmar"  mat-raised-button color="accent" (click)="confirmar()">Confirmar</button>
+      </div>
+</div>
+  

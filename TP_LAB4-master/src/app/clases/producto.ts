@@ -4,4 +4,5 @@ export class Producto {
     nombre:string;
     precio:number;
     responsable:string;
+    tipo:string;
 }

@@ -2,9 +2,12 @@ import { Component, OnInit, Input } from '@angular/core';
 import { Producto } from '../clases/producto';
 import { ProductosService } from '../services/productos.service';
 import { FormBuilder, FormControl } from '@angular/forms';
+import { MatDialog, MatDialogRef} from '@angular/material';
 import { filter } from 'rxjs/operators';
 import { PedidoService } from '../services/pedido.service';
 import { Pedido } from '../clases/pedido';
+import { PagoComponent } from '../pago/pago.component';
+
 
 import * as jspdf from 'jspdf';  
   
@@ -28,26 +31,31 @@ export class MenuComponent implements OnInit {
   displayedColumns: string[] = ['nombProducto', 'precio', 'accionesSusp'];
 
   listaProductos:Array<Producto>;
+  platos:Array<Producto>=[];
+  bebidas:Array<Producto>=[];
+  cafeteria:Array<Producto>=[];
+  listaLocas:Array<String>;
   productosPedido:Array<Producto>;
   totalPedido:number=0;
   @Input() mesaSeleccionada:number;
   elPedido:Pedido;
   busqueda:string;
   respuestaAsync: any;
-  mostrar="true";
+  mostrarLocales=true;
   @Input() mesasDisponibles:any;
 
 
   // constructor(private dishServices:DishService) { }
   constructor(
     private httpProd: ProductosService, 
-    private httpPedido: PedidoService
+    private httpPedido: PedidoService,
+    private dialog: MatDialog
             ) { 
 
     this.elPedido=new Pedido();
     this.TraerProductos();
     this.TraerMesasDisp();
-    
+
   }
 
   
@@ -56,8 +64,18 @@ export class MenuComponent implements OnInit {
   {
     this.httpProd.TraerProductos().subscribe(data=>{
       this.listaProductos= JSON.parse(data._body);
+      console.log(data);
     //  console.log(this.listaProductos);
-      
+    for (let prod of this.listaProductos) {
+        switch (prod.tipo) {
+          case "platos":this.platos.push(prod);
+          break;
+          case "bebidas":this.bebidas.push(prod);
+          break;
+          case "cafeteria":this.cafeteria.push(prod);
+          break;
+      }
+    }
    });
   }
 
@@ -74,7 +92,7 @@ export class MenuComponent implements OnInit {
   }
 
   pedir(){
-    this.mostrar="false";
+    this.mostrarLocales=false;
     console.log("estoy clickeando una imagen");
   }
 
@@ -167,5 +185,12 @@ async IngresarPedidoPromise()
       pdf.save('pedido.pdf'); // Generated PDF   
     });  
   }  
+
+  openPagoForm(){
+    this.dialog.open(PagoComponent, {width:'400px', height:'550px'});
+    
+  }
+
+  
 
 }
