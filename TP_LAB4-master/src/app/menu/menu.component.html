@@ -1,109 +1,173 @@
-<app-header> </app-header>
+<app-header > </app-header>
 
-<h1 class="tipoPerfil">Comandar Pedidos</h1>
 
-<div class="container-fluid"
+
+<!--HTML DE LOCALES-->
+<h1 *ngIf="mostrarLocales" class="tipoPerfil">Locales</h1><br>
+
+<div *ngIf="mostrarLocales" >
+
+  <div class="div-busqueda">
+    
+      <label class="filtrar">Filtrar Rubro</label>
+      <select name="rubros">
+          <option value=""></option>
+          <option value="FastFood">FastFood</option>
+          <option value="Parrilla">Parrilla</option>
+          <option value="Pizzeria">Pizzeria</option>
+          <option value="Cafeteria">Cafeteria</option>
+        </select><br>
+    <input type="text" placeholder="Busqueda" class="form-control miInput" [(ngModel)]="busqueda" ><br>
+  </div>
+  <div class="div-locales">
+    <table>
+      <tr>
+        <td class="name-local">Mostaza</td>
+        <td><img (click)="pedir()" class="img-icono" src="../../assets/IconosLocales/mostaza.jpg"/></td>
+      </tr><br>
+      <tr>
+        <td class="name-local">MC Donalds</td>
+        <td ><img (click)="pedir()" class="img-icono" src="../../assets/IconosLocales/mcdonalds.jpg"/></td>
+      </tr><br>
+      <tr>
+        <td class="name-local">Burguer King</td>
+        <td><img (click)="pedir()" class="img-icono" src="../../assets/IconosLocales/burguer.jpg"/></td>
+      </tr><br>
+      <tr>
+        <td class="name-local">Antares</td>
+        <td ><img (click)="pedir()" class="img-icono" src="../../assets/IconosLocales/antares.jpg"/></td>
+      </tr><br>
+      <tr>
+        <td class="name-local"> Starbucks</td>
+        <td><img (click)="pedir()" class="img-icono" src="../../assets/IconosLocales/starbucks.jpg"/></td>
+      </tr><br>
+      <tr>
+        <td class="name-local">Betos</td>
+        <td><img (click)="pedir()" class="img-icono" src="../../assets/IconosLocales/betos.jpg"/></td>
+      </tr><br>
+      <tr>
+        <td class="name-local">Subway</td>
+        <td><img (click)="pedir()" class="img-icono" src="../../assets/IconosLocales/subway.jpg"/></td>
+      </tr><br>
+      </table> 
+    </div>
+</div>
+
+
+
+<!--HTML DE PEDIDO-->
+
+<h1 *ngIf="!mostrarLocales" class="tipoPerfil">Realizar Pedidos</h1>
+
+<div *ngIf="!mostrarLocales" class="container"
      fxLayout="column"
      fxLayoutGap="10px">
 
-  <div fxFlex>
+  <div fxFlex class="container">
 
     <div class="container">
-    
-      <div class="row">
-      <div class="tabla-prod col-sm-4" style="padding: 5%">
-        <form class="form-group" action="">
+      <div class="tabla-prod col-sm-7" style="padding: 5%">
+
+          <input type="text" placeholder="Busqueda" class="form-control miInput" [(ngModel)]="busqueda" >
           <br>
-       
-          <label for="numeroMesa" letraYcolor>Mesas Disponibles</label>
-          <!-- <input class="form-control miInput" id="numeroMesa" placeholder="mesa" type="text" name="mesa" value="0002" [(ngModel)]="mesa"> -->
-        <br>
-          <mat-radio-group letraYcolor  id="numeroMesa" class="example-radio-group" [(ngModel)]="mesaSeleccionada" [ngModelOptions]="{standalone: true}">
-              <mat-radio-button *ngFor="let mesa of mesasDisponibles" class="example-radio-button" [value]="mesa.idMesa">
-               Mesa número:  {{mesa.idMesa}}
-             <br> </mat-radio-button>
-            </mat-radio-group>
-
-          <br>
-          <label for="fotoMesa" letraYcolor>Foto mesa</label>
-          <br>
-          <p-fileUpload  id="fotoMesa" mode="advanced" name="mesa" url="http://localhost/backendVFINAL/Mesas/FotoMesa"></p-fileUpload>
-        </form>
-        <input type="text" placeholder="Busqueda" class="form-control miInput" [(ngModel)]="busqueda" >
-        <br>
-
-
-
-        <div class="mat-elevation-z8 col-md-5" style="color:black; background: rgba(119, 136, 153, 0.481);">
-    
-        <table class="table">
-            <thead>
-              <th>Producto</th> <th>Precio</th> <th>Accion</th>
-            </thead>
-            <tbody *ngIf="listaProductos">
-              <tr *ngFor="let producto of (listaProductos | filtro: busqueda)">
-                  <td estilo [tipo]="producto.responsable">{{producto.nombre}}</td>
-                  <td >{{producto.precio | currency: '$ ' : 'symbol' : '1.0'}}</td>
-                  <td><app-boton-agregar [producto]="producto" (enviar)="AgregarAlPedido($event)"></app-boton-agregar></td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-
-      </div>
-      
-  <div class="mat-elevation-z8 col-sm-4" style="color:whitesmoke; background: rgba(119, 136, 153, 0.481);">
-      
-        <h3 style="color:whitesmoke; font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;">PEDIDO</h3>
-
-          <table class="table" >            
-            <thead *ngIf="productosPedido">
-              <th>Producto</th> <th>Precio</th> <th>Accion</th>
-            </thead>
-            <tbody *ngIf="productosPedido">
-              <tr *ngFor="let producto of productosPedido">
-                
-                  <td>{{producto.nombre}}</td>
-                  <td>{{producto.precio | currency: '$ ': "symbol": '1.1-2'}}</td>
-                  <td> <app-boton-borrar [objeto]="producto" (enviarABorrar)="QuitarAlPedido($event)" ></app-boton-borrar> </td>
-              </tr>
-            </tbody>
-            <tfoot>
-              <td>Total</td> <td>{{totalPedido | currency: '$ ': "symbol": '1.1-2'}} </td>
-            </tfoot>
-          </table>
-
-
-
-        </div>
-        
-        <div class="btn-ingresar col-sm-4 ">
           
-          <button  class="btn btn-primary col-sm-12" *ngIf="!elPedido.id" (click)="IngresarPedido()">Ingresar pedido</button>
-          <h3 *ngIf="elPedido.id" style="color: rgb(40, 218, 48)">Se cargó correctamente!!!</h3>
-
-        <div class="mat-elevation-z8 col-md-5" style="color:black; background: white; border-radius: 10px;">
-    
-            <div id="contentToConvert" class="card-pedido card col-sm-12" style="padding: 5%"> 
           
-              <legend style="color:black" >Numero Pedido:</legend>
-              <h3 *ngIf="elPedido.id"> {{elPedido.id }} </h3>
-              <legend style="color:black">Detalle:</legend>
-              <ul *ngFor="let p of elPedido.detalle">
-                <li>{{p.nombre}}</li>
-              </ul>
-              <legend style="color:black">Total:</legend>
-              <h4 *ngIf="elPedido.id" style="color:black"> {{totalPedido | currency: '$ ': "symbol": '1.1-2'}} </h4>
-              
+                            
+                            <mat-tab-group>
+                                <mat-tab>
+                                  <ng-template mat-tab-label>
+                                    Platos
+                                  </ng-template>
+                                  <table class="table">
+                                      <thead>
+                                        <th>Producto</th> <th>Precio</th> <th>Accion</th>
+                                      </thead>
+                                      <tbody *ngIf="platos">
+                                        <tr *ngFor="let plato of (platos | filtro: busqueda)">
+                                            <td estilo [tipo]="plato.responsable">{{plato.nombre}}</td>
+                                            <td >{{plato.precio | currency: '$ ' : 'symbol' : '1.0'}}</td>
+                                            <td><app-boton-agregar [producto]="plato" (enviar)="AgregarAlPedido($event)"></app-boton-agregar></td>
+                                        </tr>
+                                      </tbody>
+                                    </table>
+                                </mat-tab>
+                              
+                                <mat-tab>
+                                  <ng-template mat-tab-label>
+                                    Bebidas
+                                  </ng-template>
+                                  <table class="table">
+                                    <thead>
+                                      <th>Producto</th> <th>Precio</th> <th>Accion</th>
+                                    </thead>
+                                    <tbody *ngIf="bebidas">
+                                      <tr *ngFor="let bebida of (bebidas | filtro: busqueda)">
+                                          <td estilo [tipo]="bebida.responsable">{{bebida.nombre}}</td>
+                                          <td >{{bebida.precio | currency: '$ ' : 'symbol' : '1.0'}}</td>
+                                          <td><app-boton-agregar [producto]="bebida" (enviar)="AgregarAlPedido($event)"></app-boton-agregar></td>
+                                      </tr>
+                                    </tbody>
+                                  </table>
+                                </mat-tab>
+                              
+                                <mat-tab>
+                                  <ng-template mat-tab-label>
+                                    Cafeteria
+                                  </ng-template>
+                                  <table class="table">
+                                    <thead>
+                                      <th>Producto</th> <th>Precio</th> <th>Accion</th>
+                                    </thead>
+                                    <tbody *ngIf="cafeteria">
+                                      <tr *ngFor="let caf of (cafeteria | filtro: busqueda)">
+                                          <td estilo [tipo]="caf.responsable">{{caf.nombre}}</td>
+                                          <td >{{caf.precio | currency: '$ ' : 'symbol' : '1.0'}}</td>
+                                          <td><app-boton-agregar [producto]="caf" (enviar)="AgregarAlPedido($event)"></app-boton-agregar></td>
+                                      </tr>
+                                    </tbody>
+                                  </table>
+                                </mat-tab>
+                              </mat-tab-group>
+            
+                            </div>
 
-            </div>
-            <button (click)="captureScreen()" *ngIf="elPedido.id">Descargar</button>
+     <!--     <div class="mat-elevation-z8 col-md-5" style="color:black; background: rgba(119, 136, 153, 0.481);">
+    
+
+          </div>
+-->
+
+      
+        <div class="mat-elevation-z8 col-sm-4" style="height: 600px; color:whitesmoke; background: rgba(119, 136, 153, 0.481);">
+      
+          <h3 style="color:whitesmoke; font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif; ">MI PEDIDO</h3>
+
+            <table class="table" >            
+              <thead *ngIf="productosPedido">
+                <th>Producto</th> <th>Precio</th> <th>Accion</th>
+              </thead>
+              <tbody *ngIf="productosPedido">
+                <tr *ngFor="let producto of productosPedido">
+                  
+                    <td>{{producto.nombre}}</td>
+                    <td>{{producto.precio | currency: '$ ': "symbol": '1.1-2'}}</td>
+                    <td> <app-boton-borrar [objeto]="producto" (enviarABorrar)="QuitarAlPedido($event)" ></app-boton-borrar> </td>
+                </tr>
+              </tbody>
+              <tbody>
+                <td>Total</td> <td>{{totalPedido | currency: '$ ': "symbol": '1.1-2'}} </td>
+                <td><button mat-raised-button color="accent" class="btn-pagar" *ngIf="productosPedido" (click)="openPagoForm()" id="hbtn">PAGAR <i class="material-icons">
+                  payment
+                  </i></button></td>
+              </tbody>
+            </table>
         </div>
       </div>
-      </div>
-      </div>
+
   </div>
 </div>
+        
+
 
 
  

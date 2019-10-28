@@ -26,6 +26,7 @@ export class LoginComponent implements OnInit {
     public dataRespuesta:any;
     respuesta: any;
     hide: any;
+    registro = false;
     @Input () type: any;
 
     constructor(
@@ -46,6 +47,10 @@ export class LoginComponent implements OnInit {
       }
 
       get f() { return this.loginForm.controls; }
+
+      GoToRegistro(){
+        this.registro=true;
+      }
 
 
   
@@ -89,7 +94,7 @@ export class LoginComponent implements OnInit {
             { 
               if(this.respuesta.datos.perfil =='cliente')
               {
-                this.router.navigate(['cliente']); 
+                this.router.navigate(['menu']); 
               }
               else
               { 
@@ -150,10 +155,6 @@ export class LoginComponent implements OnInit {
   {
     this.loginForm.controls['username'].setValue('candy1@gmail.com');
     this.loginForm.controls['password'].setValue('1234');
-  }
-  LoginLocal()
-  {
-    this.router.navigate(['local']); 
   }
 
   

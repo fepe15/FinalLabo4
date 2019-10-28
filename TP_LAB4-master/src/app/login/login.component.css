@@ -11,6 +11,13 @@
     color: #fff;
 }
 
+.crear-cuenta{
+    background-color: transparent;
+    border-color: transparent;
+    align-items: center;
+    text-align: center;
+}
+
 
 input[type=text], input[type=password] , input[type=nombre], input[type=usuario],  input[type=email] {
     width: 100%;
@@ -26,6 +33,12 @@ input[type=text], input[type=password] , input[type=nombre], input[type=usuario]
     margin-right: auto;
     width: 50%;
 }
+
+.btn-confirmar{
+    margin-left: auto;
+    margin-right: auto;
+}
+
 
 img {
     /* border-radius: 5px 5px 0 0; */

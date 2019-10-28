@@ -3,13 +3,13 @@ import { Dish } from './dish';
 export const DISHES: Dish[] = [
     {
         id: 0,
-        name: 'Bodega de Vinos, cerveza artesanal y tragos',
-        image: '/assets/images/uthappizza.png',
+        name: 'Patio Gastronómico renovado',
+        image: '/assets/images/patiodecomidas.jpg',
         category: 'mains',
         label: 'Hot',
         price: '4.99',
         featured: true,
-        description: 'Ofrecemos vinos de las mejores bodegas de Mendoza, San juan y Salta. También ofrecemos gran variedad de tragos y varios tipos de cerveza artesanal',
+        description: 'Ampliamos el patio gastronómico, y mejoramos las instalaciones con tecnología de última generación. Además, ofrecemos una gran cantidad de locales para que puedas elegir lo que desees',
         comments: [
             {
                 rating: 5,

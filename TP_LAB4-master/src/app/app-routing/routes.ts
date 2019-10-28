@@ -12,11 +12,11 @@ import { UsuariosComponent } from '../usuarios/usuarios.component';
 import { EstadisticasComponent } from '../estadisticas/estadisticas.component';
 import { ClienteComponent } from '../cliente/cliente.component';
 import { EncuestaComponent } from '../encuesta/encuesta.component';
-import { LocalComponent } from "../local/local.component";
-import { StockComponent } from "../stock/stock.component";
-import { LocalesComponent } from "../locales/locales.component";
-import { AdministradorComponent } from "../administrador/administrador.component";
+import { StockComponent } from '../stock/stock.component';
+import { LocalComponent} from '../local/local.component';
+import { PagoComponent} from '../pago/pago.component';
 
+ 
 export const routes: Routes =[
     {path:'home', component:HomeComponent},
     {path:'menu', component:MenuComponent},
@@ -31,8 +31,7 @@ export const routes: Routes =[
     {path:'encuesta', component:EncuestaComponent},
     {path:'local', component:LocalComponent},
     {path:'stock', component:StockComponent},
-    {path:'administrador', component:AdministradorComponent},
-    {path:'locales', component:LocalesComponent},
+    {path:'pago', component:PagoComponent},
     {path:'', redirectTo: '/home',pathMatch:'full'}
 ]
  	

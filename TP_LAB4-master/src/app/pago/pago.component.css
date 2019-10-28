@@ -1,0 +1,14 @@
+.btn-cancelar{
+    margin-left: 60px;
+    float: left;
+}
+
+.btn-confirmar{
+    margin-right: 60px;
+    float: right;
+}
+
+.input{
+    float: right;
+    color: black;
+}
