@@ -1,0 +1,132 @@
+<app-header></app-header>
+
+<h1 class="tipoPerfil" *ngIf="perfil!='admin'">Locales {{perfil}}</h1><br>
+<div class="listadoCentrado-container"  *ngIf="!bool">
+
+<div class="row" >
+      <div class="col-sm-1">   </div>
+
+      <div class="col-sm-1"> <h3 style="display: inline;color: white">Buscar:</h3>   </div>
+      <div class="col-sm-3"> <input type="text" class="form-control" [(ngModel)]="idPedido" placeholder="" ></div>
+      <div class="col-sm-1"><button class="btn btn-primary"  >Buscar</button></div>
+
+      <div class="col-sm-5"><button class="btn btn-primary" (click)="algo()" >Nuevo Local</button></div>
+      <div class="col-sm-1">   </div>
+
+
+</div>
+</div>
+<br>
+
+
+<div class="container" style="background-color: gray;width: 35%;" *ngIf="bool">
+
+  <div class="form-ingreso">
+        <h3 letraYcolor >Nuevo Local: </h3>
+
+        <div class="row" >
+
+            <div class="col-sm-12" style="text-align: center"> <img  src="../../assets/images/login.png" width="100px" height="100px">  </div>
+
+      </div>
+      <br>
+      <div class="row" style="text-align: center" >
+
+          <div class="col-sm-12" style="text-align: center"> <input type="file" name="Imagen" id="">  </div>
+
+    </div>
+
+      <br>
+
+        <div class="row" >
+            <div class="col-sm-2"> <label style="color: white">Local:</label>  </div>
+            <div class="col-sm-4"> <input type="text" class="form-control" [(ngModel)]="idPedido" placeholder="" >  </div>
+            <div class="col-sm-2"> <label style="color: white">CUIT:</label></div>
+            <div class="col-sm-4"> <input type="text" class="form-control" [(ngModel)]="idPedido" placeholder="" > </div>
+
+
+      </div>
+      <br>
+    <div class="row" >
+        <div class="col-sm-2"> <label style="color: white">Telefono:</label>  </div>
+        <div class="col-sm-4"> <input type="text" class="form-control" [(ngModel)]="idPedido" placeholder="" >  </div>
+        <div class="col-sm-2"> <label style="color: white">E-mail:</label></div>
+        <div class="col-sm-4"> <input type="text" class="form-control" [(ngModel)]="idPedido" placeholder="" > </div>
+
+  </div>
+  <br>
+ <div class="row" >
+          <div class="col-sm-2"> <label style="color: white">Razon social:</label>  </div>
+          <div class="col-sm-4"> <input type="text" class="form-control" [(ngModel)]="idPedido" placeholder="" >  </div>
+
+
+    </div>
+
+    <div class="row" >
+        <div class="col-sm-6" style="text-align: right">  <button class="btn btn-primary" (click)="algo()" >Aceptar</button></div>
+        <div class="col-sm-6" style="text-align: left">  <button class="btn btn-warning" (click)="algo()"  >Cancelar</button> </div>
+
+
+
+  </div>
+
+
+
+  <br>
+  <br>
+  </div>
+  </div>
+
+
+
+<div class="listadoCentrado-container" *ngIf="!bool">
+
+    <table mat-table [dataSource]="listaPendientes" class="lessons-table mat-elevation-z8" style="align-content: center;">
+
+        <!-- Position Column -->
+        <ng-container matColumnDef="position">
+          <th mat-header-cell *matHeaderCellDef>Id. Local</th>
+          <td mat-cell *matCellDef="let element"> {{element.idProducto}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="Imagen">
+            <th mat-header-cell *matHeaderCellDef>Imagen</th>
+            <td mat-cell *matCellDef="let element"> <img  src="../../assets/images/local.jpg" width="80px" height="80px"> </td>
+          </ng-container>
+
+        <ng-container matColumnDef="mesa">
+          <th mat-header-cell *matHeaderCellDef>Local</th>
+          <td mat-cell *matCellDef="let element"> {{element.Producto}} </td>
+        </ng-container>
+
+        <!-- Name Column -->
+        <ng-container matColumnDef="name">
+          <th mat-header-cell *matHeaderCellDef> Razon social </th>
+          <td mat-cell *matCellDef="let element"> {{element.Tiempo}} </td>
+        </ng-container>
+
+        <!-- Weight Column -->
+        <ng-container matColumnDef="weight">
+          <th mat-header-cell *matHeaderCellDef> CUIT </th>
+          <td mat-cell *matCellDef="let element"> {{element.Precio }} </td>
+        </ng-container>
+
+        <!-- Symbol Column -->
+        <ng-container matColumnDef="symbol" >
+          <th mat-header-cell *matHeaderCellDef> Telefono </th>
+          <td mat-cell *matCellDef="let element" > {{element.min }}  </td>
+        </ng-container>
+
+        <ng-container matColumnDef="preparacion" >
+          <th mat-header-cell *matHeaderCellDef> Acciones </th>
+          <td mat-cell *matCellDef="let element" ><button  class="btn btn-primary">Habilitar</button>  </td>
+        </ng-container>
+
+
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+      </table>
+
+
+    </div> 

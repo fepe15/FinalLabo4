@@ -15,6 +15,9 @@ import { EncuestaComponent } from '../encuesta/encuesta.component';
 import { StockComponent } from '../stock/stock.component';
 import { LocalComponent} from '../local/local.component';
 import { PagoComponent} from '../pago/pago.component';
+import { LocalesComponent } from "../locales/locales.component";
+import { AdministradorComponent } from "../administrador/administrador.component";
+import { DetalleComponent } from '../detalle/detalle.component';
 
  
 export const routes: Routes =[
@@ -32,6 +35,9 @@ export const routes: Routes =[
     {path:'local', component:LocalComponent},
     {path:'stock', component:StockComponent},
     {path:'pago', component:PagoComponent},
+    {path:'administrador', component:AdministradorComponent},
+    {path:'locales', component:LocalesComponent},
+    {path:'detalle', component:DetalleComponent},
     {path:'', redirectTo: '/home',pathMatch:'full'}
 ]
  	

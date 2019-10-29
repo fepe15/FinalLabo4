@@ -1,37 +1,75 @@
 <app-header></app-header>
 
-<h1 class="tipoPerfil" *ngIf="perfil!='admin'">Productos {{perfil}}</h1>
-<div class="container" *ngIf="!bool">
+<h1 class="tipoPerfil" *ngIf="perfil!='admin'">Productos {{perfil}}</h1><br>
+<div class="listadoCentrado-container"  *ngIf="!bool">
 
-<div class="form-ingreso">
-      <p letraYcolor >Buscar </p>
+  <div class="row" >
+    <div class="col-sm-1">   </div>
+    
+    <div class="col-sm-1"> <h3 style="display: inline;color: white">Buscar:</h3>   </div>
+    <div class="col-sm-3"> <input type="text" class="form-control" [(ngModel)]="idPedido" placeholder="" ></div>
+    <div class="col-sm-1"><button class="btn btn-primary"  >Buscar</button></div>
 
-<input type="text" class="form-control" [(ngModel)]="idPedido" placeholder="" > <br>
-<button class="btn btn-primary" (click)="algo()" >Nuevo Producto</button>
+    <div class="col-sm-5"><button class="btn btn-primary" (click)="algo()" >Nuevo Producto</button></div>
+    <div class="col-sm-1">   </div>
+    
 
 </div>
+
 </div>
+<br>
 
 
-<div class="container" style="background-color: gray;width: 15%;" *ngIf="bool">
+<div class="container" style="background-color: gray;width: 40%;" *ngIf="bool">
 
   <div class="form-ingreso">
         <h3 letraYcolor >Nuevo producto: </h3>
-  <label style="color: white">Producto:</label>
-  <input type="text" class="form-control" [(ngModel)]="idPedido" placeholder="" > <br>
-  <label style="color: white">Precio:</label>
-  <input type="text" class="form-control" [(ngModel)]="idPedido" placeholder="" > <br>
-  <label style="color: white">Tiempo Preparacion:</label>
-  <input type="text" class="form-control" [(ngModel)]="idPedido" placeholder="" > <br>
-  <label style="color: white">Cant min:</label>
-  <input type="text" class="form-control" [(ngModel)]="idPedido" placeholder="" > <br>
-  <label style="color: white">Cant max.:</label>
-  <input type="text" class="form-control" [(ngModel)]="idPedido" placeholder="" > <br>
-  <label style="color: white">Cant:</label>
-  <input type="text" class="form-control" [(ngModel)]="idPedido" placeholder="" > <br>
+        <div class="row" >
 
-  <button class="btn btn-primary" (click)="algo()" >Aceptar</button>
-  <button class="btn btn-warning" (click)="algo()" style="margin-left: 7%" >Cancelar</button>
+          <div class="col-sm-12" style="text-align: center"> <img  src="../../assets/images/login.png" width="100px" height="100px">  </div>
+
+    </div>
+    <br>
+    <div class="row" style="text-align: center" >
+
+        <div class="col-sm-12" style="text-align: center"> <input type="file" name="Imagen" id="">  </div>
+
+  </div>
+
+    <br>
+
+      <div class="row" >
+          <div class="col-sm-2"> <label style="color: white">Producto:</label>  </div>
+          <div class="col-sm-4"> <input type="text" class="form-control" [(ngModel)]="idPedido" placeholder="" >  </div>
+          <div class="col-sm-2"> <label style="color: white">Precio:</label></div>
+          <div class="col-sm-4"> <input type="text" class="form-control" [(ngModel)]="idPedido" placeholder="" > </div>
+
+
+    </div>
+    <br>
+  <div class="row" >
+      <div class="col-sm-2"> <label style="color: white">Cant max.:</label>  </div>
+      <div class="col-sm-4"> <input type="text" class="form-control" [(ngModel)]="idPedido" placeholder="" >  </div>
+      <div class="col-sm-2"> <label style="color: white">Cant min:</label></div>
+      <div class="col-sm-4"> <input type="text" class="form-control" [(ngModel)]="idPedido" placeholder="" > </div>
+
+</div>
+<br>
+<div class="row" >
+        <div class="col-sm-2"> <label style="color: white">Tiempo Preparacion:</label>  </div>
+        <div class="col-sm-4"> <input type="text" class="form-control" [(ngModel)]="idPedido" placeholder="" >  </div>
+        <div class="col-sm-2"> <label style="color: white">Cant:</label></div>
+        <div class="col-sm-4"> <input type="text" class="form-control" [(ngModel)]="idPedido" placeholder="" > </div>
+
+  </div>
+
+  <div class="row" >
+      <div class="col-sm-6" style="text-align: right">  <button class="btn btn-primary" (click)="algo()" >Aceptar</button></div>
+      <div class="col-sm-6" style="text-align: left">  <button class="btn btn-warning" (click)="algo()"  >Cancelar</button> </div>
+
+
+
+</div>
   <br>
   <br>
   </div>
@@ -47,6 +85,11 @@
         <ng-container matColumnDef="position">
           <th mat-header-cell *matHeaderCellDef>Nro. Producto</th>
           <td mat-cell *matCellDef="let element"> {{element.idProducto}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="Imagen">
+          <th mat-header-cell *matHeaderCellDef>Imagen</th>
+          <td mat-cell *matCellDef="let element"> <img  src="../../assets/images/coca.jpg" width="80px" height="80px"> </td>
         </ng-container>
 
         <ng-container matColumnDef="mesa">
@@ -79,8 +122,18 @@
 
         <ng-container matColumnDef="acciones" >
           <th mat-header-cell *matHeaderCellDef> Cant </th>
-          <td mat-cell *matCellDef="let element" ><button  class="btn btn-primary">-</button> {{element.Cant }} <button  class="btn btn-primary">+</button> </td>
+          <td mat-cell *matCellDef="let element" > {{element.Cant }} </td>
         </ng-container>
+        
+        <ng-container matColumnDef="otro" >
+          <th mat-header-cell *matHeaderCellDef> Punto repocision </th>
+          <td mat-cell *matCellDef="let element" > <button  class="btn btn-primary">-</button> {{element.rep }} <button  class="btn btn-primary">+</button> </td>
+        </ng-container>
+
+        <ng-container matColumnDef="guardar" >
+            <th mat-header-cell *matHeaderCellDef> Accion</th>
+            <td mat-cell *matCellDef="let element" > <button  class="btn btn-primary">Guardar</button>  </td>
+          </ng-container>
       
         <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
         <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>

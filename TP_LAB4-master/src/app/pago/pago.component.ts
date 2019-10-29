@@ -8,9 +8,12 @@ import { Component, OnInit } from '@angular/core';
 export class PagoComponent implements OnInit {
 
   retiro=true;
-  constructor() { }
+  constructor() {
+    console.log(JSON.parse(localStorage.getItem("pedido")));
+   }
 
   ngOnInit() {
+    
   }
 
   confirmar()

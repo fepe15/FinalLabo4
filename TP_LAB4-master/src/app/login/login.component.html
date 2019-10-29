@@ -14,15 +14,15 @@
 
     <div class="form-group"> 
             <mat-form-field>
-                <input matInput placeholder="Ingrese Usuario"  formControlName="username"   type="usuario" name="usuario" required>
-                <mat-error *ngIf="usuario.invalid">{{getErrorMessageUser()}}</mat-error> 
+                <input matInput placeholder="Ingrese Usuario"  formControlName="username"   type="text" name="usuario" required>
+                <mat-error *ngIf="">{{getErrorMessageUser()}}</mat-error> 
               </mat-form-field>
 
             </div>
 <br>
 <div class="form-group">
           <mat-form-field>
-            <input matInput placeholder="Ingrese contraseña"  formControlName="password"  name="password" [type]="hide ? 'password' : 'text'">
+            <input matInput placeholder="Ingrese contraseña"  formControlName="password"  name="password" type="password">
             <mat-icon matSuffix (click)="hide = !hide">{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
           </mat-form-field>  
 
@@ -85,5 +85,7 @@
 
 <br>
 <button style="align-items: center "  (click)="LoginCliente()" class="btn btn-primary">Cliente</button>
+<button style="align-items: center "  (click)="LoginAdministrador()" class="btn btn-primary">administrador</button>
+<button style="align-items: center "  (click)="LoginLocal()" class="btn btn-primary">local</button>
 
 

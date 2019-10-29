@@ -3,18 +3,18 @@ import { MatDialog, MatDialogRef} from '@angular/material';
 import { DetalleComponent } from "../detalle/detalle.component";
 
 @Component({
-  selector: 'app-local',
-  templateUrl: './local.component.html',
-  styleUrls: ['./local.component.css']
+  selector: 'app-administrador',
+  templateUrl: './administrador.component.html',
+  styleUrls: ['./administrador.component.css']
 })
-export class LocalComponent implements OnInit {
+export class AdministradorComponent implements OnInit {
+
   spinner:boolean;
   listaPendientes: Array<any>;
   tiempoPreparacion:number;
   perfil:any;
-  
-  displayedColumns: string[] = ['position', 'mesa', 'name', 'weight', 'symbol', 'preparacion', 'acciones'];
 
+  displayedColumns: string[] = ['position', 'mesa', 'name', 'weight', 'symbol'];
   constructor(private dialog: MatDialog) { }
 
   ngOnInit() {

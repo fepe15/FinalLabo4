@@ -10,8 +10,18 @@
    <a mat-button letraYcolor *ngIf="IngresoBool && perfilUsuario == 'cliente'" routerLink="/menu" routerLinkActive="active" id="hbtn"><span class="fa fa-cutlery fa-lg"></span> Menu</a>
    <a mat-button letraYcolor *ngIf="IngresoBool && (perfilUsuario == 'cliente')" routerLink="/cliente" routerLinkActive="active" id="hbtn"><span class="fa fa-search-plus fa-lg"></span> Mis Pedidos</a>
     
-    <a mat-button letraYcolor *ngIf="IngresoBool && perfilUsuario == 'mozo'" routerLink="/menu" routerLinkActive="active" id="hbtn"><span class="fa fa-cutlery fa-lg"></span> Menu</a>
-    <a mat-button letraYcolor *ngIf="IngresoBool && (perfilUsuario != 'mozo' && perfilUsuario != 'cliente')" routerLink="/listado" routerLinkActive="active" id="hbtn"><span class="fa fa-book fa-lg"></span> Listado pedidos</a>
+    <a mat-button letraYcolor *ngIf="IngresoBool && (perfilUsuario == 'local')" routerLink="/local" routerLinkActive="active" id="hbtn"><span class="fa fa-search-plus fa-lg"></span> Listado pedidos</a>
+   <a mat-button letraYcolor *ngIf="IngresoBool && (perfilUsuario == 'local')" routerLink="/stock" routerLinkActive="active" id="hbtn"><span class="fa fa-search-plus fa-lg"></span> Stock</a>
+    
+
+
+   <a mat-button letraYcolor *ngIf="IngresoBool && (perfilUsuario == 'administrador')" routerLink="/locales" routerLinkActive="active" id="hbtn"><span class="fa fa-search-plus fa-lg"></span> Listado locales</a>
+   <a mat-button letraYcolor *ngIf="IngresoBool && (perfilUsuario == 'administrador')" routerLink="/administrador" routerLinkActive="active" id="hbtn"><span class="fa fa-search-plus fa-lg"></span> Listado Pedidos</a>
+
+
+
+   <a mat-button letraYcolor *ngIf="IngresoBool && perfilUsuario == 'mozo'" routerLink="/menu" routerLinkActive="active" id="hbtn"><span class="fa fa-cutlery fa-lg"></span> Menu</a>
+    <!--a mat-button letraYcolor *ngIf="IngresoBool && (perfilUsuario != 'mozo' && perfilUsuario != 'cliente')" routerLink="/listado" routerLinkActive="active" id="hbtn"><span class="fa fa-book fa-lg"></span> Listado pedidos</a-->
    
     <a mat-button letraYcolor *ngIf="IngresoBool && (perfilUsuario == 'mozo' || perfilUsuario == 'admin')" routerLink="/listadoMesas" routerLinkActive="active" id="hbtn"><span class="fa fa-info-circle fa-lg"></span> Listado de Mesas</a>
   

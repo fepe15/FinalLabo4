@@ -37,7 +37,8 @@ export class LoginComponent implements OnInit {
         private dialog: MatDialog
         //private authenticationService: AuthenticationService,
         //private alertService: AlertService
-        ) {}
+        ) {
+        }
 
     ngOnInit() {
         this.loginForm = this.formBuilder.group({
@@ -80,15 +81,15 @@ export class LoginComponent implements OnInit {
           
           localStorage.setItem('token', JSON.stringify(this.respuesta.token) );
           this.dialog.closeAll();
-          if(this.respuesta.datos.perfil =='admin')
+          if(this.respuesta.datos.perfil =='administrador')
           {
-            this.router.navigate(['usuarios']); 
+            this.router.navigate(['administrador']); 
           }
           else
           {
-            if(this.respuesta.datos.perfil =='mozo')
+            if(this.respuesta.datos.perfil =='local')
             {
-              this.router.navigate(['menu']); 
+              this.router.navigate(['local']); 
             }
             else
             { 
@@ -126,15 +127,15 @@ export class LoginComponent implements OnInit {
       this.loginForm.controls['password'].setValue('1234');
   }
 
-  LoginMozo()
+  LoginAdministrador()
   {
-    this.loginForm.controls['username'].setValue('mozo1@gmail.com');
+    this.loginForm.controls['username'].setValue('admin@gmail.com');
     this.loginForm.controls['password'].setValue('1234');
   }
 
-  LoginTragos()
+  LoginLocal()
   {
-    this.loginForm.controls['username'].setValue('barra1@gmail.com');
+    this.loginForm.controls['username'].setValue('mc@gmail.com');
     this.loginForm.controls['password'].setValue('1234');
   }
 
