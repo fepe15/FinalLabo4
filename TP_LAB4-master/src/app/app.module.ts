@@ -114,6 +114,9 @@ import { LetraYcolorDirective } from './directive/letra-ycolor.directive';
 import { LocalComponent } from './local/local.component';
 import { StockComponent } from './stock/stock.component';
 import { PagoComponent } from './pago/pago.component';
+import { AdministradorComponent } from './administrador/administrador.component';
+import { LocalesComponent } from './locales/locales.component';
+import { DetalleComponent } from './detalle/detalle.component';
  
 
 export function tokenGetter() {
@@ -159,7 +162,10 @@ export function tokenGetter() {
     LetraYcolorDirective,
     LocalComponent,
     StockComponent,
-    PagoComponent
+    PagoComponent,
+    AdministradorComponent,
+    LocalesComponent,
+    DetalleComponent
   ],
   imports: [
     BrowserModule,

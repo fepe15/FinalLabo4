@@ -13,7 +13,7 @@ export class AdministradorComponent implements OnInit {
   listaPendientes: Array<any>;
   tiempoPreparacion:number;
   perfil:any;
-  
+
   displayedColumns: string[] = ['position', 'mesa', 'name', 'weight', 'symbol'];
   constructor(private dialog: MatDialog) { }
 
@@ -26,7 +26,7 @@ export class AdministradorComponent implements OnInit {
 
   openDetalle(){
     this.dialog.open(DetalleComponent, {width:'300px', height:'250px'});
-   
+
   }
 
 }

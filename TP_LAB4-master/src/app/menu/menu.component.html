@@ -21,11 +21,11 @@
   </div>
   <div class="div-locales">
     <table>
-      <tr>
-        <td class="name-local">Mostaza</td>
-        <td><img (click)="pedir()" class="img-icono" src="../../assets/IconosLocales/mostaza.jpg"/></td>
-      </tr><br>
-      <tr>
+      <tr *ngFor="let local of (listaLocales | filtro: busqueda)">
+        <td class="name-local">{{local.nombre}}</td>
+        <td><img (click)="pedir()" class="img-icono" src="{{local.foto}}" /></td>
+      </tr>
+      <!-- <tr>
         <td class="name-local">MC Donalds</td>
         <td ><img (click)="pedir()" class="img-icono" src="../../assets/IconosLocales/mcdonalds.jpg"/></td>
       </tr><br>
@@ -48,7 +48,7 @@
       <tr>
         <td class="name-local">Subway</td>
         <td><img (click)="pedir()" class="img-icono" src="../../assets/IconosLocales/subway.jpg"/></td>
-      </tr><br>
+      </tr><br> -->
       </table> 
     </div>
 </div>
@@ -73,26 +73,26 @@
           
           
                             
-                            <mat-tab-group>
+                            <mat-tab-group *ngFor="let tipo of (listaTiposProductos)" >
                                 <mat-tab>
                                   <ng-template mat-tab-label>
-                                    Platos
+                                    {{tipo.nameTipo}}
                                   </ng-template>
                                   <table class="table">
                                       <thead>
                                         <th>Producto</th> <th>Precio</th> <th>Accion</th>
                                       </thead>
-                                      <tbody *ngIf="platos">
-                                        <tr *ngFor="let plato of (platos | filtro: busqueda)">
-                                            <td estilo [tipo]="plato.responsable">{{plato.nombre}}</td>
-                                            <td >{{plato.precio | currency: '$ ' : 'symbol' : '1.0'}}</td>
-                                            <td><app-boton-agregar [producto]="plato" (enviar)="AgregarAlPedido($event)"></app-boton-agregar></td>
+                                      <tbody *ngIf="listaTiposProductos">
+                                        <tr *ngFor="let producto of (tipo.productos | filtro: busqueda)">
+                                            <td estilo [tipo]="producto.responsable">{{producto.nombre}}</td>
+                                            <td >{{producto.precio | currency: '$ ' : 'symbol' : '1.0'}}</td>
+                                            <td><app-boton-agregar [producto]="producto" (enviar)="AgregarAlPedido($event)"></app-boton-agregar></td>
                                         </tr>
                                       </tbody>
-                                    </table>
+                                  </table>
                                 </mat-tab>
-                              
-                                <mat-tab>
+                            </mat-tab-group>
+                                <!-- <mat-tab>
                                   <ng-template mat-tab-label>
                                     Bebidas
                                   </ng-template>
@@ -126,8 +126,8 @@
                                       </tr>
                                     </tbody>
                                   </table>
-                                </mat-tab>
-                              </mat-tab-group>
+                                </mat-tab> 
+                              </mat-tab-group>-->
             
                             </div>
 

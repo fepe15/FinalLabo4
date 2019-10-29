@@ -12,7 +12,7 @@ export class DetalleComponent implements OnInit {
   perfil:any;
   displayedColumns: string[] = ['algo','position', 'mesa'];
 
-  
+
   constructor() { }
 
   ngOnInit() {
@@ -22,6 +22,6 @@ export class DetalleComponent implements OnInit {
     this.listaPendientes.push(vari);
   }
 
- 
+
 
 }

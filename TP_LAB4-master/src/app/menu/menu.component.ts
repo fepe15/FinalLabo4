@@ -1,5 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Producto } from '../clases/producto';
+import { TiposProductos } from '../clases/tiposProductos';
 import { ProductosService } from '../services/productos.service';
 import { FormBuilder, FormControl } from '@angular/forms';
 import { MatDialog, MatDialogRef} from '@angular/material';
@@ -7,6 +8,8 @@ import { filter } from 'rxjs/operators';
 import { PedidoService } from '../services/pedido.service';
 import { Pedido } from '../clases/pedido';
 import { PagoComponent } from '../pago/pago.component';
+import { LocalesService } from '../services/locales.service';
+
 
 
 import * as jspdf from 'jspdf';  
@@ -34,7 +37,7 @@ export class MenuComponent implements OnInit {
   platos:Array<Producto>=[];
   bebidas:Array<Producto>=[];
   cafeteria:Array<Producto>=[];
-  listaLocas:Array<String>;
+  listaTiposProductos:Array<TiposProductos>;
   productosPedido:Array<Producto>;
   totalPedido:number=0;
   @Input() mesaSeleccionada:number;
@@ -43,29 +46,39 @@ export class MenuComponent implements OnInit {
   respuestaAsync: any;
   mostrarLocales=true;
   @Input() mesasDisponibles:any;
+  listaLocales:Array<any>;
 
 
   // constructor(private dishServices:DishService) { }
   constructor(
     private httpProd: ProductosService, 
+    private httpLoc: LocalesService,
     private httpPedido: PedidoService,
     private dialog: MatDialog
             ) { 
 
     this.elPedido=new Pedido();
     this.TraerProductos();
-    this.TraerMesasDisp();
-
+    this.TraerLocales();
   }
 
-  
+
+  cargarLocales(){
+    
+  }
+
+  TraerLocales(){
+      this.httpLoc.TraerLocales().subscribe(data=>{
+        this.listaLocales= JSON.parse(data._body);
+      console.log(this.listaLocales);
+     });
+  }
 
   TraerProductos()
   {
     this.httpProd.TraerProductos().subscribe(data=>{
       this.listaProductos= JSON.parse(data._body);
-      console.log(data);
-    //  console.log(this.listaProductos);
+      //console.log(this.listaProductos);
     for (let prod of this.listaProductos) {
         switch (prod.tipo) {
           case "platos":this.platos.push(prod);
@@ -76,6 +89,23 @@ export class MenuComponent implements OnInit {
           break;
       }
     }
+    debugger;
+      this.listaTiposProductos = new Array<TiposProductos>();
+      let tipoProd = new TiposProductos();
+      let tipoProd2 = new TiposProductos();
+      let tipoProd3 = new TiposProductos();
+      tipoProd.nameTipo = "bebidas";
+      tipoProd.productos=this.bebidas;
+      this.listaTiposProductos.push(tipoProd);
+      //console.log(tipoProd.productos);
+      tipoProd2.nameTipo = "platos";
+      tipoProd2.productos=this.platos;
+      this.listaTiposProductos.push(tipoProd2);
+      //console.log(tipoProd2.productos);
+      tipoProd3.nameTipo = "cafeteria";
+      tipoProd3.productos=this.cafeteria;
+      this.listaTiposProductos.push(tipoProd3);
+      //console.log(tipoProd3.productos);
    });
   }
 
@@ -187,8 +217,8 @@ async IngresarPedidoPromise()
   }  
 
   openPagoForm(){
+    localStorage.setItem('pedido',JSON.stringify(this.productosPedido));
     this.dialog.open(PagoComponent, {width:'400px', height:'550px'});
-    
   }
 
   

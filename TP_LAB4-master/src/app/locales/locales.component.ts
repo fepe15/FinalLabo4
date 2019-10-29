@@ -14,8 +14,8 @@ export class LocalesComponent implements OnInit {
 
   //displayedColumns: string[] = ['position', 'name', 'weight', 'symbol'];
   //dataSource = new MatTableDataSource(ELEMENT_DATA);
-  
-  
+
+
   displayedColumns: string[] = ['position',"Imagen", 'mesa', 'name', 'weight', 'symbol', 'preparacion'];
   constructor() { }
 
@@ -27,7 +27,7 @@ export class LocalesComponent implements OnInit {
    // this.dataSource.sort = this.sort;
   }
 
-  
+
   algo() {
     this.bool = !this.bool; 
   }
