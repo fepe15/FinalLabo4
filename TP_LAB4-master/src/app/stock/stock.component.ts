@@ -61,5 +61,12 @@ export class StockComponent implements OnInit {
     prod.tiempo_pre=this.tiempo_pre;
 
     this.httpProducto.IngresarProducto(prod)
+    .subscribe(
+        
+      (data)=>{
+     let res=JSON.parse(data._body);
+      //this.elPedido.id= res.idPedido;
+      console.log(res);
+    })
   }
 }
