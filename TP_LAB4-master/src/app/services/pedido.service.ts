@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { GenericoService } from './generico.service';
 import { Observable } from 'rxjs';
 import { Pedido } from '../clases/pedido';
+import { Http } from '@angular/http';
 
 @Injectable({
   providedIn: 'root'
@@ -10,7 +11,8 @@ import { Pedido } from '../clases/pedido';
 export class PedidoService {
 
   token;
-  constructor(private http: GenericoService) {
+  constructor(private http: GenericoService,
+    private http2: Http) {
     this.token= localStorage.getItem('token');
    }
 
@@ -26,13 +28,17 @@ export class PedidoService {
     .pipe((data)=>{return data})
   }
 
-  IngresarPedido(pedido: Pedido)
-  {
-    
-
-    return this.http.httpPost("Pedidos/",pedido)
+  IngresarPedido(pedido: Pedido){
+    return this.http.httpPost("Pedidos/IngresarPedido",{
+      "fecha": pedido.fecha,
+      "id_cliente": pedido.id_cliente,
+      "id_local": pedido.id_local,
+      "id_estado": pedido.id_estado,
+      "tiempo_entrega": pedido.tiempo_entrega,
+    })
     .pipe((data)=>{return data})
   }
+
 
   PrepararPedido(idDetalle, tPrepacion)
   {

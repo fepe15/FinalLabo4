@@ -10,54 +10,25 @@
   <div class="div-busqueda">
     
       <label class="filtrar">Filtrar Rubro</label>
-      <select name="rubros">
-          <option value=""></option>
-          <option value="FastFood">FastFood</option>
-          <option value="Parrilla">Parrilla</option>
-          <option value="Pizzeria">Pizzeria</option>
-          <option value="Cafeteria">Cafeteria</option>
+        <select [(ngModel)]='rubroDefault' (change)="filtrarRubro($event.target.value)">
+          <option *ngFor="let rubro of (listaRubros)" value="{{rubro.id_rubro}}" >{{rubro.descripcion}}</option>
         </select><br>
     <input type="text" placeholder="Busqueda" class="form-control miInput" [(ngModel)]="busqueda" ><br>
+
   </div>
   <div class="div-locales">
     <table>
-      <tr *ngFor="let local of (listaLocales | filtro: busqueda)">
-        <td class="name-local">{{local.nombre}}</td>
-        <td><img (click)="pedir()" class="img-icono" src="{{local.foto}}" /></td>
+      <tr *ngFor="let local of (listaLocalesFiltrada | filtro: busqueda)">
+        <td class="name-local">{{local.nombre}}</td><br>
+        <td><img (click)="pedir(local.id_rubro,local.nombre,local.foto)" class="img-icono" src="{{local.foto}}" /></td>
       </tr>
-      <!-- <tr>
-        <td class="name-local">MC Donalds</td>
-        <td ><img (click)="pedir()" class="img-icono" src="../../assets/IconosLocales/mcdonalds.jpg"/></td>
-      </tr><br>
-      <tr>
-        <td class="name-local">Burguer King</td>
-        <td><img (click)="pedir()" class="img-icono" src="../../assets/IconosLocales/burguer.jpg"/></td>
-      </tr><br>
-      <tr>
-        <td class="name-local">Antares</td>
-        <td ><img (click)="pedir()" class="img-icono" src="../../assets/IconosLocales/antares.jpg"/></td>
-      </tr><br>
-      <tr>
-        <td class="name-local"> Starbucks</td>
-        <td><img (click)="pedir()" class="img-icono" src="../../assets/IconosLocales/starbucks.jpg"/></td>
-      </tr><br>
-      <tr>
-        <td class="name-local">Betos</td>
-        <td><img (click)="pedir()" class="img-icono" src="../../assets/IconosLocales/betos.jpg"/></td>
-      </tr><br>
-      <tr>
-        <td class="name-local">Subway</td>
-        <td><img (click)="pedir()" class="img-icono" src="../../assets/IconosLocales/subway.jpg"/></td>
-      </tr><br> -->
       </table> 
     </div>
-</div>
-
-
+  </div>
 
 <!--HTML DE PEDIDO-->
 
-<h1 *ngIf="!mostrarLocales" class="tipoPerfil">Realizar Pedidos</h1>
+<h1 *ngIf="!mostrarLocales" class="tipoPerfil">Pedidos "{{localElegido_nombre}}" <img class="img-icono-producto" src="{{localElegido_foto}}" /></h1>
 
 <div *ngIf="!mostrarLocales" class="container"
      fxLayout="column"
@@ -66,70 +37,34 @@
   <div fxFlex class="container">
 
     <div class="container">
-      <div class="tabla-prod col-sm-7" style="padding: 5%">
 
-          <input type="text" placeholder="Busqueda" class="form-control miInput" [(ngModel)]="busqueda" >
-          <br>
-          
-          
-                            
-                            <mat-tab-group *ngFor="let tipo of (listaTiposProductos)" >
-                                <mat-tab>
-                                  <ng-template mat-tab-label>
-                                    {{tipo.nameTipo}}
-                                  </ng-template>
-                                  <table class="table">
-                                      <thead>
-                                        <th>Producto</th> <th>Precio</th> <th>Accion</th>
-                                      </thead>
-                                      <tbody *ngIf="listaTiposProductos">
-                                        <tr *ngFor="let producto of (tipo.productos | filtro: busqueda)">
-                                            <td estilo [tipo]="producto.responsable">{{producto.nombre}}</td>
-                                            <td >{{producto.precio | currency: '$ ' : 'symbol' : '1.0'}}</td>
-                                            <td><app-boton-agregar [producto]="producto" (enviar)="AgregarAlPedido($event)"></app-boton-agregar></td>
-                                        </tr>
-                                      </tbody>
-                                  </table>
-                                </mat-tab>
-                            </mat-tab-group>
-                                <!-- <mat-tab>
-                                  <ng-template mat-tab-label>
-                                    Bebidas
-                                  </ng-template>
-                                  <table class="table">
-                                    <thead>
-                                      <th>Producto</th> <th>Precio</th> <th>Accion</th>
-                                    </thead>
-                                    <tbody *ngIf="bebidas">
-                                      <tr *ngFor="let bebida of (bebidas | filtro: busqueda)">
-                                          <td estilo [tipo]="bebida.responsable">{{bebida.nombre}}</td>
-                                          <td >{{bebida.precio | currency: '$ ' : 'symbol' : '1.0'}}</td>
-                                          <td><app-boton-agregar [producto]="bebida" (enviar)="AgregarAlPedido($event)"></app-boton-agregar></td>
-                                      </tr>
-                                    </tbody>
-                                  </table>
-                                </mat-tab>
-                              
-                                <mat-tab>
-                                  <ng-template mat-tab-label>
-                                    Cafeteria
-                                  </ng-template>
-                                  <table class="table">
-                                    <thead>
-                                      <th>Producto</th> <th>Precio</th> <th>Accion</th>
-                                    </thead>
-                                    <tbody *ngIf="cafeteria">
-                                      <tr *ngFor="let caf of (cafeteria | filtro: busqueda)">
-                                          <td estilo [tipo]="caf.responsable">{{caf.nombre}}</td>
-                                          <td >{{caf.precio | currency: '$ ' : 'symbol' : '1.0'}}</td>
-                                          <td><app-boton-agregar [producto]="caf" (enviar)="AgregarAlPedido($event)"></app-boton-agregar></td>
-                                      </tr>
-                                    </tbody>
-                                  </table>
-                                </mat-tab> 
-                              </mat-tab-group>-->
-            
-                            </div>
+
+      <div>
+        <div class="div-categoria">
+          <label class="filtrar">Categoria productos</label>
+          <select [(ngModel)]='categoriaDefault' (change)="filtrarCategoria($event.target.value)">
+            <option *ngFor="let Categoria of (listaCategorias)" value="{{Categoria.id_tipo}}" >{{Categoria.descripcion}}</option>
+          </select>
+        </div>
+      <input type="text" placeholder="Busqueda" class="form-control miInput" [(ngModel)]="busqueda" >
+        <div class="div-productos">
+            <div class="tabla-prod col-sm-5" style="padding: 0%">
+                <table class="table">
+                  <thead>
+                      <th></th><th>Producto</th> <th>Precio </th> <th>Accion</th>
+                  </thead>
+                  <tbody *ngIf="listaProductos">
+                    <tr *ngFor="let producto of (listaProductosFiltrada | filtro: busqueda)">
+                        <td><img class="img-icono-producto" src="{{producto.foto}}" /></td>
+                        <td estilo [tipo]="producto.responsable">{{producto.nombre}}</td>
+                        <td >{{producto.precio | currency: '$ ' : 'symbol' : '1.0'}}</td>
+                        <td><app-boton-agregar [producto]="producto" (enviar)="AgregarAlPedido($event)"></app-boton-agregar></td>
+                    </tr>
+                  </tbody>
+                </table>            
+              </div>
+          </div>
+        </div>
 
      <!--     <div class="mat-elevation-z8 col-md-5" style="color:black; background: rgba(119, 136, 153, 0.481);">
     

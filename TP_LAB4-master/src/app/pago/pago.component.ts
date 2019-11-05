@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { PedidoService } from '../services/pedido.service';
+import { Pedido } from '../clases/pedido';
 
 @Component({
   selector: 'app-pago',
@@ -7,9 +9,14 @@ import { Component, OnInit } from '@angular/core';
 })
 export class PagoComponent implements OnInit {
 
+  pedido:Pedido;
+
   retiro=true;
-  constructor() {
-    console.log(JSON.parse(localStorage.getItem("pedido")));
+  constructor(
+    private httpPedido: PedidoService,
+  ) {
+    this.pedido=JSON.parse(localStorage.getItem("pedido"));
+    console.log(JSON.parse(localStorage.getItem("productosPedido")));
    }
 
   ngOnInit() {
@@ -25,6 +32,16 @@ export class PagoComponent implements OnInit {
   cancelar()
   {
     close();
+  }
+
+  IngresarPedido(){
+    this.httpPedido.IngresarPedido(this.pedido)
+    .subscribe(
+      (data)=>{
+     let res=JSON.parse(data._body);
+      this.pedido.id_pedido= res.idPedido;
+      console.log(res);
+    })
   }
 
 }

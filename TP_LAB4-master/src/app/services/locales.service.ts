@@ -13,4 +13,9 @@ export class LocalesService {
       return this.http.httpGet("Locales/TraerTodos")
       .pipe(data=>{return data});
     }
+
+    TraerRubros():Observable<any>{
+      return this.http.httpGet("Rubros/TraerTodos")
+      .pipe(data=>{return data});
+    }
 }

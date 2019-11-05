@@ -18,21 +18,21 @@ export class CsvComponent implements OnInit {
  
 
    }
-   Asignar()
-   {
-     let arrayProd= new Array();
-     this.pedido.detalle.forEach(prod => {
+  //  Asignar()
+  //  {
+  //    let arrayProd= new Array();
+  //    this.pedido.detalle.forEach(prod => {
 
-      arrayProd.push(prod.nombre);
+  //     arrayProd.push(prod.nombre);
        
-     });
-     this.data=[{
-       idPedido:this.pedido.id,
-       mesa: this.pedido.idMesa,
-       detalle: arrayProd
+  //    });
+  //    this.data=[{
+  //      idPedido:this.pedido.id,
+  //      mesa: this.pedido.idMesa,
+  //      detalle: arrayProd
 
-     }];
-   }
+  //    }];
+  //  }
 
   options = {
     fieldSeparator: ',',
@@ -53,7 +53,7 @@ export class CsvComponent implements OnInit {
 
 
   ngOnInit() {
-    this.Asignar();
+    // this.Asignar();
     //console.log(this.data);
 
   }

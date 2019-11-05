@@ -31,9 +31,13 @@ export interface DetalleProductos {
 
 export class MenuComponent implements OnInit {
 
+  rubroDefault:string = 'Todos';
+  categoriaDefault:string = 'Todos'
+
   displayedColumns: string[] = ['nombProducto', 'precio', 'accionesSusp'];
 
   listaProductos:Array<Producto>;
+  listaProductosFiltrada:Array<Producto>;
   platos:Array<Producto>=[];
   bebidas:Array<Producto>=[];
   cafeteria:Array<Producto>=[];
@@ -46,7 +50,17 @@ export class MenuComponent implements OnInit {
   respuestaAsync: any;
   mostrarLocales=true;
   @Input() mesasDisponibles:any;
-  listaLocales:Array<any>;
+  
+  listaLocalesCompleta:Array<any>;
+  listaLocalesFiltrada:Array<any>;
+  listaRubros:Array<any>;
+
+  listaCategorias:Array<any>;
+
+  localElegido_id:any;
+  localElegido_nombre:any;
+  localElegido_foto:any;
+
 
 
   // constructor(private dishServices:DishService) { }
@@ -58,9 +72,9 @@ export class MenuComponent implements OnInit {
             ) { 
 
     this.elPedido=new Pedido();
-    this.TraerProductos();
     this.TraerLocales();
   }
+
 
 
   cargarLocales(){
@@ -69,61 +83,49 @@ export class MenuComponent implements OnInit {
 
   TraerLocales(){
       this.httpLoc.TraerLocales().subscribe(data=>{
-        this.listaLocales= JSON.parse(data._body);
-      console.log(this.listaLocales);
+        this.listaLocalesCompleta= JSON.parse(data._body);
+        this.listaLocalesFiltrada=this.listaLocalesCompleta;
+
      });
+     this.TraerRubros()
+     this.TraerProductos();
+     this.TraerTiposProductos()
   }
+
+  TraerRubros(){
+    this.httpLoc.TraerRubros().subscribe(data=>{
+      this.listaRubros= JSON.parse(data._body);
+      console.log(this.listaRubros);
+   });
+}
 
   TraerProductos()
   {
     this.httpProd.TraerProductos().subscribe(data=>{
       this.listaProductos= JSON.parse(data._body);
-      //console.log(this.listaProductos);
-    for (let prod of this.listaProductos) {
-        switch (prod.tipo) {
-          case "platos":this.platos.push(prod);
-          break;
-          case "bebidas":this.bebidas.push(prod);
-          break;
-          case "cafeteria":this.cafeteria.push(prod);
-          break;
-      }
-    }
-    debugger;
-      this.listaTiposProductos = new Array<TiposProductos>();
-      let tipoProd = new TiposProductos();
-      let tipoProd2 = new TiposProductos();
-      let tipoProd3 = new TiposProductos();
-      tipoProd.nameTipo = "bebidas";
-      tipoProd.productos=this.bebidas;
-      this.listaTiposProductos.push(tipoProd);
-      //console.log(tipoProd.productos);
-      tipoProd2.nameTipo = "platos";
-      tipoProd2.productos=this.platos;
-      this.listaTiposProductos.push(tipoProd2);
-      //console.log(tipoProd2.productos);
-      tipoProd3.nameTipo = "cafeteria";
-      tipoProd3.productos=this.cafeteria;
-      this.listaTiposProductos.push(tipoProd3);
-      //console.log(tipoProd3.productos);
+      this.listaProductosFiltrada=this.listaProductos;
+      console.log(this.listaProductos);
+    // debugger;
    });
   }
 
-  TraerMesasDisp()
+  TraerTiposProductos()
   {
-    this.httpProd.TraerMesasDisponibles().subscribe(data=>{
-
-    
-      this.mesasDisponibles= JSON.parse(data._body);
-      console.log(this.mesasDisponibles);
-    //  console.log(this.listaProductos);
-      
+    this.httpProd.TraerTiposProductos().subscribe(data=>{
+      this.listaCategorias= JSON.parse(data._body);
+      console.log(this.listaCategorias);
+    // debugger;
    });
   }
 
-  pedir(){
+
+
+  pedir(id:any, nombre:any, foto:any){
+    this.localElegido_id=id;
+    this.localElegido_nombre=nombre;
+    this.localElegido_foto=foto;
     this.mostrarLocales=false;
-    console.log("estoy clickeando una imagen");
+    // console.log(this.localElegido);
   }
 
   AgregarAlPedido(producto:Producto)
@@ -151,31 +153,19 @@ export class MenuComponent implements OnInit {
 
   }
 
-IngresarPedido()
-{
-  this.elPedido.detalle= this.productosPedido;
-  this.elPedido.idMesa=this.mesaSeleccionada;
-  
-
+IngresarPedido(){
   this.httpPedido.IngresarPedido(this.elPedido)
   .subscribe(
       
     (data)=>{
    let res=JSON.parse(data._body);
-    this.elPedido.id= res.idPedido;
+    this.elPedido.id_pedido= res.idPedido;
    // console.log(this.elPedido);
   })
-
 }
 
 async IngresarPedidoPromise()
 {
-  this.elPedido.detalle= this.productosPedido;
-
-  console.log(this.mesaSeleccionada);
-  this.elPedido.idMesa=this.mesaSeleccionada;
-  
-
  await this.httpPedido.IngresarPedido(this.elPedido)
   .toPromise().then(
       
@@ -185,18 +175,51 @@ async IngresarPedidoPromise()
    // console.log(this.elPedido);
   })
 
-  this.elPedido.id= this.respuestaAsync.idPedido;
+  this.elPedido.id_pedido= this.respuestaAsync.idPedido;
 
 }
 
   ngOnInit() {
+    this.rubroDefault = 'Todos';
+    console.log(this.rubroDefault);
     // this.dishServices.getDishes()
     // .subscribe(dishes => this.dishes = dishes);
   }
 
-  // onSelect(dish: Dish){
-  //   this.selectedDish = dish;
-  // }
+  filtrarRubro(rubroDefault) {
+      var lista = new Array();
+      this.listaLocalesFiltrada = lista;
+      if(rubroDefault == '1'){
+        this.listaLocalesFiltrada = this.listaLocalesCompleta
+      }
+      else{
+        for (let local of this.listaLocalesCompleta) {
+          if (rubroDefault == local.id_rubro) {
+            lista.push(local);
+          }
+        }
+        this.listaLocalesFiltrada = lista;
+      }
+      //console.log(lista); // Aquí iría tu lógica al momento de seleccionar algo
+    }
+
+    filtrarCategoria(categoriaDefault) {
+      var lista = new Array();
+      this.listaProductosFiltrada = lista;
+      if(categoriaDefault == '1'){
+        this.listaProductosFiltrada = this.listaProductos
+      }
+      else{
+        for (let producto of this.listaProductos) {
+          if (categoriaDefault == producto.id_tipo) {
+            lista.push(producto);
+          }
+        }
+        this.listaLocalesFiltrada = lista;
+      }
+      //console.log(lista); // Aquí iría tu lógica al momento de seleccionar algo
+    }
+
 
   public captureScreen()  
   {  
@@ -217,8 +240,17 @@ async IngresarPedidoPromise()
   }  
 
   openPagoForm(){
-    localStorage.setItem('pedido',JSON.stringify(this.productosPedido));
+    this.crearPedido();
+    localStorage.setItem('pedido',JSON.stringify(this.elPedido));
+    localStorage.setItem('productosPedido',JSON.stringify(this.productosPedido));
     this.dialog.open(PagoComponent, {width:'400px', height:'550px'});
+  }
+
+  crearPedido(){
+    this.elPedido.tiempo_entrega=50;
+    this.elPedido.id_cliente=1;
+    this.elPedido.id_local=this.localElegido_id;
+    this.elPedido.id_estado=1;
   }
 
   
