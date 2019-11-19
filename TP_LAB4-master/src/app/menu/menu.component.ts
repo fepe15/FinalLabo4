@@ -7,6 +7,7 @@ import { MatDialog, MatDialogRef} from '@angular/material';
 import { filter } from 'rxjs/operators';
 import { PedidoService } from '../services/pedido.service';
 import { Pedido } from '../clases/pedido';
+import { local } from '../clases/local';
 import { PagoComponent } from '../pago/pago.component';
 import { LocalesService } from '../services/locales.service';
 
@@ -57,13 +58,8 @@ export class MenuComponent implements OnInit {
 
   listaCategorias:Array<any>;
 
-  localElegido_id:any;
-  localElegido_nombre:any;
-  localElegido_foto:any;
+  localElegido:local;
 
-
-
-  // constructor(private dishServices:DishService) { }
   constructor(
     private httpProd: ProductosService, 
     private httpLoc: LocalesService,
@@ -72,20 +68,15 @@ export class MenuComponent implements OnInit {
             ) { 
 
     this.elPedido=new Pedido();
+    this.localElegido=new local();
     this.TraerLocales();
   }
 
-
-
-  cargarLocales(){
-    
-  }
 
   TraerLocales(){
       this.httpLoc.TraerLocales().subscribe(data=>{
         this.listaLocalesCompleta= JSON.parse(data._body);
         this.listaLocalesFiltrada=this.listaLocalesCompleta;
-
      });
      this.TraerRubros()
      this.TraerProductos();
@@ -95,7 +86,6 @@ export class MenuComponent implements OnInit {
   TraerRubros(){
     this.httpLoc.TraerRubros().subscribe(data=>{
       this.listaRubros= JSON.parse(data._body);
-      console.log(this.listaRubros);
    });
 }
 
@@ -104,8 +94,6 @@ export class MenuComponent implements OnInit {
     this.httpProd.TraerProductos().subscribe(data=>{
       this.listaProductos= JSON.parse(data._body);
       this.listaProductosFiltrada=this.listaProductos;
-      console.log(this.listaProductos);
-    // debugger;
    });
   }
 
@@ -113,28 +101,21 @@ export class MenuComponent implements OnInit {
   {
     this.httpProd.TraerTiposProductos().subscribe(data=>{
       this.listaCategorias= JSON.parse(data._body);
-      console.log(this.listaCategorias);
-    // debugger;
    });
   }
 
-
-
   pedir(id:any, nombre:any, foto:any){
-    this.localElegido_id=id;
-    this.localElegido_nombre=nombre;
-    this.localElegido_foto=foto;
+    this.localElegido.id_local=id;
+    this.localElegido.nombre=nombre;
+    this.localElegido.foto=foto;
     this.mostrarLocales=false;
-    // console.log(this.localElegido);
   }
 
   AgregarAlPedido(producto:Producto)
   {
     this.productosPedido ? this.productosPedido.push(producto) : this.productosPedido= new Array<Producto>(producto);
     
-   this.totalPedido = this.totalPedido + producto.precio;
-  // console.log(this.totalPedido);
-    
+   this.totalPedido = this.totalPedido + producto.precio;    
   }
 
   QuitarAlPedido(producto:Producto){
@@ -145,7 +126,6 @@ export class MenuComponent implements OnInit {
       if(this.productosPedido[i].nombre == producto.nombre)
       {
         this.totalPedido-= producto.precio;
-      //  console.log("se va a borrar el producto " + this.productosPedido[i].nombre);
         this.productosPedido.splice(i,1);
         break;
       }
@@ -153,37 +133,9 @@ export class MenuComponent implements OnInit {
 
   }
 
-IngresarPedido(){
-  this.httpPedido.IngresarPedido(this.elPedido)
-  .subscribe(
-      
-    (data)=>{
-   let res=JSON.parse(data._body);
-    this.elPedido.id_pedido= res.idPedido;
-   // console.log(this.elPedido);
-  })
-}
-
-async IngresarPedidoPromise()
-{
- await this.httpPedido.IngresarPedido(this.elPedido)
-  .toPromise().then(
-      
-    (data)=>{
-   this.respuestaAsync =JSON.parse(data._body);
-    // this.elPedido.id= res.idPedido;
-   // console.log(this.elPedido);
-  })
-
-  this.elPedido.id_pedido= this.respuestaAsync.idPedido;
-
-}
-
   ngOnInit() {
     this.rubroDefault = 'Todos';
-    console.log(this.rubroDefault);
-    // this.dishServices.getDishes()
-    // .subscribe(dishes => this.dishes = dishes);
+
   }
 
   filtrarRubro(rubroDefault) {
@@ -200,7 +152,6 @@ async IngresarPedidoPromise()
         }
         this.listaLocalesFiltrada = lista;
       }
-      //console.log(lista); // Aquí iría tu lógica al momento de seleccionar algo
     }
 
     filtrarCategoria(categoriaDefault) {
@@ -217,42 +168,67 @@ async IngresarPedidoPromise()
         }
         this.listaLocalesFiltrada = lista;
       }
-      //console.log(lista); // Aquí iría tu lógica al momento de seleccionar algo
+
     }
 
-
-  public captureScreen()  
-  {  
-    var data = document.getElementById('contentToConvert');  
-    html2canvas(data).then(canvas => {  
-      // Few necessary setting options  
-      var imgWidth = 52;   
-      var pageHeight = 74;    
-      var imgHeight = 74;   
-      var heightLeft = imgHeight;  
-  
-      const contentDataURL = canvas.toDataURL('image/png')  
-      let pdf = new jspdf('p', 'mm', 'a8'); // A4 size page of PDF  
-      var position = 0;  
-      pdf.addImage(contentDataURL, 'PNG', 0, position, imgWidth, imgHeight)  
-      pdf.save('pedido.pdf'); // Generated PDF   
-    });  
-  }  
-
-  openPagoForm(){
+  openPagoForm(){ 
     this.crearPedido();
     localStorage.setItem('pedido',JSON.stringify(this.elPedido));
     localStorage.setItem('productosPedido',JSON.stringify(this.productosPedido));
-    this.dialog.open(PagoComponent, {width:'400px', height:'550px'});
+    localStorage.setItem('totalPedido',JSON.stringify(this.totalPedido));
+    localStorage.setItem('localElegido',JSON.stringify(this.localElegido));
+    this.dialog.open(PagoComponent, {width:'400px', height:'600px'});
   }
 
   crearPedido(){
     this.elPedido.tiempo_entrega=50;
     this.elPedido.id_cliente=1;
-    this.elPedido.id_local=this.localElegido_id;
+    this.elPedido.id_local=this.localElegido.id_local;
     this.elPedido.id_estado=1;
-  }
+  }  
 
+  //IngresarPedido(){
+    //   this.httpPedido.IngresarPedido(this.elPedido)
+    //   .subscribe(
+          
+    //     (data)=>{
+    //    let res=JSON.parse(data._body);
+    //     this.elPedido.id_pedido= res.idPedido;
+    //   })
+    // }
+    
+    // async IngresarPedidoPromise()
+    // {
+    //  await this.httpPedido.IngresarPedido(this.elPedido)
+    //   .toPromise().then(
+          
+    //     (data)=>{
+    //    this.respuestaAsync =JSON.parse(data._body);
+    //   })
+    
+    //   this.elPedido.id_pedido= this.respuestaAsync.idPedido;
+    
+    // }
+
+
+    // public captureScreen()  
+  // {  
+  //   var data = document.getElementById('contentToConvert');  
+  //   html2canvas(data).then(canvas => {  
+  //     // Few necessary setting options  
+  //     var imgWidth = 52;   
+  //     var pageHeight = 74;    
+  //     var imgHeight = 74;   
+  //     var heightLeft = imgHeight;  
   
+  //     const contentDataURL = canvas.toDataURL('image/png')  
+  //     let pdf = new jspdf('p', 'mm', 'a8'); // A4 size page of PDF  
+  //     var position = 0;  
+  //     pdf.addImage(contentDataURL, 'PNG', 0, position, imgWidth, imgHeight)  
+  //     pdf.save('pedido.pdf'); // Generated PDF   
+  //   });  
+  // }
 
 }
+
+

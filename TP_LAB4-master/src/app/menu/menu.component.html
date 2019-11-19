@@ -3,7 +3,7 @@
 
 
 <!--HTML DE LOCALES-->
-<h1 *ngIf="mostrarLocales" class="tipoPerfil">Locales</h1><br>
+<h1 *ngIf="mostrarLocales" class="tipoPerfil">Locales</h1>
 
 <div *ngIf="mostrarLocales" >
 
@@ -20,7 +20,7 @@
     <table>
       <tr *ngFor="let local of (listaLocalesFiltrada | filtro: busqueda)">
         <td class="name-local">{{local.nombre}}</td><br>
-        <td><img (click)="pedir(local.id_rubro,local.nombre,local.foto)" class="img-icono" src="{{local.foto}}" /></td>
+        <td><img (click)="pedir(local.id_local,local.nombre,local.foto)" class="img-icono" src="{{local.foto}}" /></td>
       </tr>
       </table> 
     </div>
@@ -28,15 +28,16 @@
 
 <!--HTML DE PEDIDO-->
 
-<h1 *ngIf="!mostrarLocales" class="tipoPerfil">Pedidos "{{localElegido_nombre}}" <img class="img-icono-producto" src="{{localElegido_foto}}" /></h1>
+<h1 *ngIf="!mostrarLocales" class="tipoPerfil">Pedidos "{{localElegido.nombre}}" <img class="img-icono-producto" src="{{localElegido.foto}}" /></h1>
 
 <div *ngIf="!mostrarLocales" class="container"
      fxLayout="column"
-     fxLayoutGap="10px">
+     fxLayoutGap="10px"
+     >
 
   <div fxFlex class="container">
 
-    <div class="container">
+    <div  class="container" style="margin-left:125px">
 
 
       <div>
@@ -46,9 +47,9 @@
             <option *ngFor="let Categoria of (listaCategorias)" value="{{Categoria.id_tipo}}" >{{Categoria.descripcion}}</option>
           </select>
         </div>
-      <input type="text" placeholder="Busqueda" class="form-control miInput" [(ngModel)]="busqueda" >
-        <div class="div-productos">
-            <div class="tabla-prod col-sm-5" style="padding: 0%">
+      <input type="text" placeholder="Busqueda" class="form-control miInput" style="width:450px" [(ngModel)]="busqueda" >
+        <!-- <div class="div-productos"> -->
+            <div class="tabla-prod col-sm-3" style="height:500px;width:450px;margin-right:30px;overflow:auto;color:black; background: rgba(119, 136, 153, 0.481);">
                 <table class="table">
                   <thead>
                       <th></th><th>Producto</th> <th>Precio </th> <th>Accion</th>
@@ -63,7 +64,7 @@
                   </tbody>
                 </table>            
               </div>
-          </div>
+          <!-- </div> -->
         </div>
 
      <!--     <div class="mat-elevation-z8 col-md-5" style="color:black; background: rgba(119, 136, 153, 0.481);">
@@ -73,7 +74,7 @@
 -->
 
       
-        <div class="mat-elevation-z8 col-sm-4" style="height: 600px; color:whitesmoke; background: rgba(119, 136, 153, 0.481);">
+        <div class="mat-elevation-z8 col-sm-4" style="height:562px; color:whitesmoke; background: rgba(119, 136, 153, 0.481); overflow:auto">
       
           <h3 style="color:whitesmoke; font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif; ">MI PEDIDO</h3>
 
@@ -89,9 +90,9 @@
                     <td> <app-boton-borrar [objeto]="producto" (enviarABorrar)="QuitarAlPedido($event)" ></app-boton-borrar> </td>
                 </tr>
               </tbody>
-              <tbody>
+              <tbody *ngIf="totalPedido!=0" >
                 <td>Total</td> <td>{{totalPedido | currency: '$ ': "symbol": '1.1-2'}} </td>
-                <td><button mat-raised-button color="accent" class="btn-pagar" *ngIf="productosPedido" (click)="openPagoForm()" id="hbtn">PAGAR <i class="material-icons">
+                <td><button  mat-raised-button color="accent" class="btn-pagar" (click)="openPagoForm()" id="hbtn">PAGAR <i class="material-icons">
                   payment
                   </i></button></td>
               </tbody>
@@ -99,9 +100,8 @@
         </div>
       </div>
 
-  </div>
+  </div>  
 </div>
-        
 
 
 

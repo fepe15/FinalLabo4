@@ -89,7 +89,6 @@ public SuspenderUsuario(id, estado)
 
 public CargarUsuario(usuario, clave, sexo, perfil?)
 { 
-
     let datos;
     let token= localStorage.getItem('token');
   if(perfil)
@@ -113,10 +112,22 @@ public CargarUsuario(usuario, clave, sexo, perfil?)
       "token": localStorage.getItem('token')
     }
   }
+
+  
 //  console.log(datos);
 
 
   return this.miHttp.httpPost("Usuarios/Carga",datos)
+  .pipe((data)=>{return data})
+
+}
+
+public CargarCliente(usuario:string,clave:string)
+{ 
+  return this.miHttp.httpPost("Usuarios/Carga",{
+    "usuario": usuario,
+    "clave":clave,
+    "perfil": "cliente",})
   .pipe((data)=>{return data})
 
 }
