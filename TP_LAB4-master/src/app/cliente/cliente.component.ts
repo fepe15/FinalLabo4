@@ -43,9 +43,10 @@ test:number=1;
 
 
    TraerPedidos(id){
+     console.log(id);
     this.httpPedido.TraerPedidosCliente(id).subscribe(data=>{
       this.listaPedidos= JSON.parse(data._body);
-      //console.log(this.listaPedidos);
+      console.log(this.listaPedidos);
    });
   }
 
@@ -66,7 +67,7 @@ test:number=1;
     this.httpPedido.CancelarPedido(id).subscribe(data=>{
       let respuesta = JSON.parse(data._body);
       if(respuesta == 1){
-        this.TraerPedidos(1);
+        this.TraerPedidos(2);
         this._snackBar.open("El pedido #" + id + " fue cancelado", "", {
           duration: 3000,
         });
@@ -76,16 +77,19 @@ test:number=1;
 
   ngOnInit() {
     this.verPedidos=true;
-    this.TraerPedidos(1)
+    this.TraerPedidos(2)
   }
 
   volverAPedidos(){
     this.verPedidos=true;
   }
+ 
 
   ngAfterContentInit() {
     console.log('ngAfterContentInit');
-    this.TraerPedidos(1)
+    setInterval(() => {
+      this.TraerPedidos(2);
+      }, 5000);
   } 
 
   // TraerTiempo()

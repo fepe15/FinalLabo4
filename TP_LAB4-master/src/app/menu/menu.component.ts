@@ -182,7 +182,7 @@ export class MenuComponent implements OnInit {
 
   crearPedido(){
     this.elPedido.tiempo_entrega=50;
-    this.elPedido.id_cliente=1;
+    this.elPedido.id_cliente=2;
     this.elPedido.id_local=this.localElegido.id_local;
     this.elPedido.id_estado=1;
   }  

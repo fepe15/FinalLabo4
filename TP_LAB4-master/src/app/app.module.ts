@@ -117,6 +117,7 @@ import { PagoComponent } from './pago/pago.component';
 import { AdministradorComponent } from './administrador/administrador.component';
 import { LocalesComponent } from './locales/locales.component';
 import { DetalleComponent } from './detalle/detalle.component';
+import { PedidoslocalComponent } from './pedidoslocal/pedidoslocal.component';
  
 
 export function tokenGetter() {
@@ -165,7 +166,8 @@ export function tokenGetter() {
     PagoComponent,
     AdministradorComponent,
     LocalesComponent,
-    DetalleComponent
+    DetalleComponent,
+    PedidoslocalComponent
   ],
   imports: [
     BrowserModule,

@@ -26,6 +26,11 @@ export class PedidoService {
     return this.http.httpGet("Pedidos/TraerPedidosCliente/"+id).pipe(data=>{return data});
   }
 
+  TraerPedidosLocal(id: number):Observable<any>
+  {
+    return this.http.httpGet("Pedidos/TraerPedidosLocal/"+id).pipe(data=>{return data});
+  }
+
   TraerTodosLosDetalles(id: number):Observable<any>
   {
     return this.http.httpGet("Pedidos/TraerTodosLosDetalles/"+id).pipe(data=>{return data});
@@ -50,6 +55,7 @@ export class PedidoService {
             "id_local": pedido.pago.id_local,
             "metodo_pago": pedido.pago.metodo_pago,
             "monto": pedido.pago.monto,
+            "estado": pedido.pago.estado,
           }
     }
     return this.http.httpPost("Pedidos/IngresarPedido", datos
@@ -60,6 +66,12 @@ export class PedidoService {
   CancelarPedido(id_pedido)
   {
     return this.http.httpPost("Pedidos/CancelarPedido",{"id_pedido": id_pedido })
+    .pipe((data)=>{return data})
+  }
+
+  CambiarEstadoPedido(id_pedido,id_estado)
+  {
+    return this.http.httpPost("Pedidos/CambiarEstadoPedido",{"id_pedido": id_pedido,"id_estado":id_estado})
     .pipe((data)=>{return data})
   }
 
