@@ -35,25 +35,36 @@ listaDetalles:Array<any>;
 listaLocales:Array<local>;
 verPedidos:boolean;
 pedidoElegido:any;
+datosCliente:any;
 
 test:number=1;
 
   constructor(private httpPedido: PedidoService,private httpLocales: LocalesService, private _snackBar: MatSnackBar) {
+    this.datosCliente = JSON.parse(localStorage.getItem("usuario"));
+    console.log(this.datosCliente.idUsuario)
    }
 
 
    TraerPedidos(id){
-     console.log(id);
     this.httpPedido.TraerPedidosCliente(id).subscribe(data=>{
       this.listaPedidos= JSON.parse(data._body);
-      console.log(this.listaPedidos);
+      this.listaPedidos=this.listaPedidos.sort((n1,n2) => {
+        if (n1.id_pedido > n2.id_pedido) {
+            return 1;
+        }
+    
+        if (n1.id_pedido < n2.id_pedido) {
+            return -1;
+        }
+    
+        return 0;
+    });
    });
   }
 
   TraerDetalles(id){
     this.httpPedido.TraerTodosLosDetalles(id).subscribe(data=>{
       this.listaDetalles= JSON.parse(data._body);
-      console.log(this.listaDetalles);
    });
   }
 
@@ -77,7 +88,7 @@ test:number=1;
 
   ngOnInit() {
     this.verPedidos=true;
-    this.TraerPedidos(2)
+    this.TraerPedidos(this.datosCliente.idUsuario)
   }
 
   volverAPedidos(){
@@ -88,7 +99,7 @@ test:number=1;
   ngAfterContentInit() {
     console.log('ngAfterContentInit');
     setInterval(() => {
-      this.TraerPedidos(2);
+      this.TraerPedidos(this.datosCliente.idUsuario);
       }, 5000);
   } 
 

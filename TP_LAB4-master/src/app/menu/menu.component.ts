@@ -51,6 +51,7 @@ export class MenuComponent implements OnInit {
   respuestaAsync: any;
   mostrarLocales=true;
   @Input() mesasDisponibles:any;
+  datosCliente:any;
   
   listaLocalesCompleta:Array<any>;
   listaLocalesFiltrada:Array<any>;
@@ -70,6 +71,7 @@ export class MenuComponent implements OnInit {
     this.elPedido=new Pedido();
     this.localElegido=new local();
     this.TraerLocales();
+    this.datosCliente = JSON.parse(localStorage.getItem("usuario"));
   }
 
 
@@ -113,18 +115,34 @@ export class MenuComponent implements OnInit {
 
   AgregarAlPedido(producto:Producto)
   {
-    this.productosPedido ? this.productosPedido.push(producto) : this.productosPedido= new Array<Producto>(producto);
-    
-   this.totalPedido = this.totalPedido + producto.precio;    
+    for (let unProd of this.listaProductos) {
+      if(unProd === producto){
+        if(unProd.cant_actual>0){
+          unProd.cant_actual = unProd.cant_actual-1;
+          this.productosPedido ? this.productosPedido.push(producto) : this.productosPedido= new Array<Producto>(producto);
+          this.totalPedido = this.totalPedido + producto.precio;
+          break; 
+        }
+        else{
+          alert("No hay mas stock del producto seleccionado");
+        }
+      }
+    } 
   }
 
   QuitarAlPedido(producto:Producto){
   
     for(let i = 0; i < this.productosPedido.length; i++)
     {
-      
+      for (let unProd of this.listaProductos) {
+        if(unProd === producto){
+          unProd.cant_actual++;
+          break;
+        }
+      } 
       if(this.productosPedido[i].nombre == producto.nombre)
       {
+        console.log(this.productosPedido);
         this.totalPedido-= producto.precio;
         this.productosPedido.splice(i,1);
         break;
@@ -182,7 +200,7 @@ export class MenuComponent implements OnInit {
 
   crearPedido(){
     this.elPedido.tiempo_entrega=50;
-    this.elPedido.id_cliente=2;
+    this.elPedido.id_cliente=this.datosCliente.idUsuario;
     this.elPedido.id_local=this.localElegido.id_local;
     this.elPedido.id_estado=1;
   }  
