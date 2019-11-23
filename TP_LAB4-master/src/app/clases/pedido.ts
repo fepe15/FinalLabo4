@@ -1,9 +1,14 @@
 import { Producto } from "./producto";
+import { Pago } from "./pago";
+
 
 export class Pedido {
-    id:number;
-    idMesa:number;
-    tiempoInicio:string;
-    fotoMesa:string;
-    detalle:Array<Producto>;
+    id_pedido:number;
+    fecha:Date;
+    id_cliente:number;
+    id_local:number;
+    id_estado:number;
+    tiempo_entrega:number;
+    productos:Array<Producto>;
+    pago:Pago;
 }

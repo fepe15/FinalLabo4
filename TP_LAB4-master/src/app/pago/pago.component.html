@@ -1,41 +1,96 @@
-          <div *ngIf="retiro">
-            <h3 style="text-align: center">
-              Seleccione su retiro 
-            </h3><br><br>
+<!-- Pagina de pago 1 -->
+<div *ngIf="pagePago=='page1'">
 
-            <div>
-                  <mat-radio-group aria-label="Select an option">
-                    <mat-radio-button value="1">Retirar en 40 minutos</mat-radio-button><br><br><br>
-                    <mat-radio-button value="2">Programar retiro</mat-radio-button>
-                  </mat-radio-group><br><br><br><br><br><br><br><br>
+    <p style="text-align: center">
+        <i class="material-icons">
+            looks_one
+        </i>------------------------------------------------- 
+    </p><br>
+
+    <div>   
+        <div style="text-align: center; border: 1px solid; margin-bottom: 10px;">   
+            <p style="text-align: center;font-family: 'Lucida Sans'; font-size: large ">Opcion de retiro *</p><br>
+            <mat-radio-group (change)="radioChange(modoRetiro)" [(ngModel)]="modoRetiro" aria-label="Select an option">
+                <mat-radio-button name="radio1" value="1">Retirar en 45 minutos</mat-radio-button><br><br><br>
+                <mat-radio-button name="radio2" value="2">Programar retiro</mat-radio-button>
+            </mat-radio-group><br><br>
+            <div *ngIf="modoRetiro==2">
+                <label style="margin-right: 10px;" >Retirar en </label>
+                <select style="color: black;" [(ngModel)]='tiempoElegido'>
+                    <option style="color: black;" *ngFor="let tiempo of (tiempos)" value="{{tiempo}}" >{{tiempo}} hs</option>
+                </select><br>
             </div>
-              
-            <div > 
-              <button class="btn-cancelar"  mat-raised-button color="warn">Cancelar</button>
-              <button class="btn-confirmar"  mat-raised-button color="accent" (click)="confirmar()">Confirmar</button>
-            </div>
-          </div>
+        </div>
+        <div style="text-align: center; border: 1px solid; margin-top: 30px; margin-bottom: 10px;">
+            <p style="font-family: 'Lucida Sans'; font-size: large;">Metodo de pago *</p>
+            <mat-radio-group [(ngModel)]="metodoPago" aria-label="Select an option">
+                <mat-radio-button style="margin-right:10px;" value="efectivo">Efectivo </mat-radio-button>
+                <mat-radio-button value="tarjeta">Tarjeta de Credito</mat-radio-button>
+            </mat-radio-group>
+        </div><br><br>
+    </div>
+        <div>
+            <button class="btn-cancelar"  mat-raised-button color="warn" (click)="cancelar()">Cancelar</button>
+            <button class="btn-confirmar"  mat-raised-button color="accent" (click)="continuar1()">Continuar</button>
+        </div>
+  </div>
 
+<!-- Pagina de pago 2 -->
+  <div *ngIf="pagePago=='page2'">
 
-<div *ngIf="!retiro"  >
-      <h3 style="text-align: center" >Ingrese sus datos</h3><br>
+      <p style="text-align: center;">
+          <i class="material-icons">looks_one</i>---------------------<i class="material-icons">looks_two</i>----------------------</p><br>
+
       <div>
-        <p style="text-align: center">Datos Personales</p><br>  
-        <label *ngIf="!retiro" >Nombre y apellido</label>
-        <input class="input" type="text"><br><br>
-        <label >Documento</label>
-        <input class="input" type="number"><br><br>
-        <p style="text-align: center">Datos de su tarjeta</p><br>
-        <label >Numeros frontales</label>
-        <input class="input" type="number"><br><br>
-        <label >Fecha de vencimiento</label>
-        <input class="input" type="date"><br><br>
-        <label >Codigo</label>
-        <input class="input" type="number"><br><br><br>
+          <p style="text-align: center;font-family: 'Lucida Sans'; font-size: large ">Datos Personales</p>  
+          <label  >Nombre y apellido*</label>
+          <input [(ngModel)]="nombreyApellido" class="input" type="text" required=""><br><br>
+          <label >Documento*</label>
+          <input [(ngModel)]="documento" class="input" type="number"><br><br>
+
+          <div *ngIf="metodoPago=='tarjeta'">
+                <p style="text-align: center;font-family: 'Lucida Sans'; font-size: large ">Datos tarjeta</p>  
+                <label  >Numeros frontales*</label>
+                <input [(ngModel)]='numFrontales' class="input" type="number"><br><br>
+                <label >Fecha de vencimiento*<br></label>
+                <input [(ngModel)]='fechaVencimiento' maxlength="4" oninput="if(this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);" class="input" type="number"><br><br>
+                <label >Codigo*</label>
+                <input [(ngModel)]='codSeguridad' class="input" type="number"><br><br>
+          </div>
       </div>
-      <div> 
-          <button class="btn-cancelar"  mat-raised-button color="warn" (click)="cancelar()">Cancelar</button>
-          <button class="btn-confirmar"  mat-raised-button color="accent" (click)="confirmar()">Confirmar</button>
-      </div>
-</div>
+
+        <div> 
+            <button class="btn-cancelar"  mat-raised-button color="warn" (click)="atras()">Atras</button>
+            <button class="btn-confirmar"  mat-raised-button color="accent" (click)="continuar2()">Continuar</button>
+        </div>
+  </div>
+
+  <!-- Pagina de pago 3 -->
+  <div *ngIf="pagePago=='page3'">
+
+        <p style="text-align: center;">
+            <i class="material-icons">
+                looks_one
+            </i>---------------------
+            <i class="material-icons">
+                looks_two
+            </i>----------------------
+            <i class="material-icons">
+                looks_3
+                </i>
+        </p><br>
+    
+        <div style="border: 1px dashed; border-radius: 8px; text-align: center; margin-left: 28px; width: 300px;">      
+            <p style="text-align: center; font-size: 20px; font-family: Arial;">Cuenta</p>
+            <label class="label-ticket">Hora de Retiro : {{horaEntrega}} </label><br>
+            <label class="label-ticket">Local: {{localElegido.nombre}}</label><br>
+            <label class="label-ticket">Metodo Pago: {{metodoPago}}</label><br>
+            <label style="font-size: 20px; font-weight: bold;" >Total: ${{totalPedido}}</label>
+        </div><br><br>
+
+        <div> 
+                <button class="btn-cancelar"  mat-raised-button color="warn" (click)="atras()">Atras</button>
+                <button class="btn-confirmar"  mat-raised-button color="accent" (click)="pagarPedido()">Confirmar</button>
+        </div>
+  </div>
   

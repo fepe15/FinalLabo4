@@ -18,12 +18,12 @@ export class AdministradorComponent implements OnInit {
   perfil:any;
   listaLocales;
 
-  local;
+  nombre;
   telefono;
   cuit;
   razon_social;
   foto;
-
+  
   displayedColumns: string[] = ['position', 'mesa', 'name', 'weight', 'symbol'];
   constructor(private dialog: MatDialog,private httpLocal: LocalesService) { }
 
@@ -36,29 +36,30 @@ export class AdministradorComponent implements OnInit {
 
   openDetalle(){
     this.dialog.open(DetalleComponent, {width:'300px', height:'250px'});
-
     this.TraerLocales();
   }
+
   TraerLocales(){
     this.httpLocal.TraerLocales().subscribe(data=>{
       this.listaLocales= JSON.parse(data._body);
     console.log(this.listaLocales);
    });
-}
+  }
+
 guardar()
   {
-    
+
     var prod=new local();
-    prod.local=this.local;
+    prod.nombre=this.nombre;
     prod.telefono=this.telefono;
     prod.cuit=this.cuit;
     prod.razon_social=this.razon_social;
     prod.foto=this.foto;
-   
+
 
     this.httpLocal.IngresarLocal(prod)
     .subscribe(
-        
+
       (data)=>{
      let res=JSON.parse(data._body);
       //this.elPedido.id= res.idPedido;

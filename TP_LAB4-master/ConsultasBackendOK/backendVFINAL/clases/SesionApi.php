@@ -27,7 +27,8 @@ try
     
     $datos = array('usuario' => $usuario->usuario,
                     'perfil' => $usuario->perfil, 
-                    'idUsuario' => $usuario->id
+                    'idUsuario' => $usuario->id,
+                    'id_local' => $usuario->id_local
                     // 'idSesion' => $idSesion
                 );
     $token= AutentificadorJWT::CrearToken($datos);

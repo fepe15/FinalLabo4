@@ -14,7 +14,7 @@
 
     <div class="form-group"> 
             <mat-form-field>
-                <input matInput placeholder="Ingrese Usuario"  formControlName="username"   type="text" name="usuario" required>
+                <input matInput placeholder="Ingrese Usuario"  formControlName="username"  type="email" ngModel [email]="true" name="usuario" required>
                 <mat-error *ngIf="">{{getErrorMessageUser()}}</mat-error> 
               </mat-form-field>
 
@@ -42,7 +42,8 @@
 
 
 
-<form *ngIf="registro" >
+<!-- REGISTROOOOO -->
+<form *ngIf="registro" novalidate [formGroup]="registerForm" (ngSubmit)="Registrar()">
     <mat-toolbar mat-dialog-title color="gray">
         <h2 class="display-3">Registrarse <button mat-button mat-dialog-close id="closebtn">&times;</button></h2>
     </mat-toolbar>
@@ -54,22 +55,22 @@
 
     <div class="form-group"> 
             <mat-form-field>
-                <input matInput placeholder="Ingresar Mail"  formControlName="username"   type="usuario" name="usuario" required>
+                <input matInput placeholder="Ingresar Mail"  formControlName="username" type="email" ngModel [email]="true" name="usuario" required>
               </mat-form-field>
 
     </div>
-<div class="form-group">
-          <mat-form-field>
-            <input matInput placeholder="Ingresar contraseña"  formControlName="password"  name="password" [type]="hide ? 'password' : 'text'">
-            <mat-icon matSuffix (click)="hide = !hide">{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
-          </mat-form-field>  
+    <div class="form-group">
+      <mat-form-field>
+        <input matInput placeholder="Ingrese contraseña"  formControlName="password"  name="password" type="password">
+        <mat-icon matSuffix (click)="hide = !hide">{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+      </mat-form-field>  
 
 </div>
 <div class="form-group">
-    <mat-form-field>
-      <input matInput placeholder="Confirmar contraseña"  formControlName="password"  name="password" [type]="hide ? 'password' : 'text'">
-      <mat-icon matSuffix (click)="hide = !hide">{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
-    </mat-form-field>  
+  <mat-form-field>
+    <input matInput placeholder="Confirme contraseña"  formControlName="password2"  name="password2" type="password">
+    <mat-icon matSuffix (click)="hide = !hide">{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+  </mat-form-field>  
 
 </div>
 

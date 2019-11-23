@@ -21,9 +21,20 @@
     margin-left: 13px;
   }
 
+  .img-icono-producto{
+    width: 60px; 
+    height: 60px;
+    border-radius: 10px;
+    margin-left: 13px;
+  }
+
 .name-local{
     font-size: 20px;
     color: antiquewhite;
+}
+
+.div-categoria{
+    margin-left: 60px;
 }
 
 
@@ -52,6 +63,13 @@
     overflow: auto;
 }
 
+.div-productos{
+    height: 500px;
+    width: 450px;
+    margin-right: 30px;
+    overflow: auto;
+}
+
 .btn-pagar{
     margin-left: 5%;
     height: 100px;
@@ -71,10 +89,16 @@
     border: solid;
     color: white;
     text-align: center;
-    font-size: 50px;
+    font-size: 40px;
     text-transform: uppercase;
   }
-  
+
+  .tipoPerfil2{
+    color: white;
+    text-align: center;
+    font-size: 25;
+    text-transform: uppercase;
+  }
 
 .col-md-5 {
     width: 100%;

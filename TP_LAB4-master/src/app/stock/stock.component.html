@@ -24,6 +24,8 @@
 
   <div class="form-ingreso">
         <h3 letraYcolor >Nuevo producto: </h3>
+        
+        
         <div class="row" >
 
           <div class="col-sm-12" style="text-align: center"> <img  src="../../assets/images/login.png" width="100px" height="100px">  </div>
@@ -36,36 +38,36 @@
 
   </div>
 
-    <br>
+  <br>
 
-      <div class="row" >
-          <div class="col-sm-2"> <label style="color: white">Producto:</label>  </div>
-          <div class="col-sm-4"> <input type="text" class="form-control" [(ngModel)]="nombre" placeholder="" >  </div>
-          <div class="col-sm-2"> <label style="color: white">Precio:</label></div>
-          <div class="col-sm-4"> <input type="text" class="form-control" [(ngModel)]="precio" placeholder="" > </div>
-
-
-    </div>
-    <br>
   <div class="row" >
-      <div class="col-sm-2"> <label style="color: white">Cant max.:</label>  </div>
-      <div class="col-sm-4"> <input type="text" class="form-control" [(ngModel)]="cant_max" placeholder="" >  </div>
-      <div class="col-sm-2"> <label style="color: white">Cant min:</label></div>
-      <div class="col-sm-4"> <input type="text" class="form-control" [(ngModel)]="cant_min" placeholder="" > </div>
+      <div class="col-sm-2"> <label style="color: white">Producto:</label>  </div>
+      <div class="col-sm-4"> <input type="text" class="form-control" [(ngModel)]="nombre" placeholder="" >  </div>
+      <div class="col-sm-2"> <label style="color: white">Precio:</label></div>
+      <div class="col-sm-4"> <input type="text" class="form-control" [(ngModel)]="precio" placeholder="" > </div>
+
 
 </div>
 <br>
 <div class="row" >
-        <div class="col-sm-2"> <label style="color: white">Tiempo Preparacion:</label>  </div>
-        <div class="col-sm-4"> <input type="text" class="form-control" [(ngModel)]="tiempo_pre" placeholder="" >  </div>
-        <div class="col-sm-2"> <label style="color: white">Cant:</label></div>
-        <div class="col-sm-4"> <input type="text" class="form-control" [(ngModel)]="cant_actual" placeholder="" > </div>
+  <div class="col-sm-2"> <label style="color: white">Cant max.:</label>  </div>
+  <div class="col-sm-4"> <input type="text" class="form-control" [(ngModel)]="cant_max" placeholder="" >  </div>
+  <div class="col-sm-2"> <label style="color: white">Cant min:</label></div>
+  <div class="col-sm-4"> <input type="text" class="form-control" [(ngModel)]="cant_min" placeholder="" > </div>
 
-  </div>
+</div>
+<br>
+<div class="row" >
+    <div class="col-sm-2"> <label style="color: white">Tiempo Preparacion:</label>  </div>
+    <div class="col-sm-4"> <input type="text" class="form-control" [(ngModel)]="tiempo_pre" placeholder="" >  </div>
+    <div class="col-sm-2"> <label style="color: white">Cant:</label></div>
+    <div class="col-sm-4"> <input type="text" class="form-control" [(ngModel)]="cant_actual" placeholder="" > </div>
 
-  <div class="row" >
-      <div class="col-sm-6" style="text-align: right">  <button class="btn btn-primary" (click)="guardar()" >Aceptar</button></div>
-      <div class="col-sm-6" style="text-align: left">  <button class="btn btn-warning" (click)="algo()"  >Cancelar</button> </div>
+</div>
+
+<div class="row" >
+  <div class="col-sm-6" style="text-align: right">  <button class="btn btn-primary" (click)="guardar()" >Aceptar</button></div>
+  <div class="col-sm-6" style="text-align: left">  <button class="btn btn-warning" (click)="algo()"  >Cancelar</button> </div>
 
 
 

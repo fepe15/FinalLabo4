@@ -7,6 +7,7 @@ import { MatDialog, MatDialogRef} from '@angular/material';
 import { filter } from 'rxjs/operators';
 import { PedidoService } from '../services/pedido.service';
 import { Pedido } from '../clases/pedido';
+import { local } from '../clases/local';
 import { PagoComponent } from '../pago/pago.component';
 import { LocalesService } from '../services/locales.service';
 
@@ -31,9 +32,13 @@ export interface DetalleProductos {
 
 export class MenuComponent implements OnInit {
 
+  rubroDefault:string = 'Todos';
+  categoriaDefault:string = 'Todos'
+
   displayedColumns: string[] = ['nombProducto', 'precio', 'accionesSusp'];
 
   listaProductos:Array<Producto>;
+  listaProductosFiltrada:Array<Producto>;
   platos:Array<Producto>=[];
   bebidas:Array<Producto>=[];
   cafeteria:Array<Producto>=[];
@@ -46,10 +51,16 @@ export class MenuComponent implements OnInit {
   respuestaAsync: any;
   mostrarLocales=true;
   @Input() mesasDisponibles:any;
-  listaLocales:Array<any>;
+  datosCliente:any;
+  
+  listaLocalesCompleta:Array<any>;
+  listaLocalesFiltrada:Array<any>;
+  listaRubros:Array<any>;
 
+  listaCategorias:Array<any>;
 
-  // constructor(private dishServices:DishService) { }
+  localElegido:local;
+
   constructor(
     private httpProd: ProductosService, 
     private httpLoc: LocalesService,
@@ -58,92 +69,81 @@ export class MenuComponent implements OnInit {
             ) { 
 
     this.elPedido=new Pedido();
-    this.TraerProductos();
+    this.localElegido=new local();
     this.TraerLocales();
+    this.datosCliente = JSON.parse(localStorage.getItem("usuario"));
   }
 
-
-  cargarLocales(){
-    
-  }
 
   TraerLocales(){
       this.httpLoc.TraerLocales().subscribe(data=>{
-        this.listaLocales= JSON.parse(data._body);
-      console.log(this.listaLocales);
+        this.listaLocalesCompleta= JSON.parse(data._body);
+        this.listaLocalesFiltrada=this.listaLocalesCompleta;
      });
+     this.TraerRubros()
+     this.TraerProductos();
+     this.TraerTiposProductos()
   }
+
+  TraerRubros(){
+    this.httpLoc.TraerRubros().subscribe(data=>{
+      this.listaRubros= JSON.parse(data._body);
+   });
+}
 
   TraerProductos()
   {
     this.httpProd.TraerProductos().subscribe(data=>{
       this.listaProductos= JSON.parse(data._body);
-      //console.log(this.listaProductos);
-    for (let prod of this.listaProductos) {
-        switch (prod.tipo) {
-          case "platos":this.platos.push(prod);
-          break;
-          case "bebidas":this.bebidas.push(prod);
-          break;
-          case "cafeteria":this.cafeteria.push(prod);
-          break;
-      }
-    }
-    debugger;
-      this.listaTiposProductos = new Array<TiposProductos>();
-      let tipoProd = new TiposProductos();
-      let tipoProd2 = new TiposProductos();
-      let tipoProd3 = new TiposProductos();
-      tipoProd.nameTipo = "bebidas";
-      tipoProd.productos=this.bebidas;
-      this.listaTiposProductos.push(tipoProd);
-      //console.log(tipoProd.productos);
-      tipoProd2.nameTipo = "platos";
-      tipoProd2.productos=this.platos;
-      this.listaTiposProductos.push(tipoProd2);
-      //console.log(tipoProd2.productos);
-      tipoProd3.nameTipo = "cafeteria";
-      tipoProd3.productos=this.cafeteria;
-      this.listaTiposProductos.push(tipoProd3);
-      //console.log(tipoProd3.productos);
+      this.listaProductosFiltrada=this.listaProductos;
    });
   }
 
-  TraerMesasDisp()
+  TraerTiposProductos()
   {
-    this.httpProd.TraerMesasDisponibles().subscribe(data=>{
-
-    
-      this.mesasDisponibles= JSON.parse(data._body);
-      console.log(this.mesasDisponibles);
-    //  console.log(this.listaProductos);
-      
+    this.httpProd.TraerTiposProductos().subscribe(data=>{
+      this.listaCategorias= JSON.parse(data._body);
    });
   }
 
-  pedir(){
+  pedir(id:any, nombre:any, foto:any){
+    this.localElegido.id_local=id;
+    this.localElegido.nombre=nombre;
+    this.localElegido.foto=foto;
     this.mostrarLocales=false;
-    console.log("estoy clickeando una imagen");
   }
 
   AgregarAlPedido(producto:Producto)
   {
-    this.productosPedido ? this.productosPedido.push(producto) : this.productosPedido= new Array<Producto>(producto);
-    
-   this.totalPedido = this.totalPedido + producto.precio;
-  // console.log(this.totalPedido);
-    
+    for (let unProd of this.listaProductos) {
+      if(unProd === producto){
+        if(unProd.cant_actual>0){
+          unProd.cant_actual = unProd.cant_actual-1;
+          this.productosPedido ? this.productosPedido.push(producto) : this.productosPedido= new Array<Producto>(producto);
+          this.totalPedido = this.totalPedido + producto.precio;
+          break; 
+        }
+        else{
+          alert("No hay mas stock del producto seleccionado");
+        }
+      }
+    } 
   }
 
   QuitarAlPedido(producto:Producto){
   
     for(let i = 0; i < this.productosPedido.length; i++)
     {
-      
+      for (let unProd of this.listaProductos) {
+        if(unProd === producto){
+          unProd.cant_actual++;
+          break;
+        }
+      } 
       if(this.productosPedido[i].nombre == producto.nombre)
       {
+        console.log(this.productosPedido);
         this.totalPedido-= producto.precio;
-      //  console.log("se va a borrar el producto " + this.productosPedido[i].nombre);
         this.productosPedido.splice(i,1);
         break;
       }
@@ -151,76 +151,102 @@ export class MenuComponent implements OnInit {
 
   }
 
-IngresarPedido()
-{
-  this.elPedido.detalle= this.productosPedido;
-  this.elPedido.idMesa=this.mesaSeleccionada;
-  
-
-  this.httpPedido.IngresarPedido(this.elPedido)
-  .subscribe(
-      
-    (data)=>{
-   let res=JSON.parse(data._body);
-    this.elPedido.id= res.idPedido;
-   // console.log(this.elPedido);
-  })
-
-}
-
-async IngresarPedidoPromise()
-{
-  this.elPedido.detalle= this.productosPedido;
-
-  console.log(this.mesaSeleccionada);
-  this.elPedido.idMesa=this.mesaSeleccionada;
-  
-
- await this.httpPedido.IngresarPedido(this.elPedido)
-  .toPromise().then(
-      
-    (data)=>{
-   this.respuestaAsync =JSON.parse(data._body);
-    // this.elPedido.id= res.idPedido;
-   // console.log(this.elPedido);
-  })
-
-  this.elPedido.id= this.respuestaAsync.idPedido;
-
-}
-
   ngOnInit() {
-    // this.dishServices.getDishes()
-    // .subscribe(dishes => this.dishes = dishes);
+    this.rubroDefault = 'Todos';
+
   }
 
-  // onSelect(dish: Dish){
-  //   this.selectedDish = dish;
-  // }
+  filtrarRubro(rubroDefault) {
+      var lista = new Array();
+      this.listaLocalesFiltrada = lista;
+      if(rubroDefault == '1'){
+        this.listaLocalesFiltrada = this.listaLocalesCompleta
+      }
+      else{
+        for (let local of this.listaLocalesCompleta) {
+          if (rubroDefault == local.id_rubro) {
+            lista.push(local);
+          }
+        }
+        this.listaLocalesFiltrada = lista;
+      }
+    }
 
-  public captureScreen()  
-  {  
-    var data = document.getElementById('contentToConvert');  
-    html2canvas(data).then(canvas => {  
-      // Few necessary setting options  
-      var imgWidth = 52;   
-      var pageHeight = 74;    
-      var imgHeight = 74;   
-      var heightLeft = imgHeight;  
-  
-      const contentDataURL = canvas.toDataURL('image/png')  
-      let pdf = new jspdf('p', 'mm', 'a8'); // A4 size page of PDF  
-      var position = 0;  
-      pdf.addImage(contentDataURL, 'PNG', 0, position, imgWidth, imgHeight)  
-      pdf.save('pedido.pdf'); // Generated PDF   
-    });  
+    filtrarCategoria(categoriaDefault) {
+      var lista = new Array();
+      this.listaProductosFiltrada = lista;
+      if(categoriaDefault == '1'){
+        this.listaProductosFiltrada = this.listaProductos
+      }
+      else{
+        for (let producto of this.listaProductos) {
+          if (categoriaDefault == producto.id_tipo) {
+            lista.push(producto);
+          }
+        }
+        this.listaLocalesFiltrada = lista;
+      }
+
+    }
+
+  openPagoForm(){ 
+    this.crearPedido();
+    localStorage.setItem('pedido',JSON.stringify(this.elPedido));
+    localStorage.setItem('productosPedido',JSON.stringify(this.productosPedido));
+    localStorage.setItem('totalPedido',JSON.stringify(this.totalPedido));
+    localStorage.setItem('localElegido',JSON.stringify(this.localElegido));
+    this.dialog.open(PagoComponent, {width:'400px', height:'600px'});
+  }
+
+  crearPedido(){
+    this.elPedido.tiempo_entrega=50;
+    this.elPedido.id_cliente=this.datosCliente.idUsuario;
+    this.elPedido.id_local=this.localElegido.id_local;
+    this.elPedido.id_estado=1;
   }  
 
-  openPagoForm(){
-    localStorage.setItem('pedido',JSON.stringify(this.productosPedido));
-    this.dialog.open(PagoComponent, {width:'400px', height:'550px'});
-  }
+  //IngresarPedido(){
+    //   this.httpPedido.IngresarPedido(this.elPedido)
+    //   .subscribe(
+          
+    //     (data)=>{
+    //    let res=JSON.parse(data._body);
+    //     this.elPedido.id_pedido= res.idPedido;
+    //   })
+    // }
+    
+    // async IngresarPedidoPromise()
+    // {
+    //  await this.httpPedido.IngresarPedido(this.elPedido)
+    //   .toPromise().then(
+          
+    //     (data)=>{
+    //    this.respuestaAsync =JSON.parse(data._body);
+    //   })
+    
+    //   this.elPedido.id_pedido= this.respuestaAsync.idPedido;
+    
+    // }
 
+
+    // public captureScreen()  
+  // {  
+  //   var data = document.getElementById('contentToConvert');  
+  //   html2canvas(data).then(canvas => {  
+  //     // Few necessary setting options  
+  //     var imgWidth = 52;   
+  //     var pageHeight = 74;    
+  //     var imgHeight = 74;   
+  //     var heightLeft = imgHeight;  
   
+  //     const contentDataURL = canvas.toDataURL('image/png')  
+  //     let pdf = new jspdf('p', 'mm', 'a8'); // A4 size page of PDF  
+  //     var position = 0;  
+  //     pdf.addImage(contentDataURL, 'PNG', 0, position, imgWidth, imgHeight)  
+  //     pdf.save('pedido.pdf'); // Generated PDF   
+  //   });  
+  // }
 
 }
+
+

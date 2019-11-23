@@ -36,19 +36,15 @@ class UsuarioApi extends Usuario implements IApiUsable
         
         $ArrayDeParametros = $request->getParsedBody();
         //var_dump($ArrayDeParametros);
-         $usuario= $ArrayDeParametros['usuario'];
+        $usuario= $ArrayDeParametros['usuario'];
         $clave= $ArrayDeParametros['clave'];
         $perfil= $ArrayDeParametros['perfil'];
-        $sexo= $ArrayDeParametros['sexo'];
-        $estado= "activo";
        
 
         $miUsuario= new Usuario();
         $miUsuario->usuario=$usuario;
         $miUsuario->clave=$clave;
-        $miUsuario->sexo=$sexo;
         $miUsuario->perfil=$perfil;
-        $miUsuario->estado=$estado;
 
         $ultimoId=$miUsuario->InsertarUsuario();    
         //$response->getBody()->write("se guardo el empleado");

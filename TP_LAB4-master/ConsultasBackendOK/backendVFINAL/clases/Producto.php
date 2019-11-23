@@ -13,8 +13,6 @@ class Producto
     public $punto_repo;
     public $tiempo_pre;
     public $foto;
-
-
     
 public function GuardarProducto()
 {
@@ -34,8 +32,6 @@ public function GuardarProducto()
     $consulta->execute();
 	return $objetoAccesoDato->RetornarUltimoIdInsertado();
 }
-
-
 public static function TraerTodosLosProductos() 
 {
     $objetoAccesoDato = AccesoDatos::dameUnObjetoAcceso(); 
@@ -46,7 +42,6 @@ public static function TraerTodosLosProductos()
     return $producto;
 									
 }
-
 public static function TraerProducto($nombre) 
 {
     $objetoAccesoDato = AccesoDatos::dameUnObjetoAcceso(); 
@@ -55,9 +50,20 @@ public static function TraerProducto($nombre)
 	$consulta->execute();
 	$producto= $consulta->fetchObject('Producto');
             
-    return $producto;
-									
+    return $producto;									
 }
+
+public static function ModificarStock($id) 
+{
+    $objetoAccesoDato = AccesoDatos::dameUnObjetoAcceso(); 
+    $consulta =$objetoAccesoDato->RetornarConsulta("UPDATE productos set cant_actual = cant_actual-1 WHERE id=$id");  
+    $consulta->bindValue(':id', $id, PDO::PARAM_INT);
+	$consulta->execute();
+	$producto= $consulta->fetchObject('Producto');
+            
+    return $producto;									
+}
+
 /*
 public function BorrarProducto()
 {
@@ -70,11 +76,8 @@ public function BorrarProducto()
     $consulta->execute();
     return $consulta->rowCount();
 }
-
-
 public function ModificarProducto()
 {
-
     $objetoAccesoDato = AccesoDatos::dameUnObjetoAcceso(); 
     $consulta =$objetoAccesoDato->RetornarConsulta("
            update productos 
@@ -82,9 +85,7 @@ public function ModificarProducto()
            WHERE nombre='$this->nombre'");
            
     return $consulta->execute();
-
 }
-
 */
 }
 

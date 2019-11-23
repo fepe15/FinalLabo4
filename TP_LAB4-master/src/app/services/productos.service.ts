@@ -29,7 +29,7 @@ export class ProductosService {
       "nombre": producto.nombre,
       "precio":producto.precio,
       "cant_actual":producto.cant_actual,
-      "foto":producto.foto,
+      "foto":"sarasa",
       "tiempo_pre":producto.tiempo_pre,
       "tipo":producto.tipo,
       "cant_min":producto.cant_min,
@@ -38,7 +38,13 @@ export class ProductosService {
     })
     .pipe((data)=>{return data})
   }
-  
+
+  TraerTiposProductos():Observable<any>{
+    return this.http.httpGet("TiposProductos/TraerTodos")
+    .pipe(data=>{return data});
+    
+  }
+
 }
 
 

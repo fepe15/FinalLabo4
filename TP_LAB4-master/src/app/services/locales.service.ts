@@ -15,17 +15,26 @@ export class LocalesService {
       .pipe(data=>{return data});
     }
 
-    IngresarLocal(producto:local)
-  {
-    console.log(producto);
-    return this.http.httpPost("Locales/",{
-      "local": producto.local,
-      "cuit":producto.cuit,
-      "razon_social":producto.razon_social,
-      "foto":producto.foto,
-      "telefono":producto.telefono
-        
-    })
-    .pipe((data)=>{return data})
-  }
+
+    IngresarLocal(local:local)
+    {
+      console.log(local);
+      return this.http.httpPost("Locales/",{
+        "nombre": local.nombre,
+        "razon_social":local.razon_social,
+        "cuit":local.cuit,
+        "telefono":local.telefono,
+        "id_rubro":local.id_rubro,
+        "foto":local.foto,
+        "email":local.email,
+        "clave":local.clave,
+        "perfil":local.perfil,
+      })
+      .pipe((data)=>{return data})
+    }
+
+    TraerRubros():Observable<any>{
+      return this.http.httpGet("Rubros/TraerTodos")
+      .pipe(data=>{return data});
+    }
 }

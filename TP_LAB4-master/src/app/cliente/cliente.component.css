@@ -1,14 +1,37 @@
-.row {
-    margin-right: 15px;
-    margin-left: 15px;
+table {
+    width: 90%;
+    margin-left: 5%;
+    margin-right: 5%;
+  }
+
+  .listadoCentado 
+{
+        height: 10em;
+        display: flex;
+        align-items: center;
+        justify-content: center ;
+        margin-left: 10%;
 }
 
-td.mat-cell, td.mat-footer-cell, th.mat-header-cell {
-    padding-left: 24px;
-    text-align: center;
-    padding-right: 24px;
-    align-content: center;
-    font-size: 18px;
+
+.tipoPerfil{
+  margin-left: 5%;
+  margin-right: 5%;
+  border: solid;
+  color: white;
+  text-align: center;
+  font-size: 50px;
+  text-transform: uppercase;
+}
+
+.tipoPerfil2{
+  border: solid;
+  color: white;
+  text-transform: uppercase;
+}
+
+.mat-table {
+    background: rgb(141, 97, 106);
 }
 
 .tipoPerfil{

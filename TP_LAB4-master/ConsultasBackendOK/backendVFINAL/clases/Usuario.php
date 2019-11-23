@@ -7,6 +7,7 @@ class Usuario
 	public $perfil;
 	public $sexo;
 	public $estado;
+	public $id_local;
 
 
   	public function BorrarUsuario()
@@ -44,15 +45,28 @@ class Usuario
 	 {
 		 
 		$objetoAccesoDato = AccesoDatos::dameUnObjetoAcceso(); 
-		$consulta =$objetoAccesoDato->RetornarConsulta("INSERT into usuarios (usuario, clave, perfil, sexo, estado) VALUES(:usuario, :clave, :perfil, :sexo, :estado)");
+		$consulta =$objetoAccesoDato->RetornarConsulta("INSERT into usuarios (usuario, clave, perfil) VALUES(:usuario, :clave, :perfil)");
 
 		$consulta->bindValue(':usuario',$this->usuario, PDO::PARAM_STR);
 		$consulta->bindValue(':clave', $this->clave, PDO::PARAM_STR);
-		$consulta->bindValue(':sexo', $this->sexo, PDO::PARAM_STR);
 		$consulta->bindValue(':perfil', $this->perfil, PDO::PARAM_STR);
-		$consulta->bindValue(':estado', $this->estado, PDO::PARAM_STR);
-		
-		 $consulta->execute();
+		$consulta->execute();
+
+		return $objetoAccesoDato->RetornarUltimoIdInsertado();			
+
+	 }
+
+	 public function InsertarUsuarioLocal()
+	 {
+		 
+		$objetoAccesoDato = AccesoDatos::dameUnObjetoAcceso(); 
+		$consulta =$objetoAccesoDato->RetornarConsulta("INSERT into usuarios (usuario, clave, perfil, id_local) VALUES(:usuario, :clave, :perfil, :id_local)");
+
+		$consulta->bindValue(':usuario',$this->usuario, PDO::PARAM_STR);
+		$consulta->bindValue(':clave', $this->clave, PDO::PARAM_STR);
+		$consulta->bindValue(':perfil', $this->perfil, PDO::PARAM_STR);
+		$consulta->bindValue(':id_local', $this->id_local, PDO::PARAM_INT);
+		$consulta->execute();
 
 		 return $objetoAccesoDato->RetornarUltimoIdInsertado();			
 

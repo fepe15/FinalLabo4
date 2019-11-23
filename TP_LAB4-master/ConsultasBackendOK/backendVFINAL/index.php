@@ -5,8 +5,11 @@ use \Psr\Http\Message\ResponseInterface as Response;
 
 require './composer/vendor/autoload.php';
 require_once './clases/AccesoDatos.php';
+require_once './clases/LocalApi.php';
+require_once './clases/RubroApi.php';
 require_once './clases/UsuarioApi.php';
 require_once './clases/PedidoApi.php';
+require_once './clases/TipoProductoApi.php';
 require_once './clases/MesaApi.php';
 require_once './clases/SesionApi.php';
 require_once './clases/ProductoApi.php';
@@ -29,13 +32,16 @@ $app->options('/{routes:.+}', function ($request, $response, $args) {
 });
 
 $app->add(function ($req, $res, $next) {
-    $response = $next($req, $res);
-    return $response
-            ->withHeader('Access-Control-Allow-Origin', '*')
-            ->withHeader('Access-Control-Allow-Headers', 'X-Requested-With, Content-Type, Accept, Origin, Authorization')
-            ->withHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
+  $response = $next($req, $res);
+  return $response
+          ->withHeader('Access-Control-Allow-Origin', '*')
+          ->withHeader('Access-Control-Allow-Headers', 'X-Requested-With, Content-Type, Accept, Origin, Authorization')
+          ->withHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
 });
 
+$app->group('/Pedidos2', function(){
+  $this->post('/IngresarPedido',\PedidoApi::class . ':IngresarPedido')->add(\MWparaCORS::class . ':HabilitarCORS4200'); 
+});
 
 /*LLAMADA A METODOS DE INSTANCIA DE UNA CLASE*/
 $app->group('/Usuarios', function () { 
@@ -56,8 +62,18 @@ $app->group('/Usuarios', function () {
 
 
 
+
+
+
 $app->group('/Pedidos', function(){
-  $this->post('/',\PedidoApi::class . ':IngresarPedido'); 
+  $this->post('/IngresarPedido',\PedidoApi::class . ':IngresarPedido');
+  $this->post('/IngresarPago',\PedidoApi::class . ':IngresarPago'); 
+  $this->get('/TraerTodos',\PedidoApi::class . ':TraerTodos');
+  $this->get('/TraerPedidosCliente/{id}',\PedidoApi::class . ':TraerPedidosCliente');
+  $this->get('/TraerPedidosLocal/{id}',\PedidoApi::class . ':TraerPedidosLocal');
+  $this->post('/CancelarPedido',\PedidoApi::class . ':CancelarPedido');
+  $this->post('/CambiarEstadoPedido',\PedidoApi::class . ':CambiarEstadoPedido');
+  $this->get('/TraerTodosLosDetalles/{id}',\PedidoApi::class . ':TraerTodosLosDetalles');  
   $this->post('/PendientesEmpleado',\PedidoApi::class . ':TraerPendientesEmpleado');
   $this->post('/PrepararPedido',\PedidoApi::class . ':PrepararPedido');
   $this->post('/ServirPedido',\PedidoApi::class . ':ServirPedido');
@@ -67,8 +83,8 @@ $app->group('/Pedidos', function(){
   $this->get('/MasVendido',\PedidoApi::class . ':TraerMasVendido');
   $this->get('/MenosVendido',\PedidoApi::class . ':TraerMenosVendido');
   $this->get('/NoEntregadosATiempo',\PedidoApi::class . ':NoEntregadosATiempo');
-  
-});//->add(\MWLaComanda::class . ':VerificarSuspendido');
+})->add(\MWparaCORS::class . ':HabilitarCORSTodos');
+//->add(\MWLaComanda::class . ':VerificarSuspendido');
 
 $app->group('/Productos', function(){
   $this->get('/TraerTodos',\ProductoApi::class . ':TraerTodos'); 
@@ -80,7 +96,6 @@ $app->group('/Captcha', function(){
 });
 
 $app->group('/Mesas', function(){
-  $this->get('/TraerDisponibles',\MesaApi::class . ':TraerDisponibles');
   $this->get('/TraerTodas',\MesaApi::class . ':TraerTodos');
   $this->post('/ServirMesa',\MesaApi::class . ':ServirMesa'); 
   $this->post('/Cobrar',\MesaApi::class . ':CobrarMesa'); 
@@ -97,17 +112,25 @@ $app->group('/Mesas', function(){
 });
 
 
-
-
-
 $app->group('/Sesion', function(){
   $this->post('/',\SesionApi::class . ':Login');
   $this->post('/Salir', \SesionApi::class . ':CerrarSesion');
-
 })->add(\MWparaCORS::class . ':HabilitarCORSTodos');
 
 
 
+$app->group('/Locales', function(){
+  $this->get('/TraerTodos',\LocalApi::class . ':TraerTodos'); 
+  $this->post('/',\LocalApi::class . ':IngresarLocal'); 
+});
+
+$app->group('/Rubros', function(){
+  $this->get('/TraerTodos',\RubroApi::class . ':TraerTodos'); 
+});
+
+$app->group('/TiposProductos', function(){
+  $this->get('/TraerTodos',\TipoProductoApi::class . ':TraerTodos'); 
+});
 
 
 $app->run();
