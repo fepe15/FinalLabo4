@@ -162,7 +162,7 @@ export class PagoComponent implements OnInit {
     miFecha.setMinutes(miFecha.getMinutes()+parseInt(tiempo[1]));
     miFecha.setHours(miFecha.getHours()+parseInt(tiempo[0]));
     //console.log(miFecha);
-    this.horaEntrega= miFecha.getHours() + ':' + miFecha.getMinutes() + ' ' + miFecha.getDate() + '/' + miFecha.getMonth() + '/' + miFecha.getFullYear();
+    this.horaEntrega= miFecha.getHours() + ':' + miFecha.getMinutes() + ' ' + miFecha.getDate() + '/' + miFecha.getMonth()+1 + '/' + miFecha.getFullYear();
   }
 
 

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 20-11-2019 a las 00:59:38
+-- Tiempo de generación: 23-11-2019 a las 15:32:05
 -- Versión del servidor: 10.1.37-MariaDB
 -- Versión de PHP: 7.3.1
 
@@ -392,17 +392,16 @@ CREATE TABLE `pagos` (
 INSERT INTO `pagos` (`id_pago`, `id_local`, `id_cliente`, `id_pedido`, `fecha`, `monto`, `metodo_pago`, `estado`) VALUES
 (3, 7, 2, 208, '2019-11-17', 240, 'efectivo', 'pendiente'),
 (4, 1, 1, 209, '2019-11-17', 620, 'efectivo', 'pendiente'),
-(5, 6, 1, 210, '2019-11-17', 320, 'tarjeta', 'abonado'),
 (6, 1, 1, 211, '2019-11-18', 80, 'efectivo', 'pendiente'),
 (7, 1, 1, 212, '2019-11-18', 400, 'efectivo', 'pendiente'),
-(9, 1, 1, 210, '2019-11-20', 50, 'efectivo', 'pendiente'),
 (10, 1, 2, 225, '2019-11-20', 240, 'efectivo', 'pendiente'),
 (11, 1, 2, 226, '2019-11-20', 380, 'efectivo', 'pendiente'),
 (12, 1, 2, 227, '2019-11-20', 580, 'efectivo', 'pendiente'),
 (13, 12, 2, 228, '2019-11-20', 340, 'efectivo', 'pendiente'),
 (14, 1, 2, 229, '2019-11-20', 250, 'efectivo', 'pendiente'),
 (15, 12, 2, 230, '2019-11-20', 160, 'efectivo', 'pendiente'),
-(16, 13, 2, 231, '2019-11-20', 390, 'efectivo', 'pendiente');
+(16, 13, 2, 231, '2019-11-20', 390, 'efectivo', 'pendiente'),
+(17, 1, 13, 233, '2019-11-22', 320, 'efectivo', 'pendiente');
 
 -- --------------------------------------------------------
 
@@ -433,10 +432,6 @@ INSERT INTO `pedidodetalle` (`id_detalle`, `id_pedido`, `id_producto`, `id_estad
 (54, 209, 6, 1, NULL, NULL),
 (55, 209, 6, 1, NULL, NULL),
 (56, 209, 2, 1, NULL, NULL),
-(57, 210, 1, 1, NULL, NULL),
-(58, 210, 1, 1, NULL, NULL),
-(59, 210, 1, 1, NULL, NULL),
-(60, 210, 1, 1, NULL, NULL),
 (61, 211, 1, 1, NULL, NULL),
 (62, 212, 1, 1, NULL, NULL),
 (63, 212, 2, 1, NULL, NULL),
@@ -497,7 +492,11 @@ INSERT INTO `pedidodetalle` (`id_detalle`, `id_pedido`, `id_producto`, `id_estad
 (118, 230, 1, 1, NULL, NULL),
 (119, 231, 1, 1, NULL, NULL),
 (120, 231, 7, 1, NULL, NULL),
-(121, 231, 9, 1, NULL, NULL);
+(121, 231, 9, 1, NULL, NULL),
+(122, 233, 1, 1, NULL, NULL),
+(123, 233, 1, 1, NULL, NULL),
+(124, 233, 1, 1, NULL, NULL),
+(125, 233, 1, 1, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -519,28 +518,29 @@ CREATE TABLE `pedidos` (
 --
 
 INSERT INTO `pedidos` (`id_pedido`, `fecha`, `tiempo_entrega`, `id_cliente`, `id_local`, `id_estado`) VALUES
-(208, '2019-11-17', 50, 2, 7, 1),
-(209, '2019-11-17', 50, 1, 1, 4),
-(210, '2019-11-17', 50, 1, 6, 5),
-(211, '2019-11-18', 50, 1, 1, 4),
-(212, '2019-11-18', 50, 1, 1, 4),
-(213, '2019-11-18', 50, 1, 1, 1),
-(214, '2019-11-19', 50, 1, 1, 1),
-(215, '2019-11-19', 50, 1, 1, 1),
-(216, '2019-11-19', 50, 1, 1, 1),
-(219, '2019-11-19', 50, 1, 5, 1),
-(220, '2019-11-19', 50, 1, 1, 1),
-(221, '2019-11-19', 50, 1, 1, 1),
-(222, '2019-11-20', 50, 1, 1, 1),
-(223, '2019-11-20', 50, 1, 1, 1),
-(224, '2019-11-20', 50, 1, 1, 1),
-(225, '2019-11-20', 50, 1, 1, 5),
-(226, '2019-11-20', 50, 2, 1, 2),
-(227, '2019-11-20', 50, 2, 1, 5),
-(228, '2019-11-20', 50, 2, 12, 1),
-(229, '2019-11-20', 50, 2, 1, 1),
-(230, '2019-11-20', 50, 2, 12, 1),
-(231, '2019-11-20', 50, 2, 13, 4);
+(208, '2019-11-17', 50, 13, 7, 5),
+(209, '2019-11-17', 50, 13, 1, 4),
+(211, '2019-11-18', 50, 13, 1, 4),
+(212, '2019-11-18', 50, 13, 1, 4),
+(213, '2019-11-18', 50, 13, 1, 1),
+(214, '2019-11-19', 50, 13, 1, 1),
+(215, '2019-11-19', 50, 13, 1, 1),
+(216, '2019-11-19', 50, 13, 1, 1),
+(219, '2019-11-19', 50, 13, 5, 1),
+(220, '2019-11-19', 50, 13, 1, 1),
+(221, '2019-11-19', 50, 19, 1, 1),
+(222, '2019-11-20', 50, 19, 1, 1),
+(223, '2019-11-20', 50, 19, 1, 1),
+(224, '2019-11-20', 50, 19, 1, 1),
+(225, '2019-11-20', 50, 19, 1, 5),
+(226, '2019-11-20', 50, 19, 1, 2),
+(227, '2019-11-20', 50, 19, 1, 5),
+(228, '2019-11-20', 50, 19, 12, 5),
+(229, '2019-11-20', 50, 19, 1, 5),
+(230, '2019-11-20', 50, 19, 12, 5),
+(231, '2019-11-20', 50, 19, 13, 4),
+(232, '2019-11-22', 50, 13, 1, 1),
+(233, '2019-11-22', 50, 13, 1, 1);
 
 -- --------------------------------------------------------
 
@@ -568,7 +568,7 @@ CREATE TABLE `productos` (
 --
 
 INSERT INTO `productos` (`id`, `nombre`, `precio`, `responsable`, `id_tipo`, `cant_min`, `cant_max`, `cant_actual`, `punto_repo`, `tiempo_prep`, `foto`, `id_local`) VALUES
-(1, 'Coca-cola', 80, 'barra', 2, 0, 0, 0, 0, 0, '../../assets/IconosProductos/coca.jpg', NULL),
+(1, 'Coca-cola', 80, 'barra', 2, 0, 0, 4, 0, 0, '../../assets/IconosProductos/coca.jpg', NULL),
 (2, 'Cerveza', 70, 'chopera', 2, 0, 0, 0, 0, 0, '../../assets/IconosProductos/coca.jpg', NULL),
 (3, 'Trago', 90, 'barra', 2, 0, 0, 0, 0, 0, '../../assets/IconosProductos/coca.jpg', NULL),
 (4, 'Sprite', 80, 'barra', 2, 0, 0, 0, 0, 0, '../../assets/IconosProductos/coca.jpg', NULL),
@@ -898,11 +898,9 @@ INSERT INTO `usuarios` (`id`, `usuario`, `clave`, `perfil`, `sexo`, `estado`, `i
 (11, 'chopera2@gmail.com', '1234', 'chopera', 'Hombre', 'activo', NULL),
 (13, 'cliente1@gmail.com', '1234', 'cliente', 'Hombre', 'activo', NULL),
 (18, 'burgerking@bk.com', '1234', 'local', NULL, NULL, 1),
-(19, 'fede@fede.com', '12341234', 'cliente', NULL, NULL, NULL),
+(19, 'fede@fede.com', '1234', 'cliente', NULL, NULL, NULL),
 (20, 'milanga@m.com', '1234', 'local', NULL, NULL, 12),
-(21, 'pepito@p.com', '1234', 'local', NULL, NULL, 13),
-(22, 'fe@fe.com', '12341234', 'cliente', NULL, NULL, NULL),
-(23, 'fede@fede.com', '1234', 'local', NULL, NULL, 14);
+(21, 'pepito@p.com', '1234', 'local', NULL, NULL, 13);
 
 --
 -- Índices para tablas volcadas
@@ -951,8 +949,8 @@ ALTER TABLE `mesas`
 ALTER TABLE `pagos`
   ADD PRIMARY KEY (`id_pago`),
   ADD KEY `id_local` (`id_local`),
-  ADD KEY `fk_cliente` (`id_cliente`),
-  ADD KEY `fk_pedido` (`id_pedido`);
+  ADD KEY `fk_pedido` (`id_pedido`),
+  ADD KEY `id_cliente` (`id_cliente`);
 
 --
 -- Indices de la tabla `pedidodetalle`
@@ -968,9 +966,9 @@ ALTER TABLE `pedidodetalle`
 --
 ALTER TABLE `pedidos`
   ADD PRIMARY KEY (`id_pedido`),
-  ADD KEY `FK_clientes` (`id_cliente`),
   ADD KEY `FK_local` (`id_local`),
-  ADD KEY `FK_estado` (`id_estado`);
+  ADD KEY `FK_estado` (`id_estado`),
+  ADD KEY `FK_cliente` (`id_cliente`);
 
 --
 -- Indices de la tabla `productos`
@@ -1049,19 +1047,19 @@ ALTER TABLE `mesas`
 -- AUTO_INCREMENT de la tabla `pagos`
 --
 ALTER TABLE `pagos`
-  MODIFY `id_pago` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+  MODIFY `id_pago` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 
 --
 -- AUTO_INCREMENT de la tabla `pedidodetalle`
 --
 ALTER TABLE `pedidodetalle`
-  MODIFY `id_detalle` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=122;
+  MODIFY `id_detalle` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=126;
 
 --
 -- AUTO_INCREMENT de la tabla `pedidos`
 --
 ALTER TABLE `pedidos`
-  MODIFY `id_pedido` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=232;
+  MODIFY `id_pedido` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=234;
 
 --
 -- AUTO_INCREMENT de la tabla `productos`
@@ -1091,7 +1089,7 @@ ALTER TABLE `tipo_producto`
 -- AUTO_INCREMENT de la tabla `usuarios`
 --
 ALTER TABLE `usuarios`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
 
 --
 -- Restricciones para tablas volcadas
@@ -1107,9 +1105,9 @@ ALTER TABLE `locales`
 -- Filtros para la tabla `pagos`
 --
 ALTER TABLE `pagos`
-  ADD CONSTRAINT `fk_cliente` FOREIGN KEY (`id_cliente`) REFERENCES `clientes` (`id_cliente`),
   ADD CONSTRAINT `fk_pedido` FOREIGN KEY (`id_pedido`) REFERENCES `pedidos` (`id_pedido`),
-  ADD CONSTRAINT `pagos_ibfk_1` FOREIGN KEY (`id_local`) REFERENCES `locales` (`id_local`);
+  ADD CONSTRAINT `pagos_ibfk_1` FOREIGN KEY (`id_local`) REFERENCES `locales` (`id_local`),
+  ADD CONSTRAINT `pagos_ibfk_2` FOREIGN KEY (`id_cliente`) REFERENCES `usuarios` (`id`);
 
 --
 -- Filtros para la tabla `pedidodetalle`
@@ -1124,9 +1122,9 @@ ALTER TABLE `pedidodetalle`
 -- Filtros para la tabla `pedidos`
 --
 ALTER TABLE `pedidos`
-  ADD CONSTRAINT `FK_clientes` FOREIGN KEY (`id_cliente`) REFERENCES `clientes` (`id_cliente`),
   ADD CONSTRAINT `FK_estado` FOREIGN KEY (`id_estado`) REFERENCES `estados_pedidos` (`id_estado`),
-  ADD CONSTRAINT `FK_local` FOREIGN KEY (`id_local`) REFERENCES `locales` (`id_local`);
+  ADD CONSTRAINT `FK_local` FOREIGN KEY (`id_local`) REFERENCES `locales` (`id_local`),
+  ADD CONSTRAINT `pedidos_ibfk_1` FOREIGN KEY (`id_cliente`) REFERENCES `usuarios` (`id`);
 
 --
 -- Filtros para la tabla `productos`
