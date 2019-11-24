@@ -5,10 +5,12 @@ export class Producto {
     precio:number;
     responsable:string;
     tipo:string;
-    id_tipo:number;
+    id_tipo;
     cant_max;
     cant_min;
-    tiempo_pre;
+    tiempo_prep;
     cant_actual;
     foto;
+    punto_repo;
+    id_local;
 }
