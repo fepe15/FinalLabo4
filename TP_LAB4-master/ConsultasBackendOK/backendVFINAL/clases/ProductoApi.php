@@ -28,23 +28,37 @@ public static function IngresarProducto($request, $response, $args)
       $precio= $ArrayDeParametros['precio'];
       $responsable= $ArrayDeParametros['responsable'];
       $id_tipo= $ArrayDeParametros['id_tipo'];
+      $id_local= $ArrayDeParametros['id_local'];
       $cant_min= $ArrayDeParametros['cant_min'];
       $cant_max= $ArrayDeParametros['cant_max'];
       $cant_actual= $ArrayDeParametros['cant_actual'];
       $punto_repo= $ArrayDeParametros['punto_repo'];
-      $tiempo_pre= $ArrayDeParametros['tiempo_pre'];
+      $tiempo_prep= $ArrayDeParametros['tiempo_prep'];
       $foto= $ArrayDeParametros['foto'];
+
+      $destino="./fotos/";
+      $archivos = $request->getUploadedFiles();
+      $nombreAnterior=$archivos['file']->getClientFilename();
+      $extension= explode(".", $nombreAnterior);
+      $extension=array_reverse($extension);
+      $nombrefoto = $nombre.'.'.$extension[0];
+      $archivos['file']->moveTo($destino.$nombrefoto);
+
+
           $nuevoProducto= new Producto();
           $nuevoProducto->nombre=$nombre;
           $nuevoProducto->precio=$precio;
           $nuevoProducto->responsable=$responsable;
           $nuevoProducto->id_tipo=$id_tipo;
+          $nuevoProducto->id_local=$id_local;
           $nuevoProducto->cant_min=$cant_min;
           $nuevoProducto->cant_max=$cant_max;
           $nuevoProducto->cant_actual=$cant_actual;
           $nuevoProducto->punto_repo=$punto_repo;
-          $nuevoProducto->tiempo_pre=$tiempo_pre;
-          $nuevoProducto->foto="./fotos/".$foto;   
+          $nuevoProducto->tiempo_prep=$tiempo_prep;
+
+          $nuevoProducto->foto="http://localhost/backendVFINAL/fotos/".$nombrefoto;   
+
           $idPedido=$nuevoProducto->GuardarProducto();
          
       $objDelaRespuesta->idPedido=$idPedido;

@@ -11,14 +11,14 @@ class Producto
     public $cant_max;
     public $cant_actual;
     public $punto_repo;
-    public $tiempo_pre;
+    public $tiempo_prep;
     public $foto;
     
 public function GuardarProducto()
 {
  
     $objetoAccesoDato = AccesoDatos::dameUnObjetoAcceso(); 
-	$consulta =$objetoAccesoDato->RetornarConsulta("INSERT into productos (nombre, precio,responsable,id_tipo,cant_min,cant_max,cant_actual,punto_repo,tiempo_pre,foto)values(:nombre, :precio,:responsable,:id_tipo,:cant_min,:cant_max,:cant_actual,:punto_repo,:tiempo_pre,:foto)");
+	$consulta =$objetoAccesoDato->RetornarConsulta("INSERT into productos (nombre, precio,responsable,id_tipo,cant_min,cant_max,cant_actual,punto_repo,tiempo_prep,foto,id_local)values(:nombre, :precio,:responsable,:id_tipo,:cant_min,:cant_max,:cant_actual,:punto_repo,:tiempo_prep,:foto,:id_local)");
     $consulta->bindValue(':nombre', $this->nombre, PDO::PARAM_STR);
     $consulta->bindValue(':precio', $this->precio, PDO::PARAM_INT);
     $consulta->bindValue(':responsable', $this->responsable, PDO::PARAM_INT);
@@ -27,8 +27,9 @@ public function GuardarProducto()
     $consulta->bindValue(':cant_max', $this->cant_max, PDO::PARAM_INT);
     $consulta->bindValue(':cant_actual', $this->cant_actual, PDO::PARAM_INT);
     $consulta->bindValue(':punto_repo', $this->punto_repo, PDO::PARAM_INT);
-    $consulta->bindValue(':tiempo_pre', $this->tiempo_pre, PDO::PARAM_INT);
+    $consulta->bindValue(':tiempo_prep', $this->tiempo_prep, PDO::PARAM_INT);
     $consulta->bindValue(':foto', $this->foto, PDO::PARAM_STR);
+    $consulta->bindValue(':id_local', $this->id_local, PDO::PARAM_INT);
     $consulta->execute();
 	return $objetoAccesoDato->RetornarUltimoIdInsertado();
 }

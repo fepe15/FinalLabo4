@@ -30,6 +30,14 @@ class LocalApi{
       $clave=$ArrayDeParametros['clave'];
       $perfil=$ArrayDeParametros['perfil'];
 
+        $destino="./fotos/";
+        $archivos = $request->getUploadedFiles();
+        $nombreAnterior=$archivos['file']->getClientFilename();
+        $extension= explode(".", $nombreAnterior);
+        $extension=array_reverse($extension);
+        $nombrefoto = $nombre.'.'.$extension[0];
+        $archivos['file']->moveTo($destino.$nombrefoto);
+
 
           $nuevoLocal= new Local();
           $nuevoLocal->nombre=$nombre;
@@ -37,7 +45,7 @@ class LocalApi{
           $nuevoLocal->cuit=$cuit;
           $nuevoLocal->telefono=$telefono;
           $nuevoLocal->id_rubro=$id_rubro;
-          $nuevoLocal->foto="./fotos/".$foto;
+          $nuevoLocal->foto="http://localhost/backendVFINAL/fotos/".$nombrefoto;
      
           $id_local=$nuevoLocal->GuardarLocal();
 
