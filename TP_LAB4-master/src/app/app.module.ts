@@ -118,6 +118,7 @@ import { AdministradorComponent } from './administrador/administrador.component'
 import { LocalesComponent } from './locales/locales.component';
 import { DetalleComponent } from './detalle/detalle.component';
 import { PedidoslocalComponent } from './pedidoslocal/pedidoslocal.component';
+import { ChartsModule } from 'ng2-charts';
  
 
 export function tokenGetter() {
@@ -216,6 +217,7 @@ export function tokenGetter() {
     HttpModule,
     DialogModule,
     SharedModule,
+    ChartsModule,
     AngularFileUploaderModule,
     JwtModule.forRoot({
       config: {

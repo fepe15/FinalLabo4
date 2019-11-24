@@ -16,10 +16,24 @@ export class LocalesService {
     }
 
 
-    IngresarLocal(local:local)
+    IngresarLocal(local:local,myfile)
     {
       console.log(local);
-      return this.http.httpPost("Locales/",{
+
+      const formData = new FormData()
+      formData.append("nombre", local.nombre);
+      formData.append("razon_social",local.razon_social);
+      formData.append("cuit",local.cuit.toString());
+      formData.append("telefono",local.telefono);
+      formData.append("id_rubro",local.id_rubro.toString());
+      formData.append("foto",local.foto);
+      formData.append("email",local.email);
+      formData.append("clave",local.clave);
+      formData.append("perfil",local.perfil);
+      formData.append("file",myfile);
+
+      return this.http.httpPost("Locales/",formData
+      /*{
         "nombre": local.nombre,
         "razon_social":local.razon_social,
         "cuit":local.cuit,
@@ -29,7 +43,9 @@ export class LocalesService {
         "email":local.email,
         "clave":local.clave,
         "perfil":local.perfil,
-      })
+        "file":myfile
+      }*/
+    )
       .pipe((data)=>{return data})
     }
 
