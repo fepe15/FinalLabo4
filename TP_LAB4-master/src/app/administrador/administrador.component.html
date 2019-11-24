@@ -41,7 +41,8 @@ margin-right: 5%;">
         <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
         <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
       </table-->
-
+      <br>
+      <h2 style="text-align: center;text-decoration: underline;color: white;">Montos</h2>
       <div>
           <div>
             <div class="chart">
@@ -68,6 +69,7 @@ margin-right: 5%;">
         <br>
         <br>
         <br>
+        <h2 style="text-align: center;text-decoration: underline;color: white;">Pedidos</h2>
         <div>
             <div>
               <div style="display: block">
@@ -77,11 +79,14 @@ margin-right: 5%;">
                   [options]="barChartOptions"
                   [plugins]="barChartPlugins"
                   [legend]="barChartLegend"
+                  [colors]="barChartColors"
                   [chartType]="barChartType">
                 </canvas>
               </div>
               <!--button mat-button mat-raised-button color="primary" (click)="randomize()">Update</button-->
             </div>
           </div>
+          <br>
+        <br>
 
     </div> 

@@ -7,7 +7,7 @@ import { local } from '../clases/local';
 import * as pluginDataLabels from 'chartjs-plugin-datalabels';
 import { ChartType, ChartOptions, ChartDataSets  } from 'chart.js';
 import { Label } from 'ng2-charts';
-
+import { PedidoService } from '../services/pedido.service';
 
 @Component({
   selector: 'app-administrador',
@@ -20,7 +20,9 @@ export class AdministradorComponent implements OnInit {
   listaPendientes: Array<any>;
   tiempoPreparacion:number;
   perfil:any;
-  listaLocales;
+
+  listaPedidos:Array<any>;
+  listaPagos:Array<any>;
 
   nombre;
   telefono;
@@ -28,11 +30,18 @@ export class AdministradorComponent implements OnInit {
   razon_social;
   foto;
 
-
+  //this.pieChartOptions.legend.position
   public pieChartOptions: ChartOptions = {
     responsive: true,
+    title:{
+      fontColor:"#ffffff"
+    },
     legend: {
-      position: 'top',
+      
+      position:'top',
+      labels: {
+        fontColor: '#ffffff'
+       }
     },
     plugins: {
       datalabels: {
@@ -51,35 +60,56 @@ export class AdministradorComponent implements OnInit {
   public pieChartColors = [
     {
       backgroundColor: ['rgba(255,0,0,0.3)', 'rgba(0,255,0,0.3)', 'rgba(0,0,255,0.3)'],
-      color:"white"
+      borderColor:"white",
+
     },
   ];
   
 
   public barChartOptions: ChartOptions = {
     responsive: true,
+    title:{
+      fontColor:"#ffffff"
+    },
+    tooltips:{footerFontColor:"#ffffff"},
     // We use these empty structures as placeholders for dynamic theming.
-    scales: { xAxes: [{}], yAxes: [{}] },
+    scales: { xAxes: [{
+        ticks: {
+            beginAtZero:true,
+            fontColor: '#F8D3E0' // y-Axes color you want to add
+        },
+    }], yAxes: [{
+      ticks: {
+        beginAtZero:true,
+        fontColor: '#F8D3E0' // y-Axes color you want to add
+    },
+    }] },
     plugins: {
       datalabels: {
         anchor: 'end',
-        align: 'end',
+        align: 'end'
       }
     }
   };
   public barChartLabels: Label[] = ['2006', '2007', '2008', '2009', '2010', '2011', '2012'];
   public barChartType: ChartType = 'bar';
-  public barChartLegend = true;
+  public barChartLegend = false;
   public barChartPlugins = [pluginDataLabels];
-
+  public barChartColors = [
+    {
+      backgroundColor: ['rgba(255,0,0,0.3)', 'rgba(0,255,0,0.3)', 'rgba(0,0,255,0.3)'],
+      borderColor:"white",
+      color:"white",
+    },
+  ];
   public barChartData: ChartDataSets[] = [
-    { data: [65, 59, 80, 81, 56, 55, 40], label: 'Series A' },
-    { data: [28, 48, 40, 19, 86, 27, 90], label: 'Series B' }
+    { data: [65, 59, 80, 81, 56, 55, 40], label: 'Pedidos' }
+    
   ];
 
-
+  coloresGraficos;
   //displayedColumns: string[] = ['position', 'mesa', 'name', 'weight', 'symbol'];
-  constructor(private dialog: MatDialog,private httpLocal: LocalesService) { }
+  constructor(private dialog: MatDialog,private httpLocal: LocalesService,private httpPedido: PedidoService) { }
 
 
   
@@ -89,6 +119,114 @@ export class AdministradorComponent implements OnInit {
     /*let vari={idPedido:1,mesaPedido:"Juan Perez",producto:"Detalle",sector:"14/9/19 14:30",estado:"pendiente",tiempoPreparacion:5};
     this.listaPendientes=new Array();
     this.listaPendientes.push(vari);*/
+    this.TraerPedidos();
+    //console.log(this.pieChartOptions.tooltips.footerFontColor);
+  }
+  TraerPedidos(){
+    this.httpPedido.TraerTodosLosPedidos().subscribe(data=>{
+      this.listaPedidos= JSON.parse(data._body);
+     //console.log(this.listaPedidos);
+     this.CargarBarras();
+     this.TraerPagos();
+   }); 
+   
+  }
+
+  TraerPagos(){
+    this.httpPedido.TraerTodosPagos().subscribe(data=>{
+      this.listaPagos= JSON.parse(data._body);
+      this.CargarTorta();
+      //console.log(this.listaPagos);
+   });
+  }
+
+  CargarBarras()
+  {
+
+      let nombre=[];
+      let data=[];
+
+      this.listaPedidos.forEach(element => {
+       if (nombre.indexOf(element.nombre)==-1) 
+       {
+         nombre.push(element.nombre);
+       }
+      });
+      //console.log(nombre);
+      let colores=[]
+      nombre.forEach(nom => {
+        let cantPedidos=0;
+        colores.push(this.getRandomColor());
+        this.listaPedidos.forEach(element => {
+        if (element.nombre==nom) 
+        {
+          cantPedidos=cantPedidos+1;
+        }
+       });
+       data.push(cantPedidos)
+
+      });
+      //console.log(data);
+      
+      this.barChartLabels=nombre;
+      this.barChartData=[ { data: data }];
+      this.coloresGraficos=colores
+      this.barChartColors = [
+        {
+          backgroundColor: colores,
+          borderColor:"white",
+          color:"white",
+        },
+      ];
+      
+  }
+
+  CargarTorta()
+  {
+      let nombre=[];
+      let id_local=[];
+
+      this.listaPedidos.forEach(element => {
+       if (nombre.indexOf(element.nombre)==-1) 
+       {
+         nombre.push(element.nombre);
+         id_local.push(element.id_local);
+       }
+      });
+      console.log(id_local);
+      let montos=[];
+      let colores=[]
+      id_local.forEach(id => {
+        let monto=0;
+        colores.push(this.getRandomColor());
+
+        this.listaPagos.forEach(element => {
+        if (element.id_local==id) 
+        {
+          monto=monto+element.monto;
+        }
+       });
+       montos.push(monto)
+
+      });
+
+
+
+      console.log(montos);
+      this.pieChartLabels=nombre;
+      this.pieChartData=montos;
+      this.pieChartColors = [
+        {
+          backgroundColor: this.coloresGraficos,
+          borderColor:"white",
+    
+        },
+      ];
+  }
+
+  getRandomColor() {
+    var color = Math.floor(0x1000000 * Math.random()).toString(16);
+    return '#' + ('000000' + color).slice(-6);
   }
 
   openDetalle(){

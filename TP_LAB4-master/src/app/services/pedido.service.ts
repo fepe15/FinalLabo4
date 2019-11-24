@@ -36,6 +36,10 @@ export class PedidoService {
     return this.http.httpGet("Pedidos/TraerTodosLosDetalles/"+id).pipe(data=>{return data});
   }
 
+  TraerTodosPagos():Observable<any>
+  {
+    return this.http.httpGet("Pedidos/TraerTodosPagos").pipe(data=>{return data});
+  }
 
   TraerPedidosPorSector()
   {
