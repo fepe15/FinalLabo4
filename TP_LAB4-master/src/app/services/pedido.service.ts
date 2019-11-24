@@ -4,6 +4,7 @@ import { GenericoService } from './generico.service';
 import { Observable } from 'rxjs';
 import { Pedido } from '../clases/pedido';
 import { Http } from '@angular/http';
+import { Chat } from '../clases/chat';
 
 @Injectable({
   providedIn: 'root'
@@ -36,6 +37,12 @@ export class PedidoService {
     return this.http.httpGet("Pedidos/TraerTodosLosDetalles/"+id).pipe(data=>{return data});
   }
 
+  TraerTodosLosMensajes(id: number):Observable<any>
+  {
+    return this.http.httpGet("Pedidos/TraerTodosLosMensajes/"+id).pipe(data=>{return data});
+  }
+
+
 
   TraerPedidosPorSector()
   {
@@ -59,6 +66,18 @@ export class PedidoService {
           }
     }
     return this.http.httpPost("Pedidos/IngresarPedido", datos
+    )
+    .pipe((data)=>{return data})
+  }
+
+  IngresarMensaje(chat:Chat){
+    let datos={      
+    "id_pedido": chat.id_pedido,
+    "mensaje": chat.mensaje,
+    "id_usuario": chat.id_usuario,
+    "fecha": chat.fecha,
+    }
+    return this.http.httpPost("Pedidos/IngresarMensaje", datos
     )
     .pipe((data)=>{return data})
   }

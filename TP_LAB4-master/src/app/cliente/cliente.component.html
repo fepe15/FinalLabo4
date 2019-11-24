@@ -10,7 +10,11 @@
 
         <ng-container matColumnDef="id_pedido">
           <th mat-header-cell *matHeaderCellDef>Nro. Pedido</th>
-          <td mat-cell *matCellDef="let element"> {{element.id_pedido}} </td>
+          <td style="font-size: 20px;" mat-cell *matCellDef="let element"> #{{element.id_pedido}} 
+              <button  style="background-color: transparent; border:transparent;" (click)="openChatForm(element.id_pedido)">
+                <i *ngIf="(element.descripcion!='cancelado') && (element.descripcion!='entregado')"  style="margin-left: 10px; font-size: 30px; color: rgb(0, 255, 157);" class="material-icons">mail_outline</i>
+              </button> 
+           </td>
         </ng-container>
 
         <ng-container matColumnDef="local">
@@ -21,7 +25,11 @@
 
         <ng-container matColumnDef="fecha">
           <th mat-header-cell *matHeaderCellDef>Fecha</th>
-          <td mat-cell *matCellDef="let element">{{element.fecha}}</td>
+          <td mat-cell *matCellDef="let element">
+            {{element.fecha}} hs
+            <button *ngIf="(element.descripcion!='cancelado') && (element.descripcion!='entregado')" (click)="infoEntrega(element.tiempo_entrega)" style="border:transparent; background-color: transparent; border-radius: 20px;">
+                <i class="material-icons">control_point</i>
+              </button></td>
         </ng-container>
 
         <ng-container matColumnDef="monto">
@@ -41,12 +49,12 @@
 
         <ng-container matColumnDef="productos">
           <th mat-header-cell *matHeaderCellDef></th>
-          <td mat-cell *matCellDef="let element"><button mat-raised-button (click)="openDetalle(element.id_pedido)" color="warn">VER PRODUCTOS</button></td>
+          <td mat-cell *matCellDef="let element"><button mat-raised-button (click)="openDetalle(element.id_pedido)" style="background-color: rgb(207, 57, 57);">VER PRODUCTOS</button></td>
         </ng-container>
 
         <ng-container matColumnDef="cancelar">
           <th mat-header-cell *matHeaderCellDef></th>
-          <td mat-cell *matCellDef="let element"><button *ngIf="element.descripcion == 'comandado'" mat-raised-button (click)="cancelarPedido(element.id_pedido)" color="warn">CANCELAR</button></td>
+          <td mat-cell *matCellDef="let element"><button *ngIf="element.descripcion == 'comandado'" mat-raised-button (click)="cancelarPedido(element.id_pedido)" style="background-color: rgb(221, 61, 61);">CANCELAR</button></td>
         </ng-container>
 
         
@@ -60,7 +68,7 @@
     <!----------------------------------------------DETALLES PEDIDOS---------------------------------------------->
 
     <h1 *ngIf="!verPedidos" class="tipoPerfil" >
-      <button style="float: left; margin-top: 20px; margin-left: 10px; border: 1px crimson ; height: 40px; width: 110px; font-size: 15px; background-color:crimson; color: white;" (click)="volverAPedidos()">VOLVER</button> 
+      <button style="float: left; margin-top: 20px; margin-left: 10px; border: 1px rgb(207, 57, 57) ; height: 40px; width: 110px; font-size: 15px; background-color: rgb(207, 57, 57); color: white;" (click)="volverAPedidos()">VOLVER</button> 
       <h1 style="margin-right: 15%; font-size: 40px;">Pedido #{{pedidoElegido}}</h1></h1>
     <div *ngIf="!verPedidos">
 

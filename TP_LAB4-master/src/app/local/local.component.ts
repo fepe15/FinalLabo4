@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { MatDialog, MatDialogRef} from '@angular/material';
 import { DetalleComponent } from "../detalle/detalle.component";
 import { PedidoService } from '../services/pedido.service';
+import { PedidoslocalComponent } from '../pedidoslocal/pedidoslocal.component';
+
 
 
 @Component({
@@ -82,5 +84,16 @@ export class LocalComponent implements OnInit {
       console.log("corrio")
       }, 5000);
   } 
+
+  openChatForm(id){
+    this.dialog.open(PedidoslocalComponent, {
+      width:'350px', 
+      height:'480px', 
+      data:{
+        id_pedido:id,
+        id_usuario:this.datoslocal.idUsuario
+      }
+    });
+    }
 
 }

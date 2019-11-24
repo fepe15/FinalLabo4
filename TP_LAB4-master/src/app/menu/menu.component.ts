@@ -10,10 +10,9 @@ import { Pedido } from '../clases/pedido';
 import { local } from '../clases/local';
 import { PagoComponent } from '../pago/pago.component';
 import { LocalesService } from '../services/locales.service';
-
-
-
 import * as jspdf from 'jspdf';  
+import {MatSnackBar, MatSnackBarConfig } from '@angular/material/snack-bar';
+
   
 import html2canvas from 'html2canvas';
 
@@ -24,13 +23,19 @@ export interface DetalleProductos {
 }
 
 
+
 @Component({
   selector: 'app-menu',
   templateUrl: './menu.component.html',
   styleUrls: ['./menu.component.css']
 })
 
+
+
+
 export class MenuComponent implements OnInit {
+
+
 
   rubroDefault:string = 'Todos';
   categoriaDefault:string = 'Todos'
@@ -65,7 +70,8 @@ export class MenuComponent implements OnInit {
     private httpProd: ProductosService, 
     private httpLoc: LocalesService,
     private httpPedido: PedidoService,
-    private dialog: MatDialog
+    private dialog: MatDialog,
+    private _snackBar: MatSnackBar
             ) { 
 
     this.elPedido=new Pedido();
@@ -73,6 +79,8 @@ export class MenuComponent implements OnInit {
     this.TraerLocales();
     this.datosCliente = JSON.parse(localStorage.getItem("usuario"));
   }
+
+
 
 
   TraerLocales(){
@@ -124,7 +132,12 @@ export class MenuComponent implements OnInit {
           break; 
         }
         else{
-          alert("No hay mas stock del producto seleccionado");
+          let config = new MatSnackBarConfig();
+          config.panelClass = ['cancel-snackbar'],
+          config.duration= 2000,
+          config.verticalPosition= 'top',
+          config.horizontalPosition= 'center',
+          this._snackBar.open('No hay mas stock de "' + producto.nombre + '"', "", config);
         }
       }
     } 

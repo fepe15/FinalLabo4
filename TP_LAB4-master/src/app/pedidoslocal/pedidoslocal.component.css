@@ -1,0 +1,26 @@
+.div-chat{
+background-color: white;
+display: inline-block;
+height: 360px;
+width: 300px;
+border-radius: 8px;
+}
+
+.mensaje{
+ color: black;
+ width: 280px;
+ margin-left: 10px;
+ margin-right: 10px;
+ font-family: cambria;
+ font-size: 16px;
+}
+
+.input-msj{
+    border-radius: 10px;
+    width: 250px;
+    height: 50px;
+    color: black;
+    font-family: cambria;
+    resize: none;
+    
+}

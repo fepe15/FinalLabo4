@@ -7,6 +7,7 @@
 
 <div *ngIf="mostrarLocales" >
 
+
   <div class="div-busqueda">
     
       <label class="filtrar">Filtrar Rubro</label>
@@ -56,10 +57,11 @@
                   </thead>
                   <tbody *ngIf="listaProductos">
                     <tr *ngFor="let producto of (listaProductosFiltrada | filtro: busqueda)">
-                        <td><img class="img-icono-producto" src="{{producto.foto}}" /></td>
-                        <td estilo [tipo]="producto.responsable">{{producto.nombre}}</td>
-                        <td >{{producto.precio | currency: '$ ' : 'symbol' : '1.0'}}</td>
-                        <td><app-boton-agregar [producto]="producto" (enviar)="AgregarAlPedido($event)"></app-boton-agregar></td>
+                        <td *ngIf="producto.id_local===localElegido.id_local"><img class="img-icono-producto" src="{{producto.foto}}" /></td>
+                        <td *ngIf="producto.id_local===localElegido.id_local"  estilo [tipo]="producto.responsable">{{producto.nombre}}</td>
+                        <td *ngIf="producto.id_local===localElegido.id_local" style="font-weight: bold; font-size: 20px;" >{{producto.precio | currency: '$ ' : 'symbol' : '1.0'}}</td>
+                        <td *ngIf="producto.id_local===localElegido.id_local && producto.cant_actual>0"><app-boton-agregar [producto]="producto" (enviar)="AgregarAlPedido($event)"></app-boton-agregar></td>
+                        <td *ngIf="producto.id_local===localElegido.id_local && producto.cant_actual==0"><i style="color: black; font-weight: bold; font-size: 33px;" class="material-icons">block</i></td>
                     </tr>
                   </tbody>
                 </table>            

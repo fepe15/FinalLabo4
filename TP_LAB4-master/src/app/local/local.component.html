@@ -10,7 +10,11 @@
 
         <ng-container matColumnDef="id_pedido">
           <th mat-header-cell *matHeaderCellDef>Nro. Pedido</th>
-          <td mat-cell *matCellDef="let element"> {{element.id_pedido}} </td>
+          <td style="font-size: 20px;" mat-cell *matCellDef="let element"> #{{element.id_pedido}} 
+              <button  style="background-color: transparent; border:transparent;" (click)="openChatForm(element.id_pedido)">
+                <i *ngIf="(element.descripcion!='cancelado') && (element.descripcion!='entregado')"  style="margin-left: 10px; font-size: 30px; color: rgb(0, 255, 157);" class="material-icons">mail_outline</i>
+              </button> 
+           </td>
         </ng-container>
 
         <ng-container matColumnDef="fecha">

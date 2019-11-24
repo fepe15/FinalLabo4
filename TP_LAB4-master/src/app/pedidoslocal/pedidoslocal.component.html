@@ -1,3 +1,22 @@
-<p>
-  pedidoslocal works!
-</p>
+
+<!-- <button style="position:unset; top: 0;right: 10" mat-button mat-dialog-close id="closebtn">&times;</button><br><br> -->
+
+<div class="div-chat" style="background-color: white; overflow:auto" >
+    <mat-list style="background-color: rgb(204, 204, 204);" *ngFor="let chat of chats">
+        <p *ngIf="chat.id_usuario!=id_usuario" style="font-size: 10px; font-weight: bold; color: black; margin: 0%" class="mensaje" >{{chat.fecha}}</p>
+        <p *ngIf="chat.id_usuario!=id_usuario"  class="mensaje" >{{chat.mensaje}}</p>
+        <p *ngIf="chat.id_usuario==id_usuario" style="text-align: right; font-size: 10px; font-weight:bold; color: black; margin: 0%;" class="mensaje" >{{chat.fecha}}</p>
+        <p *ngIf="chat.id_usuario==id_usuario" style="text-align: right;" class="mensaje" >{{chat.mensaje}}</p>
+       </mat-list>
+</div >
+
+    <div style="margin-top:5px;" class="row" >
+        <div  class="col-sm-8"><textarea [(ngModel)]="mensaje" placeholder="Escriba su mensaje" maxlength="100" col="5" class="input-msj">
+          </textarea></div>
+        <div class="col-sm-1">
+          <button  style="margin-top: 5px; margin-left: 38px;"  mat-mini-fab aria-label="Example icon-button with a heart icon">
+              <i (click)="enviarMensaje()" class="material-icons">
+                  send
+                  </i>
+        </button  ></div>
+  </div>

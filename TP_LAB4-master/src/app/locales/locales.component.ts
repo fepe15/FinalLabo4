@@ -29,6 +29,12 @@ export class LocalesComponent implements OnInit {
   rubro;
   clave;
 
+  public imagePath;
+  imgURL: any;
+  public message: string;
+
+  myfile:any;
+
   //displayedColumns: string[] = ['position', 'name', 'weight', 'symbol'];
   //dataSource = new MatTableDataSource(ELEMENT_DATA);
 
@@ -69,7 +75,7 @@ export class LocalesComponent implements OnInit {
   TraerLocales(){
     this.httpLocal.TraerLocales().subscribe(data=>{
       this.listaLocales= JSON.parse(data._body);
-    console.log(this.listaLocales);
+    //console.log(this.listaLocales);
    });
 }
 
@@ -80,12 +86,15 @@ guardar()
     this.local.telefono=this.telefono;
     this.local.id_rubro=this.rubro;
     this.local.cuit=this.cuit;
-    this.local.foto='adadsadds';
     this.local.email=this.email;
     this.local.clave=this.clave;
     this.local.perfil='local';
+    this.local.foto=this.myfile.name;
+
     console.log(this.local);
-    this.httpLocal.IngresarLocal(this.local)
+    console.log(this.myfile);
+
+    this.httpLocal.IngresarLocal(this.local,this.myfile)
     .subscribe(
       (data)=>{
      let res=JSON.parse(data._body);
@@ -95,5 +104,46 @@ guardar()
         alert("Local Agregado correctamente");
       }
     })
+    this.Vaciar();
   }
+
+  preview(files) {
+
+    this.myfile=files[0];
+    if (files.length === 0)
+      return;
+ 
+    var mimeType = files[0].type;
+    if (mimeType.match(/image\/*/) == null) {
+      this.message = "Only images are supported.";
+      return;
+    }
+ 
+    var reader = new FileReader();
+    this.imagePath = files;
+    reader.readAsDataURL(files[0]); 
+    reader.onload = (_event) => { 
+      this.imgURL = reader.result; 
+    }
+  }
+
+  ngAfterContentInit() {
+    console.log('ngAfterContentInit');
+    setInterval(() => {
+      this.TraerLocales();
+      }, 5000);
+  } 
+
+  Vaciar()
+  {
+    this.nombre=""
+    this.razon_social="";
+    this.telefono="";
+    this.rubro="";
+    this.cuit="";
+    this.email="";
+    this.clave="";
+    this.imgURL=null;
+  }
+  
 }

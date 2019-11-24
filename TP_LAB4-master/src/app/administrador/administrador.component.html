@@ -1,42 +1,79 @@
 <app-header></app-header>
 
-<h1 class="tipoPerfil" *ngIf="perfil!='admin'">pedidos {{perfil}}</h1>
-<div class="listadoCentrado-container">
+<h1 class="tipoPerfil" *ngIf="perfil!='admin'">Estadisticas {{perfil}}</h1>
+<div class="listadoCentrado-container" style="background-color: rgb(141, 97, 106);width: 90%;
+margin-left: 5%;
+margin-right: 5%;">
 
-    <table mat-table [dataSource]="listaPendientes" class="lessons-table mat-elevation-z8" style="align-content: center;">
-
-        <!-- Position Column -->
+    <!--table mat-table [dataSource]="listaPendientes" class="lessons-table mat-elevation-z8" style="align-content: center;">
+        <!- Position Column ->
         <ng-container matColumnDef="position">
           <th mat-header-cell *matHeaderCellDef>Nro. Pedido</th>
           <td mat-cell *matCellDef="let element"> {{element.idPedido}} </td>
         </ng-container>
-
         <ng-container matColumnDef="mesa">
           <th mat-header-cell *matHeaderCellDef>Cliente</th>
           <td mat-cell *matCellDef="let element"> {{element.mesaPedido}} </td>
         </ng-container>
-
-        <!-- Name Column -->
+        <!- Name Column ->
         <ng-container matColumnDef="name">
           <th mat-header-cell *matHeaderCellDef>  Detalle </th>
           <td mat-cell *matCellDef="let element"> <a (click)="openDetalle()">{{element.producto}}</a> </td>
         </ng-container>
-
-        <!-- Weight Column -->
+        <!- Weight Column ->
         <ng-container matColumnDef="weight">
           <th mat-header-cell *matHeaderCellDef> Fecha y hora </th>
           <td mat-cell *matCellDef="let element"> {{element.sector | uppercase}} </td>
         </ng-container>
-
-        <!-- Symbol Column -->
+        <!- Symbol Column ->
         <ng-container matColumnDef="symbol" >
           <th mat-header-cell *matHeaderCellDef> Estado </th>
           <td mat-cell *matCellDef="let element" fondoEstado [estado]="element.estado" > {{element.estado | uppercase}} </td>
         </ng-container>
-
-
-
         <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
         <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-      </table>
+      </table-->
+
+      <div>
+          <div>
+            <div class="chart">
+              <canvas baseChart
+                [data]="pieChartData"
+                [labels]="pieChartLabels"
+                [chartType]="pieChartType"
+                [options]="pieChartOptions"
+                [plugins]="pieChartPlugins"
+                [colors]="pieChartColors"
+                [legend]="pieChartLegend">
+              </canvas>
+            </div>
+          </div>
+        </div>
+        <!--div>
+          <button mat-button mat-raised-button color="primary" (click)="pieChartLegend=!pieChartLegend">Toggle Legend</button>
+          <button mat-button mat-raised-button color="primary" (click)="changeLabels()">Change Labels</button>
+          <button mat-button mat-raised-button color="primary" (click)="addSlice()">Add Slice</button>
+          <button mat-button mat-raised-button color="primary" (click)="removeSlice()">Remove Slice</button>
+          <button mat-button mat-raised-button color="primary" (click)="changeLegendPosition()">Change Legend Position</button>
+        </div-->
+
+        <br>
+        <br>
+        <br>
+        <div>
+            <div>
+              <div style="display: block">
+                <canvas baseChart
+                  [datasets]="barChartData"
+                  [labels]="barChartLabels"
+                  [options]="barChartOptions"
+                  [plugins]="barChartPlugins"
+                  [legend]="barChartLegend"
+                  [chartType]="barChartType">
+                </canvas>
+              </div>
+              <!--button mat-button mat-raised-button color="primary" (click)="randomize()">Update</button-->
+            </div>
+          </div>
+
     </div> 

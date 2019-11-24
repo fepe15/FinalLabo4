@@ -39,3 +39,15 @@ p
   .flex-spacer {
 	flex: 1 1 auto;
   }
+
+  .red-snackbar{
+	color: black;
+	font-weight: bold;
+	background-color: rgb(6, 255, 60) !important;
+  }
+
+  .cancel-snackbar{
+	color: black;
+	font-weight: bold;
+	background-color:crimson !important;
+  }

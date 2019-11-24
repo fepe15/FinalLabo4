@@ -29,6 +29,9 @@ import {FileUploadModule} from 'primeng/fileupload';
 
 import { DialogModule} from 'primeng/dialog';
 
+
+
+
 import {
   MatFormFieldModule,
   MatAutocompleteModule,
@@ -118,6 +121,9 @@ import { AdministradorComponent } from './administrador/administrador.component'
 import { LocalesComponent } from './locales/locales.component';
 import { DetalleComponent } from './detalle/detalle.component';
 import { PedidoslocalComponent } from './pedidoslocal/pedidoslocal.component';
+import { ChartsModule } from 'ng2-charts';
+
+
  
 
 export function tokenGetter() {
@@ -212,6 +218,7 @@ export function tokenGetter() {
     MatTabsModule,
     MatToolbarModule,
     MatTooltipModule,
+    ChartsModule,
     MatNativeDateModule,    
     HttpModule,
     DialogModule,
