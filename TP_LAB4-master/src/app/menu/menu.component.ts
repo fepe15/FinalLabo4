@@ -103,6 +103,7 @@ export class MenuComponent implements OnInit {
   {
     this.httpProd.TraerTiposProductos().subscribe(data=>{
       this.listaCategorias= JSON.parse(data._body);
+      console.log(this.listaCategorias);
    });
   }
 

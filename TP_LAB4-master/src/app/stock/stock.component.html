@@ -28,20 +28,20 @@
         
         <div class="row" >
 
-          <div class="col-sm-12" style="text-align: center"> <img  src="../../assets/images/login.png" width="100px" height="100px">  </div>
+          <div class="col-sm-12" style="text-align: center"> <img  [src]="imgURL" *ngIf="imgURL" width="100px" height="100px">  </div>
+
+      </div>
+      <br>
+      <div class="row" style="text-align: center" >
+
+          <div class="col-sm-12" style="text-align: center"> <input #file type="file" accept='image/*' (change)="preview(file.files)" />  </div>
 
     </div>
-    <br>
-    <div class="row" style="text-align: center" >
-
-        <div class="col-sm-12" style="text-align: center"> <input type="file" name="Imagen" id="">  </div>
-
-  </div>
 
   <br>
 
   <div class="row" >
-      <div class="col-sm-2"> <label style="color: white">Producto:</label>  </div>
+      <div class="col-sm-2"> <label style="color: white">Nombre:</label>  </div>
       <div class="col-sm-4"> <input type="text" class="form-control" [(ngModel)]="nombre" placeholder="" >  </div>
       <div class="col-sm-2"> <label style="color: white">Precio:</label></div>
       <div class="col-sm-4"> <input type="text" class="form-control" [(ngModel)]="precio" placeholder="" > </div>
@@ -62,6 +62,18 @@
     <div class="col-sm-4"> <input type="text" class="form-control" [(ngModel)]="tiempo_pre" placeholder="" >  </div>
     <div class="col-sm-2"> <label style="color: white">Cant:</label></div>
     <div class="col-sm-4"> <input type="text" class="form-control" [(ngModel)]="cant_actual" placeholder="" > </div>
+
+</div>
+
+<div class="row" >
+  <div class="col-sm-2"> <label style="color: white">Tipo Producto:</label>  </div>
+  <div class="col-sm-4"> 
+      <select [(ngModel)]='categoriaDefault' >
+          <option *ngFor="let Categoria of (listaCategorias)" value="{{Categoria.id_tipo}}" >{{Categoria.descripcion}}</option>
+        </select> 
+</div>
+  <div class="col-sm-2"> </div>
+  <div class="col-sm-4"> </div>
 
 </div>
 
@@ -91,7 +103,7 @@
 
         <ng-container matColumnDef="Imagen">
           <th mat-header-cell *matHeaderCellDef>Imagen</th>
-          <td mat-cell *matCellDef="let element"> <img  src="../../assets/images/coca.jpg" width="80px" height="80px"> </td>
+          <td mat-cell *matCellDef="let element"> <img  src="{{element.foto}}" width="80px" height="80px"> </td>
         </ng-container>
 
         <ng-container matColumnDef="mesa">
