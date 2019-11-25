@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit,ViewChild,ChangeDetectorRef } from '@angular/core';
 import {MatSort} from '@angular/material/sort';
 import {MatTableDataSource} from '@angular/material/table';
 import { ProductosService } from '../services/productos.service';
@@ -12,7 +12,7 @@ import { Usuario } from '../clases/usuario';
 })
 export class StockComponent implements OnInit {
   spinner:boolean;
-  listaPendientes: Array<any>;
+  listaPendientes;
   tiempoPreparacion:number;
   perfil:any;
   bool:boolean=false;
@@ -34,19 +34,21 @@ export class StockComponent implements OnInit {
 
   myfile:any;
 
+  buscar="";
+
   usuario;
 
-  displayedColumns: string[] = ['position',"Imagen", 'mesa', 'name', 'weight', 'symbol', 'preparacion', 'acciones',"otro","guardar"];
+  displayedColumns: string[] = ['id',"Imagen", 'nombre', 'tiempo_prep', 'precio', 'cant_min', 'cant_max', 'cant_actual',"punto_repo","guardar"];
 
-  //@ViewChild(MatSort, {static: true}) sort: MatSort;
-  constructor(private httpProducto: ProductosService) { }
+  @ViewChild(MatSort) sort: MatSort;
+  constructor(private httpProducto: ProductosService,private changeDetectorRefs: ChangeDetectorRef) { }
 
   ngOnInit() {
 
-    let vari={idProducto:1,Producto:"Coca",Tiempo:"5 min",Precio:"$20",min:1,max:5,Cant:3,rep:2};
-    this.listaPendientes=new Array();
+    //let vari={idProducto:1,Producto:"Coca",Tiempo:"5 min",Precio:"$20",min:1,max:5,Cant:3,rep:2};
+    //this.listaPendientes=new Array();
     this.Traerproductos();
-    this.listaPendientes.push(vari);
+    //this.listaPendientes.push(vari);
 
     this.TraerTiposProductos();
 
@@ -55,8 +57,11 @@ export class StockComponent implements OnInit {
 
   Traerproductos(){
     this.httpProducto.TraerProductos().subscribe(data=>{
-      this.listaLocales= JSON.parse(data._body);
+      //this.listaLocales= JSON.parse(data._body);
     //console.log(this.listaLocales);
+    this.listaLocales= new MatTableDataSource(JSON.parse(data._body)); 
+    this.listaPendientes=this.listaLocales;
+    this.listaLocales.sort = this.sort;
    });
    
 }
@@ -136,5 +141,30 @@ preview(files) {
     this.tiempoPreparacion=null;
     
     this.imgURL=null;
+  }
+
+  filtrar()
+  {
+    
+    if (this.buscar!="") 
+    {
+       var array=new Array();
+    this.listaPendientes.filteredData.forEach(element => {
+      //console.log(element);
+      if (element.nombre.toLowerCase().startsWith(this.buscar.toLowerCase())) {
+        array.push(element);
+      }
+      
+    });
+    this.listaLocales=array;
+    //console.log(array);
+    //console.log(this.listaLocales);
+    }
+    else
+    {
+      this.listaLocales=this.listaPendientes;
+    }
+    this.changeDetectorRefs.detectChanges();
+    
   }
 }

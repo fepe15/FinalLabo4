@@ -1,6 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit,ChangeDetectorRef,ViewChild } from '@angular/core';
 import { LocalesService } from '../services/locales.service';
 import { local } from '../clases/local';
+import {MatSort} from '@angular/material/sort';
+import {MatTableDataSource} from '@angular/material/table';
+import { MatSortable } from "@angular/material";
 
 @Component({
   selector: 'app-locales',
@@ -9,7 +12,7 @@ import { local } from '../clases/local';
 })
 export class LocalesComponent implements OnInit {
   spinner:boolean;
-  listaPendientes: Array<any>;
+  listaPendientes;
   tiempoPreparacion:number;
   perfil:any;
   bool:boolean=false;
@@ -34,21 +37,23 @@ export class LocalesComponent implements OnInit {
   public message: string;
 
   myfile:any;
-
+  buscar="";
+  
   //displayedColumns: string[] = ['position', 'name', 'weight', 'symbol'];
   //dataSource = new MatTableDataSource(ELEMENT_DATA);
-
+  @ViewChild(MatSort) sort: MatSort;
 
   displayedColumns: string[] = ['position',"Imagen", 'mesa', 'name', 'weight',"algo", 'symbol', 'preparacion'];
-  constructor(private httpLocal: LocalesService) { 
+
+  constructor(private httpLocal: LocalesService,private changeDetectorRefs: ChangeDetectorRef) { 
     this.local = new local();
   }
 
   ngOnInit() {
 
-    let vari={idProducto:1,Producto:"McCafe",Tiempo:"McDonals CO",Precio:"40554549",min:"4466-4488",max:5,Cant:3,rep:2};
-    this.listaPendientes=new Array();
-    this.listaPendientes.push(vari);
+    //let vari={idProducto:1,Producto:"McCafe",Tiempo:"McDonals CO",Precio:"40554549",min:"4466-4488",max:5,Cant:3,rep:2};
+    //this.listaPendientes=new Array();
+    //this.listaPendientes.push(vari);
     this.listaRubrosMostrar = new Array();
    // this.dataSource.sort = this.sort;
    this.TraerLocales();
@@ -74,7 +79,11 @@ export class LocalesComponent implements OnInit {
 
   TraerLocales(){
     this.httpLocal.TraerLocales().subscribe(data=>{
-      this.listaLocales= JSON.parse(data._body);
+      //this.listaLocales= JSON.parse(data._body);
+      this.listaLocales= new MatTableDataSource(JSON.parse(data._body)); 
+      this.listaPendientes=this.listaLocales;
+      this.listaLocales.sort = this.sort;
+    //console.log(this.listaLocales);
     //console.log(this.listaLocales);
    });
 }
@@ -105,6 +114,7 @@ guardar()
       }
     })
     this.Vaciar();
+    this.TraerLocales();
   }
 
   preview(files) {
@@ -127,12 +137,6 @@ guardar()
     }
   }
 
-  ngAfterContentInit() {
-    console.log('ngAfterContentInit');
-    setInterval(() => {
-      this.TraerLocales();
-      }, 5000);
-  } 
 
   Vaciar()
   {
@@ -144,6 +148,31 @@ guardar()
     this.email="";
     this.clave="";
     this.imgURL=null;
+  }
+
+  filtrar()
+  {
+    
+    if (this.buscar!="") 
+    {
+       var array=new Array();
+    this.listaPendientes.filteredData.forEach(element => {
+      //console.log(element);
+      if (element.nombre.toLowerCase().startsWith(this.buscar.toLowerCase())) {
+        array.push(element);
+      }
+      
+    });
+    this.listaLocales=array;
+    //console.log(array);
+    //console.log(this.listaLocales);
+    }
+    else
+    {
+      this.listaLocales=this.listaPendientes;
+    }
+    this.changeDetectorRefs.detectChanges();
+    
   }
   
 }

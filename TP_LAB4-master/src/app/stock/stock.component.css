@@ -27,3 +27,11 @@ table {
 .mat-table {
     background: rgb(141, 97, 106);
 }
+.rojo
+{
+  background: red;
+  background-color: red;
+}
+th.mat-sort-header-sorted {
+  color: black;
+}

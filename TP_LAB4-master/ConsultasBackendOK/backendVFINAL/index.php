@@ -69,6 +69,7 @@ $app->group('/Pedidos', function(){
   $this->post('/IngresarPedido',\PedidoApi::class . ':IngresarPedido');
   $this->post('/IngresarPago',\PedidoApi::class . ':IngresarPago'); 
   $this->get('/TraerTodos',\PedidoApi::class . ':TraerTodos');
+  $this->get('/TraerTodosPagos',\PedidoApi::class . ':TraerTodosPagos');
   $this->get('/TraerPedidosCliente/{id}',\PedidoApi::class . ':TraerPedidosCliente');
   $this->get('/TraerPedidosLocal/{id}',\PedidoApi::class . ':TraerPedidosLocal');
   $this->post('/CancelarPedido',\PedidoApi::class . ':CancelarPedido');

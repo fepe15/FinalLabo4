@@ -28,6 +28,20 @@ public $estado;
                         $consulta->execute();
                         return $objetoAccesoDato->RetornarUltimoIdInsertado();
         }
+
+
+        public static function TraerTodosPagos() 
+{
+	$objetoAccesoDato = AccesoDatos::dameUnObjetoAcceso(); 
+	$consulta =$objetoAccesoDato->RetornarConsulta("SELECT * from pagos");  
+	$consulta->execute();
+	$pedidos= $consulta->fetchAll(PDO::FETCH_CLASS, "Pago");
+            
+        return $pedidos;									
+}
+
+
+
 }
 
 

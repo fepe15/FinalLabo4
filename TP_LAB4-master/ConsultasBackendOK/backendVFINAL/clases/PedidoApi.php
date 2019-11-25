@@ -144,7 +144,11 @@ public function TraerTodosLosDetalles($request, $response, $args) {
   return $newresponse;
 }
 
-
+public function TraerTodosPagos($request, $response, $args) {
+  $todosLosLocales=Pago::TraerTodosPagos();
+ $newresponse = $response->withJson($todosLosLocales,200);
+return $newresponse;
+}
 
 // public static function TraerPendientesEmpleado($request, $response, $args)
 // {
