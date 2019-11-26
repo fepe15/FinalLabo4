@@ -90,6 +90,7 @@ $app->group('/Pedidos', function(){
 $app->group('/Productos', function(){
   $this->get('/TraerTodos',\ProductoApi::class . ':TraerTodos'); 
   $this->post('/',\ProductoApi::class . ':IngresarProducto'); 
+  $this->post('/Stock',\ProductoApi::class . ':ModificarStockProducto'); 
 })->add(\MWparaCORS::class . ':HabilitarCORSTodos');
 
 $app->group('/Captcha', function(){ 

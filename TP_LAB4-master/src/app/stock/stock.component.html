@@ -1,6 +1,7 @@
 <app-header></app-header>
 
 <h1 class="tipoPerfil" *ngIf="perfil!='admin'">Productos {{perfil}}</h1><br>
+<div *ngIf="!bool2">
 <div class="listadoCentrado-container"  *ngIf="!bool">
 
   <div class="row" >
@@ -93,12 +94,12 @@
 
 <div class="listadoCentrado-container" *ngIf="!bool">
 
-    <table mat-table [dataSource]="listaLocales" matSort class="lessons-table mat-elevation-z8" style="align-content: center;">
+    <table mat-table [dataSource]="listaLocales" matSort class="lessons-table mat-elevation-z8" style="align-content: center;" >
      
         <!-- Position Column -->
         <ng-container matColumnDef="id">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header>Nro. Producto</th>
-          <td mat-cell *matCellDef="let element" [style.background] = "element.cant_min>element.cant_actual ? 'red' : 'rgb(141, 97, 106)'"> {{element.id}} </td>
+          <th mat-header-cell *matHeaderCellDef mat-sort-header style="text-align: center">Nro. Producto</th>
+          <td mat-cell *matCellDef="let element" [style.background] = "element.cant_min>element.cant_actual ? 'red' : 'rgb(141, 97, 106)'" style="text-align: center"> {{element.id}} </td>
         </ng-container>
 
         <ng-container matColumnDef="Imagen">
@@ -112,27 +113,27 @@
         </ng-container>
       
         <!-- Name Column -->
-        <ng-container matColumnDef="tiempo_prep">
-          <th mat-header-cell *matHeaderCellDef> Tiempo Preparacion </th>
-          <td mat-cell *matCellDef="let element" [style.background] = "element.cant_min>element.cant_actual ? 'red' : 'rgb(141, 97, 106)'"> {{element.tiempo_prep}} </td>
+        <ng-container matColumnDef="tiempo_prep" >
+          <th mat-header-cell *matHeaderCellDef style="text-align: center"> Tiempo Preparacion </th>
+          <td mat-cell *matCellDef="let element" [style.background] = "element.cant_min>element.cant_actual ? 'red' : 'rgb(141, 97, 106)'" style="text-align: center"> {{element.tiempo_prep}} </td>
         </ng-container>
       
         <!-- Weight Column -->
         <ng-container matColumnDef="precio">
-          <th mat-header-cell *matHeaderCellDef> Precio </th>
-          <td mat-cell *matCellDef="let element" [style.background] = "element.cant_min>element.cant_actual ? 'red' : 'rgb(141, 97, 106)'"> {{element.precio }} </td>
+          <th mat-header-cell *matHeaderCellDef style="text-align: center"> Precio </th>
+          <td mat-cell *matCellDef="let element" [style.background] = "element.cant_min>element.cant_actual ? 'red' : 'rgb(141, 97, 106)'" style="text-align: center"> {{element.precio }} </td>
         </ng-container>
       
         <!-- Symbol Column -->
         <ng-container matColumnDef="cant_min" >
-          <th mat-header-cell *matHeaderCellDef> Cant min. </th>
-            <td mat-cell *matCellDef="let element"  [style.background] = "element.cant_min>element.cant_actual ? 'red' : 'rgb(141, 97, 106)'"   > 
+          <th mat-header-cell *matHeaderCellDef style="text-align: center"> Cant min. </th>
+            <td mat-cell *matCellDef="let element"  [style.background] = "element.cant_min>element.cant_actual ? 'red' : 'rgb(141, 97, 106)'"   style="text-align: center"> 
              
-              <button ng-click="element.cant_min--" class="btn btn-primary">-</button> 
+              <!--button ng-click="element.cant_min--" class="btn btn-primary">-</button--> 
     
                 {{element.cant_min }} 
               
-              <button  class="btn btn-primary">+</button> 
+              <!--button  class="btn btn-primary">+</button--> 
             
             </td>
           
@@ -140,23 +141,23 @@
         </ng-container>
 
         <ng-container matColumnDef="cant_max" >
-          <th mat-header-cell *matHeaderCellDef> Cant max. </th>
-          <td mat-cell *matCellDef="let element" [style.background] = "element.cant_min>element.cant_actual ? 'red' : 'rgb(141, 97, 106)'"><button  class="btn btn-primary">-</button> {{element.cant_max }} <button  class="btn btn-primary">+</button> </td>
+          <th mat-header-cell *matHeaderCellDef style="text-align: center"> Cant max. </th>
+          <td mat-cell *matCellDef="let element" [style.background] = "element.cant_min>element.cant_actual ? 'red' : 'rgb(141, 97, 106)'" style="text-align: center"><!--button  class="btn btn-primary">-</button--> {{element.cant_max }} <!--button  class="btn btn-primary">+</button--> </td>
         </ng-container>
 
         <ng-container matColumnDef="cant_actual" >
-          <th mat-header-cell *matHeaderCellDef> Cant </th>
-          <td mat-cell *matCellDef="let element" [style.background] = "element.cant_min>element.cant_actual ? 'red' : 'rgb(141, 97, 106)'"> {{element.cant_actual }} </td>
+          <th mat-header-cell *matHeaderCellDef style="text-align: center"> Cant </th>
+          <td mat-cell *matCellDef="let element" [style.background] = "element.cant_min>element.cant_actual ? 'red' : 'rgb(141, 97, 106)'" style="text-align: center"> {{element.cant_actual }} </td>
         </ng-container>
         
         <ng-container matColumnDef="punto_repo" >
-          <th mat-header-cell *matHeaderCellDef> Punto repocision </th>
-          <td mat-cell *matCellDef="let element" [style.background] = "element.cant_min>element.cant_actual ? 'red' : 'rgb(141, 97, 106)'"> <button  class="btn btn-primary">-</button> {{element.punto_repo }} <button  class="btn btn-primary">+</button> </td>
+          <th mat-header-cell *matHeaderCellDef style="text-align: center"> Punto reposición </th>
+          <td mat-cell *matCellDef="let element" [style.background] = "element.cant_min>element.cant_actual ? 'red' : 'rgb(141, 97, 106)'" style="text-align: center"> <!--button  class="btn btn-primary"  {{element.punto_repo }}>-</button--> {{element.cant_max - element.cant_actual}} <!--button  class="btn btn-primary">+</button--> </td>
         </ng-container>
 
         <ng-container matColumnDef="guardar" >
-            <th mat-header-cell *matHeaderCellDef> Accion</th>
-            <td mat-cell *matCellDef="let element" [style.background] = "element.cant_min>element.cant_actual ? 'red' : 'rgb(141, 97, 106)'"> <button  class="btn btn-primary">Guardar</button>  </td>
+            <th mat-header-cell *matHeaderCellDef style="text-align: center"> Accion</th>
+            <td mat-cell *matCellDef="let element" [style.background] = "element.cant_min>element.cant_actual ? 'red' : 'rgb(141, 97, 106)'" style="text-align: center"> <button  class="btn btn-primary" (click)="cambiar(element)">Modificar Stock</button>  </td>
           </ng-container>
       
         <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
@@ -165,3 +166,58 @@
 
 
     </div> 
+  </div>
+    <div class="container" style="background-color: gray;width: 40%;" *ngIf="bool2">
+
+        <div class="form-ingreso">
+              <h3 letraYcolor >Cambiar Stock: </h3>
+              
+      
+        <br>
+      
+        <div class="row" >
+            <div class="col-sm-2"> <label style="color: white">Nombre:</label>  </div>
+            <div class="col-sm-4"> <label style="color: white" >{{nombreStock}}</label><!--input type="text" class="form-control" [(ngModel)]="nombreStock" placeholder="" -->  </div>
+            
+      </div>
+      <br>
+      <div class="row" >
+        <div class="col-sm-3"> <label style="color: white">Cant max.:</label>  </div>
+
+        <div class="col-sm-1" style="align-content: right">  <button class="btn btn-primary"  (click)="restarMax()">-</button>  </div>
+        <div class="col-sm-1" >  <label style="color: white" >{{cant_maxStock}}</label> <!--input type="text" class="form-control" [(ngModel)]="cant_maxStock" placeholder="" -->  </div>
+        <div class="col-sm-1" style="align-content: left">  <button  class="btn btn-primary"  (click)="SumarMax()">+</button>  </div>
+
+        <div class="col-sm-3"> <label style="color: white">Cant min:</label></div>
+
+        <div class="col-sm-1" style="align-content: right">  <button class="btn btn-primary" (click)="restarMin()">-</button>  </div>
+        <div class="col-sm-1"> <label style="color: white" >{{cant_minStock}}</label><!--input type="text" class="form-control" [(ngModel)]="cant_minStock" placeholder="" --> </div>
+        <div class="col-sm-1" style="align-content: left">  <button  class="btn btn-primary" (click)="SumarMin()">+</button>  </div>
+      
+      </div>
+      <br>
+      <div class="row" >
+          <div class="col-sm-3"> <label style="color: white">Punto reposición:</label>  </div>
+
+          <div class="col-sm-1" style="align-content: right">  <button class="btn btn-primary" (click)="restarRepo()">-</button>  </div>
+          <div class="col-sm-1"> <label style="color: white" >{{punto_repoStock}}</label><!--input type="text" class="form-control" [(ngModel)]="punto_repoStock" placeholder="" -->  </div>
+          <div class="col-sm-1" style="align-content: left">  <button  class="btn btn-primary" (click)="SumarRepo()">+</button>  </div>
+
+          <div class="col-sm-3"> <label style="color: white">Cant:</label></div>
+          <div class="col-sm-3"> <label style="color: white" >{{cant_actualStock}}</label><!--input type="text" class="form-control" [(ngModel)]="cant_actualStock" placeholder="" --> </div>
+      
+      </div>
+      
+      <br>
+      
+      <div class="row" >
+        <div class="col-sm-6" style="text-align: right">  <button class="btn btn-primary" (click)="guardarStock()" >Aceptar</button></div>
+        <div class="col-sm-6" style="text-align: left">  <button class="btn btn-warning" (click)="algo2()"  >Cancelar</button> </div>
+      
+      
+      
+      </div>
+        <br>
+        <br>
+        </div>
+        </div>

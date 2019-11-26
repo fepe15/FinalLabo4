@@ -65,6 +65,18 @@ public static function ModificarStock($id)
     return $producto;									
 }
 
+public function ModificarStockProducto()
+{
+ 
+    $objetoAccesoDato = AccesoDatos::dameUnObjetoAcceso(); 
+    $consulta =$objetoAccesoDato->RetornarConsulta("
+           update productos 
+           set cant_min='$this->cant_min',cant_max='$this->cant_max',cant_actual='$this->cant_actual',punto_repo='$this->punto_repo'
+           WHERE id='$this->id'");
+                
+    return $consulta->execute();
+}
+
 /*
 public function BorrarProducto()
 {

@@ -16,6 +16,7 @@ export class StockComponent implements OnInit {
   tiempoPreparacion:number;
   perfil:any;
   bool:boolean=false;
+  bool2:boolean=false;
 
   categoriaDefault:string = 'todos';
   listaCategorias:Array<any>;
@@ -27,6 +28,14 @@ export class StockComponent implements OnInit {
   tiempo_pre;
   cant_actual;
   listaLocales;
+
+  nombreStock:string;
+  cant_maxStock;
+  cant_minStock;
+  punto_repoStock;
+  cant_actualStock;
+  id;
+
 
   public imagePath;
   imgURL: any;
@@ -131,6 +140,10 @@ preview(files) {
   algo() {
     this.bool = !this.bool; 
   }
+  algo2() {
+    this.bool2 = !this.bool2; 
+    this.algo();
+  }
   Vaciar()
   {
     this.nombre=""
@@ -166,5 +179,69 @@ preview(files) {
     }
     this.changeDetectorRefs.detectChanges();
     
+  }
+  cambiar(item)
+  {
+    console.log(item);
+    this.algo2();
+    this.id=item.id;
+    this.nombreStock=item.nombre;
+    this.cant_maxStock=item.cant_max;
+    this.cant_minStock=item.cant_min;
+    this.punto_repoStock=item.cant_max-item.cant_actual;
+    this.cant_actualStock=item.cant_actual;
+  }
+
+  restarMax()
+  {
+    this.cant_maxStock--;
+  }
+  SumarMax()
+  {
+    this.cant_maxStock++;
+  }
+  restarMin()
+  {
+    this.cant_minStock--;
+  }
+  SumarMin()
+  {
+    this.cant_minStock++;
+  }
+  restarRepo()
+  {
+    this.punto_repoStock--;
+  }
+  SumarRepo()
+  {
+    this.punto_repoStock++;
+  }
+
+  guardarStock()
+  {
+    var prod=new Producto();
+ 
+    prod.id=this.id;
+    prod.cant_min=this.cant_minStock;
+
+    prod.cant_actual=this.cant_actualStock+this.punto_repoStock;
+
+    prod.punto_repo=this.punto_repoStock;
+    prod.cant_max=this.cant_maxStock;
+ 
+  
+    this.httpProducto.ModificarStock(prod)
+    .subscribe(
+        
+      (data)=>{
+        let res=JSON.parse(data._body);
+        console.log("Respuestaaaaaaa: " + res);
+        if(res != undefined){
+           //this.bool=false;
+           
+         }
+    });
+    this.algo2();
+    this.Traerproductos();
   }
 }

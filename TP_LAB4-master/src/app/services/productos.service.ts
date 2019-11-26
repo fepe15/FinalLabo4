@@ -66,6 +66,40 @@ export class ProductosService {
     
   }
 
+  ModificarStock(producto:Producto)
+  {
+    console.log(producto);
+
+    const formData = new FormData()
+  
+ 
+    formData.append("cant_actual",producto.cant_actual);
+    formData.append("cant_min",producto.cant_min);
+    formData.append("cant_max",producto.cant_max);
+    formData.append("id",producto.id.toString());
+    formData.append("punto_repo",producto.punto_repo);
+
+
+    return this.http.httpPost("Productos/Stock",formData
+    /*{
+      "nombre": producto.nombre,
+      "precio":producto.precio,
+      "cant_actual":producto.cant_actual,
+      "foto":producto.foto,
+      "tiempo_prep":producto.tiempo_prep,
+      "id_tipo":producto.id_tipo,
+      "cant_min":producto.cant_min,
+      "responsable":1,
+      "cant_max":producto.cant_max,
+      "punto_repo":producto.punto_repo,
+      "id_local":producto.id_local
+
+    }*/
+  )
+    .pipe((data)=>{return data})
+  }
+
+
 }
 
 

@@ -67,5 +67,36 @@ public static function IngresarProducto($request, $response, $args)
       return $response->withJson($objDelaRespuesta, 200);
       
 }
+
+public static function ModificarStockProducto($request, $response, $args) 
+{
+     
+      $objDelaRespuesta= new stdclass();
+      
+      $ArrayDeParametros = $request->getParsedBody();
+    
+     
+      $id= $ArrayDeParametros['id'];
+      $cant_min= $ArrayDeParametros['cant_min'];
+      $cant_max= $ArrayDeParametros['cant_max'];
+      $cant_actual= $ArrayDeParametros['cant_actual'];
+      $punto_repo= $ArrayDeParametros['punto_repo'];
+      
+          $nuevoProducto= new Producto();
+          $nuevoProducto->id=$id;
+          $nuevoProducto->cant_min=$cant_min;
+          $nuevoProducto->cant_max=$cant_max;
+          $nuevoProducto->cant_actual=$cant_actual;
+          $nuevoProducto->punto_repo=$punto_repo;
+        
+
+          $idPedido=$nuevoProducto->ModificarStockProducto();
+         
+      $objDelaRespuesta->idPedido=$idPedido;
+         
+         
+      return $response->withJson($objDelaRespuesta, 200);
+      
+}
 }
 ?>
