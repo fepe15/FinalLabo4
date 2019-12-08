@@ -11,6 +11,8 @@ import { local } from '../clases/local';
 import { PagoComponent } from '../pago/pago.component';
 import { LocalesService } from '../services/locales.service';
 
+import { NgbCarouselConfig } from '@ng-bootstrap/ng-bootstrap';
+
 
 
 import * as jspdf from 'jspdf';  
@@ -61,17 +63,24 @@ export class MenuComponent implements OnInit {
 
   localElegido:local;
 
+  images = ["../../assets/IconosLocales/burguer.jpg","../../assets/IconosLocales/eltano.jpg","../../assets/IconosLocales/tostado.jpg"];
+
   constructor(
     private httpProd: ProductosService, 
     private httpLoc: LocalesService,
     private httpPedido: PedidoService,
-    private dialog: MatDialog
+    private dialog: MatDialog,
+    config: NgbCarouselConfig
             ) { 
 
     this.elPedido=new Pedido();
     this.localElegido=new local();
     this.TraerLocales();
     this.datosCliente = JSON.parse(localStorage.getItem("usuario"));
+    config.interval = 5000;
+    config.wrap = true;
+    config.keyboard = false;
+    config.pauseOnHover = true;
   }
 
 
